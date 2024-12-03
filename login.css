@@ -1,11 +1,7 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-.login .middle {
-    margin: 0 12rem;
+@media (min-width: 500px) {
+    .container {
+      max-width: 500px;
+    }
 }
 
 /* actions */
@@ -22,7 +18,7 @@
     padding-bottom: 1rem;
     color: var(--murmur-light-light-gray);
     text-align: center;
-    cursor: pointer;
+    cursor: pointer;          
     transition: 0.2s ease color;
 }
 .login .actions .action span {
@@ -124,3 +120,18 @@
 .login .indicator from codepen.io by singhimalaya
 .input from Uiverse.io by Satwinder04 
 */ 
+
+@media (max-width: 750px) {
+    .login .navbar .logo {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .login .actions{
+        padding-bottom: 3rem;
+    }
+
+    .inputs {
+        padding-bottom: 3rem;
+    }
+}

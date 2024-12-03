@@ -4,11 +4,8 @@
     box-sizing: border-box;
 }
 
-/* posts */
-
 .feed .posts{
     padding-bottom: 12rem;
-    border-bottom: solid 0.1rem var(--murmur-light-light-gray);
 }
 .feed .post {
     padding-bottom: 1rem;
@@ -34,25 +31,29 @@
     content: "";
     position: absolute;
     width: 100%;
-    transform: scaleX(0);
     height: 2px;
     bottom: 0;
     left: 0;
     background-color: var(--murmur-light-light-gray);
+    transform: scaleX(0);
     transform-origin: bottom right;
-    transition: transform 0.25s linear;
+    opacity: 0;
+    transition: transform 0.5s, opacity 0s 0.5s;
 }
 .feed .name:hover .animation:after {
     transform: scaleX(1);
-    transform-origin: bottom left;
-    transition: transform 0.1s linear;
+    opacity: 1;
+    transition: opacity 0.1s;
 }
 
+.feed .content:hover {
+    cursor: pointer;
+}
 .feed p {
+    margin-bottom: 1.2rem;
     font-size: 1.05rem;
     line-height: 1.6;
     letter-spacing: 0.08rem;
-    margin-bottom: 1.2rem;
     text-align: justify;
 }
 

@@ -69,16 +69,9 @@ window.onscroll = function()
   let currentScrollPos = window.scrollY;
   if (prevScrollpos >= currentScrollPos) {
     document.getElementById("navbar").style.top = "0";
-    // if(document.getElementById("col-2-sticky")) {
-    //   document.getElementById("col-2-sticky").style.paddingTop = "5.4rem";
-    //   document.getElementById("col-2-sticky").style.marginTop = "0";
-    // }
   }
   else {
-    document.getElementById("navbar").style.top = "-5.4rem";
-    // if(document.getElementById("col-2-sticky")) {
-    //   document.getElementById("col-2-sticky").style.paddingTop = "0";
-    // }
+    document.getElementById("navbar").style.top = "-6rem";
   }
   prevScrollpos = currentScrollPos;
 }

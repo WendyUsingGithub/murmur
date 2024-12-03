@@ -68,29 +68,20 @@ button {
     text-align: center;
 }
 
-/* layout */
-
-.murmur .content {
+.murmur .main {
     padding-top: 14rem;
-    max-width: inherit;
-    width: 100%;
-}
-.murmur .middle {
-    margin: 0 8rem;
 }
 
 /* nav */
 
-.murmur #navbar {
-    transition: all 0.5s;
-}
 .murmur .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 4rem;
-    padding: 0 3rem;
+    height: 6rem;
+    padding: 0 2rem 0 3rem;
     z-index: 100;
+    transition: all 0.5s ease-out;
 }
 .murmur .navbar .logo {
     font-family: "Fugaz One";
@@ -99,8 +90,7 @@ button {
     letter-spacing: 0.1rem;
     color: var(--murmur-light-light-gray);
     text-decoration: none;
-    transition: all 0.3s;
-    transition-timing-function: ease-out;
+    transition: all 0.3s ease-out;
 }
 .murmur .navbar .logo:hover {
     scale: 1.3;
@@ -110,20 +100,14 @@ button {
 }
 .murmur .navbar .item {
     display: inline-flex;
-    position: relative;
-    top: 1rem;
-    font-size: 1.05rem;
     width: 3.5rem;
     height: 3.5rem;
+    font-size: 1.05rem;
     cursor: pointer;
     overflow: hidden;
     color: var(--murmur-light-light-gray);
     text-decoration: none;
-    transition: all 0.3s;
-    transition-timing-function: ease-out;
-}
-.murmur .navbar .item .icon {
-    z-index: 1;
+    transition: all 0.2s ease-out;
 }
 .murmur .navbar .item:hover {
     scale: 1.2;
@@ -148,20 +132,24 @@ button {
     overflow: hidden;
     text-decoration: none;
     transition: all 1s;
+    outline: none;
+    border: none;
 }
-.murmur .navbar .search .text{
+.murmur .navbar .search .icon{
     display: inline-flex;
     position: absolute;
     top: 0;
     right: 0;
     font-size: 1.05rem;
-    width: 3.5rem;
     height: 3.5rem;
     transition: all 1s;
+    outline: none;
+    border: none;
 }
+
 .murmur .navbar .search input{
     position: relative;
-    top: -0.2rem;
+    top: -0.1rem;
     display: none;
     width: 100%;
     height: 100%;
@@ -175,29 +163,22 @@ button {
 .murmur .navbar .search:valid {
     width: 15rem;
     cursor: pointer;
-    scale: 1;
 }
 .murmur .navbar .search:hover input,
 .murmur .navbar .search:valid input,
 .murmur .navbar .search:hover input:active,
 .murmur .navbar .search:hover input:focus {
     display: block;
-    background-color: var(--murmur-dark-black);;
+    background-color: var(--murmur-dark-black);
     color: var(--murmur-light-light-gray);
     font-weight: 500;
 }
-.murmur .navbar .search:hover .text,
-.murmur .navbar .search:active .text,
-.murmur .navbar .search:focus .text,
-.murmur .navbar .search:valid .text {
+.murmur .navbar .search:hover .icon,
+.murmur .navbar .search:active .icon,
+.murmur .navbar .search:focus .icon,
+.murmur .navbar .search:valid .icon {
     right: 12rem;
     color: var(--murmur-light-light-gray);
-}
-
-.murmur .navbar .search:hover .navbar .item .icon,
-.murmur .navbar .search:active .navbar .item .icon,
-.murmur .navbar .search:focus .navbar .item .icon,
-.murmur .navbar .search:valid .navbar .item .icon {
     scale: 1.2;
 }
 
@@ -209,4 +190,21 @@ button {
     width: 100%;
     margin: 1rem auto;
     background-color: var(--murmur-black);
+}
+
+@media (max-width: 690px) {
+    .murmur .main {
+        padding-top: 8rem;
+    }
+    .murmur .navbar {
+        background-color: var(--murmur-dark-black);
+    }
+    .murmur .navbar .logo {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .murmur .items {
+        display: none;
+    }
 }
