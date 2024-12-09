@@ -1,0 +1,87 @@
+*,
+*::before,
+*::after { 
+    box-sizing: border-box;
+}
+
+.feed .posts{
+    padding-bottom: 12rem;
+}
+.feed .post {
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: solid 0.1rem var(--murmur-black);
+}
+.feed .author {
+    padding-bottom: 1.5rem;
+}
+.feed .name {
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-align: left;
+}
+
+.feed .animation {
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+.feed .animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--murmur-light-light-gray);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    opacity: 0;
+    transition: transform 0.5s, opacity 0s 0.5s;
+}
+.feed .name:hover .animation:after {
+    transform: scaleX(1);
+    opacity: 1;
+    transition: opacity 0.1s;
+}
+
+.feed .content:hover {
+    cursor: pointer;
+}
+.feed p {
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+}
+
+.feed .interact .item {
+    cursor: pointer;
+}
+.feed .interact .number {
+    position: relative;
+    bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--murmur-light-light-gray);
+    padding: 1rem 1rem 1rem 0;
+    letter-spacing: 0.1rem;
+}
+.feed .interact .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 24;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding: 1rem 0.1rem 1rem 0;
+}
+.feed .interact .item:hover .material-symbols-outlined,
+.feed .interact .item:focus .material-symbols-outlined
+{
+    font-variation-settings:
+    'FILL' 1;
+}
+
+/* .feed .author from Uiverse.io by ArturCodeCraft */ 
