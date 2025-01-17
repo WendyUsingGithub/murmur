@@ -1,0 +1,197 @@
+*,
+*::before,
+*::after { 
+  box-sizing: border-box;
+}
+
+/* subscribe button */
+
+/* #col-2-sticky {
+    position: sticky;
+    top: 3rem;
+    padding-top: 8rem;
+} */
+
+#subscribe-button {
+    display: inline-flex;
+    cursor: pointer;
+    padding-bottom: 2rem;
+    transition: all 0.3s;
+    transition-timing-function: ease-out;
+}
+
+#subscribe-text {
+    color: var(--murmur-black);
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 1.7;
+    letter-spacing: 0.15rem;
+    text-align: left;
+    padding-right: 1rem;
+}
+
+#subscribe-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s ease-in-out;
+}
+#subscribe-icon-vertical {
+    position: absolute;
+    width: 1rem;
+    height: 0.15rem;
+    background:var(--murmur-black);
+}
+#subscribe-icon-horizontal {
+    position: absolute;
+    width: 1rem;
+    height: 0.15rem;
+    background:var(--murmur-black);
+    transform: rotate(90deg);
+}
+
+/* author info */
+
+.feed .author-intro {
+    font-size: 1rem;
+    line-height: 1.7;
+    letter-spacing:0.08rem;
+    text-align: left;
+    color: var(--murmur-black);
+    padding: 0 1rem 2rem 0;
+}
+
+/* feed tag */
+
+.feed .post-tags {
+    padding: 0 1rem 2rem 0.2rem;
+}
+.feed .post-tag::before {
+    font-family: "Open Sans";
+    position: relative;
+    right: 0.15rem;
+    bottom: 0.05rem;
+    font-size: 1.15rem;
+    content: "#";
+}  
+.feed .post-tag {
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 425;
+    letter-spacing: 0.08rem;
+    color: var(--murmur-gray);
+    cursor: pointer;
+    padding: 0.2rem 0.8rem 0.2rem 0rem;
+    transition: all 0.3s;
+    transition-timing-function: ease-out;
+}
+.feed .post-tag:hover,
+.feed .post-tag:focus {   
+    color: var(--murmur-black);
+}
+.feed .post-tag:active {
+    background-color: var(--murmur-light-light-gray);
+    border: solid var(--murmur-light-light-gray) 1px;
+    color: var(--murmur-black);
+}
+
+/* feed-navbar*/
+
+.feed h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.7;
+    letter-spacing: 0.3rem;
+    text-align: center;
+    padding-bottom: 2rem;
+    color: var(--murmur-black);
+}
+
+.feed .middle {
+    margin: 0 7rem 0 7em;
+}
+
+.feed .feed-navbar {
+    margin: 2rem 0 2rem 0;
+    transition-timing-function: linear 1.5s;
+
+}
+.feed .feed-navbar-item {
+    display: inline-flex;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.06rem;
+    color: var(--murmur-gray);
+    justify-content: center;
+    cursor: pointer;
+    padding-bottom: 0.5rem;
+    border: none;
+    background-color: transparent;
+    border-bottom: solid 0.2rem var(--murmur-light-light-gray);
+    margin: 0 2rem 0 2rem;
+    transition: all 0.3s;
+    transition-timing-function: ease-out;
+}
+.feed .feed-navbar-item:hover {
+    display: inline-flex;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--murmur-gray);
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    border-bottom: solid 0.2rem var(--murmur-gray);
+}
+.feed .feed-navbar-item:active {
+    display: inline-flex;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--murmur-black);
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    border-bottom: solid 0.2rem var(--murmur-black);
+}
+.feed .feed-navbar-item:focus {
+    display: inline-flex;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--murmur-black);
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    border-bottom: solid 0.2rem var(--murmur-black);
+}
+
+/* post abstract */
+
+.feed .posts{
+    padding: 0rem 0rem 9rem 0rem;
+    border-bottom: solid 0.1rem var(--murmur-light-light-gray);
+}
+.feed .post-abstract{
+    padding-bottom: 2rem;
+}
+.feed .post-name{
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.8;
+    letter-spacing: 0.12rem;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    color: var(--murmur-black);
+}
+.feed p{
+    font-size: 1.05rem;
+    line-height: 1.8;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+
+    color: var(--murmur-light-light-gray);
+    background-color: var(--murmur-dark-black);
+
+    padding-bottom: 2rem;
+}
+
+.feed .recommand-slogan {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    color: #b1b1b1;
+}

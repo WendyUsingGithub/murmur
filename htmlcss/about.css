@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after { 
+  box-sizing: border-box;
+}
+
+.about h1 {
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--murmur-black);
+    text-decoration: none;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.about h2 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.05rem;
+    color: var(--murmur-black);
+    text-decoration: none;
+    padding-bottom: 2rem;
+}
+
+.about p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.05rem;
+    text-align: justify;
+    color: var(--murmur-black);
+    padding-bottom: 0;
+}
+
+/* post */
+
+.post .header{
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.7;
+    letter-spacing: 0.05rem;
+    text-align: center;
+    color: var(--murmur-black);
+}
+.post .paragraphs{
+    padding: 0 2rem 5rem 2rem;
+    border-bottom: solid 1.5px var(--murmur-light-light-gray);
+    margin: 4rem 0 5rem 0;
+}
+.post .paragraph{
+    font-size: 1.2rem;
+    line-height: 1.7;
+    letter-spacing: 0.05rem;
+    text-align: justify;
+    color: var(--murmur-black);
+    padding-bottom: 1.5rem;
+}
+  

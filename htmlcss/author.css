@@ -1,0 +1,218 @@
+*,
+*::before,
+*::after { 
+  box-sizing: border-box;
+}
+
+/* nav bar */
+
+#navbar {
+    transition: top 0.5s;
+}
+.post .navbar {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 4rem;
+    box-shadow: #00000010 0.2rem 0.4rem 0.8rem;
+    padding: 0rem 3rem 0px 3rem;
+}
+.post .logo {
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--murmur-black);
+    text-decoration: none;
+}
+.post .logo:hover {
+    color: var(--murmur-gray);
+}
+.post .navitems {
+    margin-left: auto;
+}
+.post .navitem {
+    display: inline-flex;
+    position: relative;
+    font-size: 1.05rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    color: var(--murmur-black);
+    text-decoration: none;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.post .navitem:before {
+    position: absolute;     
+    top: 50%;
+    left: 50%;
+    content: "";
+    aspect-ratio: 1;
+    background: #f4f4f4;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s;
+    width: 0;
+}
+.post .navitem:hover:before {
+    width: 100%;
+}
+.post .nav-icon {
+    z-index: 1;
+}
+.post .navitem:hover {
+    color: #808080;
+}
+.post .navitem:active,
+.post .navitem:focus {
+    color: var(--murmur-black);;
+}
+/* nav search box */
+
+.post .nav-search-box {
+    display: inline-flex;
+    position: relative;
+    font-size: 1.05rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    color: var(--murmur-black);
+    text-decoration: none;
+    transition: width 0.5s;
+}
+.post .nav-search-box .search-box-text{
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.05rem;
+    width: 3rem;
+    height: 3rem;
+}
+.post .nav-search-box input{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent: 1.5rem;
+    outline: none;
+    border: none;
+    font-size: 1em;
+    border-radius: 10rem;
+}
+.post .nav-search-box:hover,
+.post .nav-search-box:valid {
+    width: 15rem;
+    cursor: pointer;
+}
+.post  .nav-search-box:hover input,
+.post .nav-search-box:valid input,
+.post .nav-search-box:hover input:active,
+.post .nav-search-box:hover input:focus {
+    display: block;
+    background: #f4f4f4;
+}
+.post .nav-search-box:hover .nav-icon,
+.post .nav-search-box:hover .nav-icon,
+.post .nav-search-box:hover .nav-icon {
+    color: #808080;
+}
+.post .nav-search-box:valid .nav-icon {
+    color: var(--murmur-black);
+}
+
+input[type="search" i]::-webkit-search-cancel-button {
+    display: none;
+}
+
+/* post */
+
+.post h1{
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.7;
+    letter-spacing: 0.05rem;
+    text-align: center;
+    color: var(--murmur-black);
+}
+.post .paragraphs{
+    padding: 0 2rem 9rem 2rem;
+    border-bottom: solid 1.5px var(--murmur-light-light-gray);
+    margin-top: 5rem;
+}
+.post p{
+    font-size: 1.2rem;
+    line-height: 1.7;
+    letter-spacing: 0.05rem;
+    text-align: justify;
+    color: var(--murmur-black);
+    padding-bottom: 1.5rem;
+}
+
+/* post info */
+
+.post .post-info {
+    text-align: left;
+    padding: 11rem 2rem 10rem 2rem;
+}
+.post .author-name {
+    padding-bottom: 2rem;
+}
+.post .author-name {
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing:0.1rem;
+    color: var(--murmur-black);
+    text-align: left;
+}
+.post .author-name:hover {
+    color: var(--murmur-gray);
+}
+
+.post .author-intro {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    letter-spacing:0.04rem;
+    text-align: left;
+    color: var(--murmur-black);
+    padding-right: 2rem;
+}
+
+/* post tag */
+
+.post .post-tags {
+    padding-left: 2rem;
+    justify-content: center;
+}
+.post .post-tag {
+    display: inline-flex;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border-radius: 10rem;
+    border: solid #f4f4f4 1px;
+    background-color: #f4f4f4;
+    color: var(--murmur-black);
+    cursor: pointer;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    margin: 0 0.2rem 0.5rem 0;
+}
+.post .post-tag:hover,
+.post .post-tag:focus {
+    border: solid var(--murmur-gray) 1px;
+    background-color: white;
+    color: var(--murmur-gray);
+}
+.post .post-tag:active {
+    background-color: var(--murmur-light-light-gray);
+    border: solid var(--murmur-light-light-gray) 1px;
+    color: var(--murmur-black);
+}

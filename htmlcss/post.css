@@ -1,0 +1,150 @@
+*,
+*::before,
+*::after { 
+  box-sizing: border-box;
+}
+
+/* post */
+
+.post .author {
+    padding-bottom: 2rem;
+}
+.post .author-name {
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-align: left;
+    transition: all 0.3s ease-out;
+}
+
+.underline-animation {
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+.underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 0.15rem;
+    bottom: 0;
+    left: 0;
+    background-color: var(--murmur-light-light-gray);
+    transform-origin: bottom right;
+    transition: transform 0.2s linear;
+}
+.post .author-name:hover .underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: 0s;
+}
+
+.post .paragraphs{
+    padding-bottom: 2.5rem;
+    border-bottom: solid 1.5px var(--murmur-black);
+}
+
+.post p{
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+    margin-bottom: 1.4rem;
+}
+
+/* post tag */
+
+.post .post-tags {
+    text-align: left;
+    margin-top: 2.5rem;
+}
+.post .post-tag::before {
+    font-family: "Open Sans";
+    position: relative;
+    right: 0.2rem;
+    top: 0.1rem;
+    font-size: 1.05rem;
+    content: "#";
+}  
+.post .post-tag {
+    display: inline-flex;
+    padding: 0rem 0.2rem 0.2rem 0.2rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.06rem;
+    cursor: pointer;
+    border-bottom: solid 0.15rem var(--murmur-dark-black);
+    margin-right: 0.6rem;
+    transition: all 0.1s ease-out;
+}
+.post .post-tag:hover,
+.post .post-tag:focus {
+    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+}
+
+.post .comments {
+    padding-bottom: 9rem;
+    cursor: pointer;
+}
+
+.post .comment .author {
+    padding-bottom: 1.4rem;
+}
+
+.post .comment .author-name {
+    padding-bottom: 0.35rem;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-bottom: solid 0.15rem var(--murmur-dark-black);
+    letter-spacing: 0.1rem;
+    transition: all 0.1s ease-out;
+}
+.post .comment .author-name:hover {
+    color: var(--murmur-light-light-gray);
+    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+}
+
+
+.post .leave-comment {
+    color: var(--murmur-dark-gray);
+    margin: 2rem 0 2rem 0;
+}
+.post .comment {
+    color: var(--murmur-light-gray);
+    margin: 2rem 0 2rem 0;
+}
+.post .comment p{
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+    margin-bottom: 1.4rem;
+    transition: all 0.2s ease-out;
+}
+
+.post .comment .material-symbols-outlined {
+    font-size: 1.8rem;
+    font-weight: 300;
+
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 24
+
+}
+
+.post .commen-contentt {
+
+    display: flex;
+
+    border-bottom: solid 1.5px var(--murmur-black);
+
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+    margin-bottom: 1.4rem;
+}
