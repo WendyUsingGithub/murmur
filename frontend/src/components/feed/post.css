@@ -4,14 +4,15 @@
   box-sizing: border-box;
 }
 
-.feed .posts{
+.post .posts{
     padding-bottom: 12rem;
 }
 
-.feed .author {
+.post .author {
+    margin-top: 2rem;
     padding-bottom: 1.5rem;
 }
-.feed .author-name {
+.post .author-name {
     cursor: pointer;
     padding-bottom: 0.35rem;
     font-size: 1.05rem;
@@ -21,11 +22,11 @@
     text-align: left;
     transition: all 0.1s;
 }
-.feed .author-name:hover {
+.post .author-name:hover {
     border-bottom: solid 0.15rem var(--murmur-light-light-gray);
 }
 
-.feed p {
+.post p {
     font-size: 1.05rem;
     line-height: 1.6;
     letter-spacing: 0.08rem;
@@ -33,31 +34,28 @@
     text-align: justify;
 }
 
-.feed .interact .interact_item {
-    display: inline-block;
+.post .interact .item {
     cursor: pointer;
 }
-.feed .interact .number {
-    display: inline-block;
-    position: relative;
-    bottom: 0.4rem;
-    font-size: 0.95rem;
-    color: var(--murmur-light-light-gray);
-    padding: 1rem 1.2rem 1rem 0;
-    letter-spacing: 0.1rem;
-}
-.feed .interact .material-symbols-outlined {
-    display: inline-block;
+.post .interact .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
     'wght' 300,
     'GRAD' 24;
     font-size: 1.3rem;
     color: var(--murmur-light-light-gray);
-    padding: 1rem 0.2rem 1rem 0;
+    padding: 1rem 0.3rem 1rem 0;
 }
-.feed .interact .interact_item:hover .material-symbols-outlined,
-.feed .interact .interact_item:focus .material-symbols-outlined
+.post .interact .number {
+    position: relative;
+    bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--murmur-light-light-gray);
+    padding: 1rem 1.3rem 1rem 0;
+    letter-spacing: 0.1rem;
+}
+.post .interact .item:hover .material-symbols-outlined,
+.post .interact .item:focus .material-symbols-outlined
  {
     font-variation-settings:
     'FILL' 1;

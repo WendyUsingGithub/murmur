@@ -1,11 +1,11 @@
-import '../../bootstrap/bootstrap.css';
-import '../../bootstrap/bootstrap.js';
-import './App.css';
-import './style.css';
-import './js.js';
+import "../../bootstrap/bootstrap.css";
+import "../../bootstrap/bootstrap.js";
+import "./App.css";
+import "./style.css";
+import "./js.js";
 
-import Navbar from './Navbar.jsx';
-import Container from './container.jsx';
+import Navbar from "./Navbar.jsx";
+import Container from "./Container.jsx";
 
 function App()
 {
