@@ -206,7 +206,6 @@ input[type="search" i]::-webkit-search-cancel-button {
 }
 
 .murmur .divider {
-    display: flex;
     height: 1px;
     width: 100%;
     margin: 1rem auto 1rem auto;

@@ -11,8 +11,7 @@ function Post({author, content}) {
   const [parapraphs, setparapraphs] = useState([]);
 
   useEffect(() => {
-    function parseContent(content)
-    {
+    function parseContent(content) {
       const sentences = content.split("\n\n");
       for(let i=0; i<sentences.length; i++) {
         sentences[i] = sentences[i].replaceAll("\n", "<br>");
@@ -48,7 +47,7 @@ function Post({author, content}) {
             </span>
         </span>
         <span className="item">
-            <span tabIndex="0" style={{scale: "0.95"}} className="material-symbols-outlined">
+            <span tabIndex="0" style={{scale:"0.95"}} className="material-symbols-outlined">
             tooltip
             </span>
             <span className="number">

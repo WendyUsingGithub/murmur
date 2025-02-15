@@ -88,9 +88,56 @@
 
 
 .post .leave-comment {
+    position: relative;
     color: var(--murmur-dark-gray);
-    margin: 2rem 0 2rem 0;
 }
+.post .leave-comment .content {
+    width: 100%;
+    line-height: 1.6;
+    min-height: 3.6rem;
+    height: auto;
+    padding: 2rem 0 2rem 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.08rem;
+    font-family: "Noto Sans TC";
+    color: var(--murmur-light-light-gray);
+    background-color: var(--murmur-dark-black);
+    resize: none;
+    overflow-y: hidden;
+    border: none;
+}
+.post .leave-comment .content:active,
+.post .leave-comment .content:focus {    
+    outline: none;
+    border: none;
+}
+.post .leave-comment .content:focus::placeholder {
+    color: transparent;
+}
+
+.post .leave-comment .material-symbols-outlined {
+    display: none;
+    position: absolute;
+    right: -6rem;
+    bottom: 0;;
+    cursor: pointer;
+    padding: 2rem;
+}
+.post .leave-comment .empty {
+    display: block;
+    color: var(--murmur-dark-gray);
+}
+
+.post .leave-comment .active {
+    display: block;
+    color: var(--murmur-light-light-gray);
+}
+
+.post .leave-comment .active:hover {
+    font-variation-settings:
+    'FILL' 1;
+}
+
 .post .comment {
     color: var(--murmur-light-light-gray);
     margin: 2rem 0 2rem 0;
@@ -113,15 +160,18 @@
     'wght' 200,
     'GRAD' 0,
     'opsz' 24
-
 }
 
-.post .commen-contentt {
-    display: flex;
-    border-bottom: solid 1.5px var(--murmur-black);
+.post .comment-content {
     font-size: 1.05rem;
     line-height: 1.6;
     letter-spacing: 0.08rem;
     text-align: justify;
     margin-bottom: 1.4rem;
+}
+.post .divider {
+    height: 1px;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    background-color: var(--murmur-black);
 }

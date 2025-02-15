@@ -69,32 +69,57 @@ window.onscroll = function()
   let currentScrollPos = window.scrollY;
   if (prevScrollpos >= currentScrollPos) {
     document.getElementById("navbar").style.top = "0";
-    // if(document.getElementById("col-2-sticky")) {
-    //   document.getElementById("col-2-sticky").style.paddingTop = "5.4rem";
-    //   document.getElementById("col-2-sticky").style.marginTop = "0";
-    // }
   }
   else {
     document.getElementById("navbar").style.top = "-5.4rem";
-    // if(document.getElementById("col-2-sticky")) {
-    //   document.getElementById("col-2-sticky").style.paddingTop = "0";
-    // }
   }
   prevScrollpos = currentScrollPos;
 }
 
+/* leave comment auto size adjust */
 
-var acc = document.getElementsByClassName("comment");
-var i;
+const leave_comment = document.getElementById("leave-comment");
+leave_comment.addEventListener("input", function () {
+  console.log(this.style.height);
+  this.style.height = "auto";
+  this.style.height = this.scrollHeight + "px";
+});
 
-// for (i = 0; i < acc.length; i++) {
-//   acc[i].addEventListener("mouseover", function() {
-//     // this.classList.toggle("active");
-//     var panel = (document.getElementsByClassName("comment-author"))[0];
-//     if (panel.style.maxHeight) {
-//       panel.style.maxHeight = null;
-//     } else {
-//       panel.style.maxHeight = panel.scrollHeight + "px";
-//     } 
-//   });
-// }
+
+/* leave comment icon style */
+
+function updateOnFocus() {
+  if (leave_comment.value.trim() === "") {
+    submit_icon.classList.add("empty");
+  } else {
+    submit_icon.classList.add("active");
+  }
+}
+
+function updateOnInput() {
+  if (leave_comment.value.trim() === "") {
+    submit_icon.classList.remove("active");
+    submit_icon.classList.add("empty");
+  } else {
+    submit_icon.classList.add("active");
+  }
+}
+
+function updateOnBlur() {
+    submit_icon.classList.remove("active");
+    submit_icon.classList.remove("empty");
+}
+
+const submit_icon = document.getElementById("submit-icon");
+
+leave_comment.addEventListener("focus", function () {
+  updateOnFocus();
+});
+
+leave_comment.addEventListener("input", function () {
+  updateOnInput();
+});
+
+leave_comment.addEventListener("blur", function () {
+  updateOnBlur();
+});

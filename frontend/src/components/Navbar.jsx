@@ -1,11 +1,28 @@
+import { useState, useEffect } from "react";
+
 import "../../bootstrap/bootstrap.css";
 import "../../bootstrap/bootstrap.js";
 import "./style.css";
 import "./js.js";
 
 function Navbar() {
+  
+  const [display, setDisplay] = useState({top:"0"});
+  useEffect(() => {
+    let prevScrollpos = window.scrollY;
+    window.onscroll = function() {
+      let currentScrollPos = window.scrollY;
+      if (prevScrollpos >= currentScrollPos) {
+        setDisplay({top:"0"});
+      } else {
+        setDisplay({top:"-5.4rem"});
+      }
+      prevScrollpos = currentScrollPos;
+    };
+  });
+
   return(
-    <div id="navbar" className="navbar">
+    <div style={display} id="navbar" className="navbar">
     <a href="file:///C:/Users/ASUS/Desktop/murmur/feed.html" className="logo">m</a>
     <span className="items center-alignment-horizontal">
         <form className="search ">
