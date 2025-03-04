@@ -30,12 +30,14 @@
     font-size: 1.05rem;
     line-height: 1.6;
     letter-spacing: 0.08rem;
-    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    margin: 0;
     text-align: justify;
 }
 
-.post .interact .item {
+.post .interact {
     cursor: pointer;
+    padding-top: 0.8rem;
 }
 .post .interact .material-symbols-outlined {
     font-variation-settings:
@@ -44,14 +46,14 @@
     'GRAD' 24;
     font-size: 1.3rem;
     color: var(--murmur-light-light-gray);
-    padding: 1rem 0.3rem 1rem 0;
+    padding-right: 0.3rem;
 }
 .post .interact .number {
     position: relative;
     bottom: 0.4rem;
     font-size: 0.95rem;
     color: var(--murmur-light-light-gray);
-    padding: 1rem 1.3rem 1rem 0;
+    padding-right: 1.3rem;
     letter-spacing: 0.1rem;
 }
 .post .interact .item:hover .material-symbols-outlined,

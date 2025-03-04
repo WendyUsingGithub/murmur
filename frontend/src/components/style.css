@@ -20,6 +20,10 @@
     color: var(--murmur-dark-black);
 }
 
+input[type="search" i]::-webkit-search-cancel-button {
+    display: none;
+}
+
 html {
     font-size: 15px;
     scrollbar-color: var(--murmur-black) var(--murmur-dark-black);
@@ -68,150 +72,18 @@ button {
     text-align: center;
 }
 
-/* content */
-
-.murmur .content {
+.content {
     padding-top: 12rem;
     max-width: inherit;
     width: 100%;
 }
-
-/* middle */
-
-.murmur .middle {
+.middle {
     margin: 0 8rem 0 8rem;
 }
-
-/* nav bar */
-
-#navbar {
-    transition: all 0.5s;
-}
-.murmur .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 6rem;
-    padding: 0 2rem 0 3rem;
-    z-index: 100;
-    transition: all 0.5s ease-out;
-}
-.murmur .navbar .logo {
-    font-family: "Fugaz One";
-    font-weight: 400;
-    font-size: 2rem;
-    letter-spacing: 0.1rem;
-    color: var(--murmur-light-light-gray);
-    text-decoration: none;
-    transition: all 0.3s ease-out;
-}
-.murmur .navbar .logo:hover {
-    scale: 1.2;
-}
-.murmur .navbar .items {
-    margin-left: auto;
-}
-.murmur .navbar .item {
-    display: inline-flex;
-    width: 3.5rem;
-    height: 3.5rem;
-    font-size: 1.05rem;
-    cursor: pointer;
-    overflow: hidden;
-    color: var(--murmur-light-light-gray);
-    text-decoration: none;
-    transition: all 0.2s ease-out;
-}
-.murmur .navbar .item .icon .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 24
-}
-.murmur .navbar .item:hover .icon .material-symbols-outlined{
-    font-variation-settings:
-    'FILL' 1;
-}
-
-input[type="search" i]::-webkit-search-cancel-button {
-    display: none;
-}
-
-.murmur .navbar .search {
-    display: inline-flex;
-    position: relative;
-    font-size: 1.05rem;
-    color: var( --murmur-light-light-gray);
-    width: 3.5rem;
-    height: 3.5rem;
-    font-weight: 700;
-    cursor: pointer;
-    overflow: hidden;
-    text-decoration: none;
-    transition: all 0.8s ease-out;
-    outline: none;
-    border: none;
-}
-.murmur .navbar .search .icon{
-    display: inline-flex;
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 1.05rem;
-    height: 3.5rem;
-    transition: all 0.8s ease-out;
-    outline: none;
-    border: none;
-}
-
-.murmur .navbar .search input{
-    position: relative;
-    top: -0.1rem;
-    display: none;
-    width: 100%;
-    height: 100%;
-    text-indent: 3.5rem;
-    outline: none;
-    border: none;
-    font-size: 1.05rem;
-    letter-spacing: 0.1rem;
-}
-.murmur .navbar .search:hover,
-.murmur .navbar .search:valid {
-    width: 15rem;
-    cursor: pointer;
-}
-
-.murmur .navbar .search:hover input,
-.murmur .navbar .search:valid input,
-.murmur .navbar .search:hover input:active,
-.murmur .navbar .search:hover input:focus {
-    display: block;
-    background-color: var(--murmur-dark-black);
-    color: var(--murmur-light-light-gray);
-    font-weight: 500;
-}
-.murmur .navbar .search:hover .icon,
-.murmur .navbar .search:active .icon,
-.murmur .navbar .search:focus .icon,
-.murmur .navbar .search:valid .icon {
-    right: 12rem;
-    color: var(--murmur-light-light-gray);
-}
-
-.murmur .navitem .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 24
-}
-
-.murmur .divider {
+.divider {
     display: flex;
     height: 1px;
     width: 100%;
-    margin: 1rem auto 1rem auto;
+    margin: 2rem auto 2rem auto;
     background-color: var(--murmur-black);
 }

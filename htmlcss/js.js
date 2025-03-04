@@ -79,6 +79,7 @@ window.onscroll = function()
 /* leave comment auto size adjust */
 
 const leave_comment = document.getElementById("leave-comment");
+if(leave_comment)
 leave_comment.addEventListener("input", function () {
   console.log(this.style.height);
   this.style.height = "auto";
@@ -87,6 +88,8 @@ leave_comment.addEventListener("input", function () {
 
 
 /* leave comment icon style */
+
+const submit_icon = document.getElementById("submit-icon");
 
 function updateOnFocus() {
   if (leave_comment.value.trim() === "") {
@@ -109,8 +112,6 @@ function updateOnBlur() {
     submit_icon.classList.remove("active");
     submit_icon.classList.remove("empty");
 }
-
-const submit_icon = document.getElementById("submit-icon");
 
 leave_comment.addEventListener("focus", function () {
   updateOnFocus();

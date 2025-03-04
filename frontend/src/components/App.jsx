@@ -1,20 +1,23 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "../../bootstrap/bootstrap.css";
 import "../../bootstrap/bootstrap.js";
-import "./App.css";
 import "./style.css";
-import "./js.js";
-
 import Navbar from "./Navbar.jsx";
-import Container from "./Container.jsx";
+import Feed from "./feed/Feed.jsx";
+import Login from "./login/Login.jsx";
 
-function App()
-{
+function App() {
   return (
-    <div className="murmur feed">
-      <Navbar/>
-      <Container/>
-    </div>
-  )
+    <BrowserRouter>
+      <div className="murmur feed">
+        <Navbar/>
+        <Routes>
+          <Route path="/" element={<Feed/>}/>
+          <Route path="/login" element={<Login/>}/>
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

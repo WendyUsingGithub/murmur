@@ -7,12 +7,11 @@ import Post from "./post.jsx";
 import "../style.css";
 import "./posts.css";
 
-function Posts() {
-
+function Posts()
+{
   const [postsData, setDatas] = useState([]);
 
   useEffect(() => {
-
     async function fetchData() {
       try {
         const result = await axios.post("http://localhost:3001/post", { wendy: "wendy" });
@@ -39,11 +38,11 @@ function Posts() {
       }
     }
     fetchData();
-  }, []); 
+  }, []);
 
 
   return (
-    <div className="posts">
+    <div className="posts fade-in">
       {postsData.map((postData) =>
         <Post key={postData.id} author={postData.author} content={postData.content}/>
       )}
