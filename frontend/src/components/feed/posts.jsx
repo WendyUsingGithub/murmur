@@ -1,11 +1,12 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
+import "../style.css";
+import "./posts.css";
+
 
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "./post.jsx";
-import "../style.css";
-import "./posts.css";
 
 function Posts()
 {
