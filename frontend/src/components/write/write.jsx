@@ -8,14 +8,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "./post.jsx";
 
-function Posts()
+function Write()
 {
   const [postsData, setDatas] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.post("http://localhost:3001/posts", { wendy: "wendy" });
+        const result = await axios.post("http://localhost:3001/post", { wendy: "wendy" });
     
         console.log("Fetch Data");
         console.log(result.data.length);

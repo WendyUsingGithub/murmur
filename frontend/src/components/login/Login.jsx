@@ -79,47 +79,60 @@ function Login()
 
   async function loginHandler(event)
   {
-    console.log("?????");
     event.preventDefault();
 
-    const loginData = {
-      email: loginMailRef.current.value,
-      password: loginPasswordRef.current.value
-    };
-
-    setLoading(true);
+    const mail = loginMailRef.current.value;
+    const password = loginPasswordRef.current.value;
+    const loginData = {mail, password};
+    
+    if(!mail || !password) {
+      console.log("input missing")
+      return;
+    }
 
     try {
       setLoading(true);
-      // const res = await axios.post("http://127.0.0.1:3001/login", loginData);
-
-      // localStorage.setItem("token", res.data.token);
-      // setLoading(false);
-      // navigate("/"); // 登入成功後導向 Feed 頁面
-
+      const result = await axios.post("http://127.0.0.1:3001/login", loginData);
+      console.log(result);
+      console.log(result.data)
+      if(result.status==200) {
+        navigate("/");
+        setLoading(false);
+      }
+      else {
+        navigate("/login");
+        setLoading(false);        
+      }
     } catch (error) {
+      console.log(error);
       console.log("Login Fail");
     }
   }
 
   async function registerHandler(event)
   {
-    // event.preventDefault();
+    event.preventDefault();
 
-    // const registerData = {
-    //   username: registerUserNameRef.current.value,
-    //   email: registerMailRef.current.value,
-    //   password: registerPasswordRef.current.value
-    // };
+    const userName = registerUserNameRef.current.value;
+    const mail = registerMailRef.current.value;
+    const password = registerPasswordRef.current.value;
+    const registerData = {userName, mail, password};
 
-    // try {
-    //   const res = await axios.post("http://127.0.0.1:3001/register", registerData);
+    if(!userName || !mail || !password) {
+      console.log("input missing")
+      return;
+    }
 
-    //   localStorage.setItem("token", res.data.token);
-    //   navigate("/"); // 登入成功後導向 Feed 頁面
-    // } catch (error) {
-    //   console.log("Login Fail");
-    // }
+    try {
+      setLoading(true);
+      const result = await axios.post("http://127.0.0.1:3001/register", registerData);
+      console.log(result.data)
+      navigate("/");
+      setLoading(false);
+      
+    } catch (error) {
+      console.log("Login Fail");
+    }
   }
 
   if(loading) {
@@ -130,7 +143,7 @@ function Login()
             <div className="col-2"></div>
             <div className="col-8 center-alignment">
               <div className="middle">
-                <div className="loader"></div>
+                <div className="loader fade-in"></div>
               </div>
               </div>
             <div className="col-2"></div>

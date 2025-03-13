@@ -6,16 +6,54 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const { MongoClient } = require("mongodb");
+const {MongoClient} = require("mongodb");
 var url = "mongodb://localhost:27017/mydb";
 const client = new MongoClient(url);
+const db = client.db("murmur");
+const coll_post = db.collection("post");
+const coll_userData = db.collection("userData");
+const coll_comment = db.collection("comment");
 
+async function connectDB() {
+  try {
+    await client.connect();
+    console.log("Connect to MongoDB successfully");
+  } catch (error) {
+    console.error("Fail to connect to MongoDB", error);
+    process.exit(1);
+  }
+}
+
+async function closeDB() {
+  try {
+    await client.close();
+    console.log("Disconnect to MongoDB successfully");
+  } catch (error) {
+    console.error("Fail to disconnect to MongoDB:", error);
+  }
+}
+
+connectDB();
 app.listen(3001, () => {
-    console.log("Server listining on http://127.0.0.1:3001");
+  console.log("Server listining on http://127.0.0.1:3001");
 })
 
+process.on("SIGINT", async () => {
+    await closeDB();
+    console.log("Process end! Bye!");
+    process.exit(0);
+});
+
+class UserData {
+  constructor(userName, mail, password) {
+    this.userName = userName;
+    this.mail = mail;
+    this.password = password;
+    this.createAt = new Date();
+  }
+}
+
 async function insert(author, createAt, content) {
-  await client.connect();
   const db = client.db("murmur");
   const coll = db.collection("posts");
   if(createAt == null) {
@@ -26,6 +64,17 @@ async function insert(author, createAt, content) {
 
   const result = await coll.insertOne({ author, createAt, content });
   console.log(result.insertedId);
+}
+
+async function insertUserData(userData) {
+  const result = await coll_userData.insertOne(userData);
+  console.log(result);
+  return result;
+}
+
+async function findUserData(mail, password) {
+  const result = await coll_userData.findOne({mail: mail, password: password});
+  return result;
 }
 
 async function findOne()
@@ -57,51 +106,59 @@ async function find()
   return cursor;
 };
 
-client.connect()
-.then(() => {
-  db = client.db("murmur");
-  coll = db.collection("posts");
-})
-
-app.post("/post", (req, res) => {
-  console.log("POST");
+app.post("/posts", (req, res) => {
   find().then(async(cursor)=>{
-      let postsData = [];
-      while (await cursor.hasNext()) {
-        const doc = await cursor.next();
-        const postData =
-        {
-          id: doc._id.toString(),
-          author: doc.author,
-          content: doc.content,
-          createdAt: doc.createAt
-        };
-        postsData.push(postData);
-      }
-      console.log(postsData);
-      res.json(postsData);
+    let postsData = [];
+    while (await cursor.hasNext()) {
+      const doc = await cursor.next();
+      const postData =
+      {
+        id: doc._id.toString(),
+        author: doc.author,
+        content: doc.content,
+        createdAt: doc.createAt
+      };
+      postsData.push(postData);
+    }
+    res.json(postsData);
   })
 })
 
 app.post("/register", async (req, res) => {
-    const { username, email, password } = req.body;
-    console.log(sername, email, password);
-    
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: "請提供完整資訊" });
-    }
+  const {userName, mail, password} = req.body;
+  console.log(userName, mail, password);
 
-    try {
-        const usersCollection = await connectDB();
-        const existingUser = await usersCollection.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: "此信箱已被註冊" });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const result = await usersCollection.insertOne({ username, email, password: hashedPassword });
-        res.status(201).json({ message: "註冊成功", userId: result.insertedId });
-    } catch (error) {
-        res.status(500).json({ message: "伺服器錯誤", error });
+  try {
+    let result = await findUserData(mail, password);
+    if(!result) {
+      const userData = new UserData(userName, mail, password);
+      result = await insertUserData(userData);
+      res.status(200).json({userId:result.insertedId.toHexString()});
     }
+    else {
+      console.log("Mail has been refistered");
+    }
+  } catch (error) {
+    res.status(500).json({ message:"Internal Server Error", error});
+  }
+
+
+});
+
+app.post("/login", async (req, res) => {
+  const {mail, password} = req.body;
+  console.log(mail, password);
+  try {
+    const result = await findUserData(mail, password)
+    if (result) {
+      console.log("Login Successfully");
+      res.status(200).json({userId:result._id.toHexString()});
+    }
+    else {
+      console.log("Login UN Successfully");
+      res.status(400).json();
+    }
+  } catch (error) {
+    res.status(500).json({ message:"Internal Server Error", error});
+  }
 });

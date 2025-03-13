@@ -53,7 +53,7 @@
 }
 
 .login .slide-up {
-    animation: slide-up 0.75s ease-out;
+    animation: slide-up 0.5s ease-out;
 }
 .login .inputs {
     padding-bottom: 5.5rem;
@@ -129,7 +129,7 @@
 
 @keyframes slide-up {
     0% {
-        transform: translateY(2rem);
+        transform: translateY(1.5rem);
         opacity: 0;
     }
 
