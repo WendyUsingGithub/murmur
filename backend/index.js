@@ -1,10 +1,19 @@
-const cors = require("cors");
+const mongo = require("mongodb");
 const express = require("express");
-var mongo = require("mongodb");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser())
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
+const JWT_SECRET = "murmurSecretKey";
+const port = 3001;
 
 const {MongoClient} = require("mongodb");
 var url = "mongodb://localhost:27017/mydb";
@@ -35,7 +44,7 @@ async function closeDB() {
 
 connectDB();
 app.listen(3001, () => {
-  console.log("Server listining on http://127.0.0.1:3001");
+  console.log("Server listining on http://localhost:3001");
 })
 
 process.on("SIGINT", async () => {
@@ -45,8 +54,8 @@ process.on("SIGINT", async () => {
 });
 
 class UserData {
-  constructor(userName, mail, password) {
-    this.userName = userName;
+  constructor(name, mail, password) {
+    this.name = name;
     this.mail = mail;
     this.password = password;
     this.createAt = new Date();
@@ -77,8 +86,7 @@ async function findUserData(mail, password) {
   return result;
 }
 
-async function findOne()
-{
+async function findOne() {
   await client.connect();
   const db = client.db("murmur");
   const coll = db.collection("posts");
@@ -91,8 +99,7 @@ async function findOne()
   return doc;
 };
 
-async function find()
-{
+async function find() {
   await client.connect();
   const db = client.db("murmur");
   const coll = db.collection("posts");
@@ -107,6 +114,7 @@ async function find()
 };
 
 app.post("/posts", (req, res) => {
+  console.log("POSTS");
   find().then(async(cursor)=>{
     let postsData = [];
     while (await cursor.hasNext()) {
@@ -125,34 +133,51 @@ app.post("/posts", (req, res) => {
 })
 
 app.post("/register", async (req, res) => {
-  const {userName, mail, password} = req.body;
-  console.log(userName, mail, password);
+  console.log("REGISTER");
+  const {name, mail, password} = req.body;
 
   try {
-    let result = await findUserData(mail, password);
-    if(!result) {
-      const userData = new UserData(userName, mail, password);
-      result = await insertUserData(userData);
-      res.status(200).json({userId:result.insertedId.toHexString()});
+    const existingUser = await findUserData(mail, password);
+
+    if (!existingUser) {
+      const userData = new UserData(name, mail, password);
+      const result = await insertUserData(userData);
+      console.log("result.insertedId.toString()", result.insertedId.toString());
+      const token = jwt.sign({ID:result.insertedId.toString(), name: name}, JWT_SECRET, {expiresIn: "365d"});
+      console.log("token", token);
+
+      res.cookie("murmurToken", token, {
+        httpOnly: true,
+        sameSite: "Lax",
+        maxAge: 1000 * 60 * 60 * 24 * 365
+      }).status(200).json({ID: result.insertedId.toString(), name});
+
+    } else {
+      res.status(409).json({message: "Mail already registered"});
     }
-    else {
-      console.log("Mail has been refistered");
-    }
-  } catch (error) {
-    res.status(500).json({ message:"Internal Server Error", error});
+  } catch (err) {
+    res.status(500).json({message: "Internal Server Error", error: err.message});
   }
-
-
 });
 
 app.post("/login", async (req, res) => {
+  console.log("LOGIN");
   const {mail, password} = req.body;
   console.log(mail, password);
   try {
     const result = await findUserData(mail, password)
     if (result) {
       console.log("Login Successfully");
-      res.status(200).json({userId:result._id.toHexString()});
+
+      const token = jwt.sign({ID:result.insertedId.toString(), name: name}, JWT_SECRET, {expiresIn: "365d"});
+      console.log("token", token);
+
+      res.cookie("murmurToken", token, {
+        httpOnly: true,
+        sameSite: "Lax",
+        maxAge: 1000 * 60 * 60 * 24 * 365
+      }).status(200).json({ID: result.insertedId.toString(), name});
+
     }
     else {
       console.log("Login UN Successfully");
@@ -160,5 +185,24 @@ app.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message:"Internal Server Error", error});
+  }
+});
+
+app.post("/write", async (req, res) => {
+  const {author, content, tag} = req.body;
+  console.log({author, content, tag});
+});
+
+
+app.get("/auth", (req, res) => {
+  console.log("AUTH");
+  const token = req.cookies.murmurToken;
+  if (!token) return res.status(401).json({ error: "No token" });
+    
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    res.status(200).json({ ID: decoded.ID, name: decoded.name });
+  } catch (err) {
+    res.status(401).json({ error: "Invalid token" });
   }
 });

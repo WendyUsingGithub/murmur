@@ -2,11 +2,12 @@
 /* leave comment auto size adjust */
 
 const leave_comment = document.getElementById("leave-comment");
-if(leave_comment)
-leave_comment.addEventListener("input", function () {
-  this.style.height = "auto";
-  this.style.height = this.scrollHeight + "px";
-});
+if(leave_comment) {
+  leave_comment.addEventListener("input", function () {
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
+  });
+}
 
 
 /* leave comment icon style */

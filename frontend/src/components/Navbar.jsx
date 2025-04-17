@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import {Link} from "react-router-dom";
+import {useRef, useEffect} from "react";
 import "../../bootstrap/bootstrap.css";
 import "../../bootstrap/bootstrap.js";
 import "./navbar.css";
@@ -39,7 +39,7 @@ function Navbar() {
             </span>
           </div>
         </form>
-        <Link to="/markdown" className="item center-alignment">
+        <Link to="/write" className="item center-alignment">
           <div className="icon">
             <span className="material-symbols-outlined">stylus</span>
           </div>

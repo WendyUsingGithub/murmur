@@ -1,16 +1,14 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
+import "../style.css";
 import "./login.css";
 
-import {useState, useRef} from "react";
+import {useState, useRef, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-
-function Login()
-{
+function Login() {
   const navigate = useNavigate();
-
   const [active, setActive] = useState("left");
   const [indicatorPos, setIndicatoPos] = useState("left");
   const [focus, setFocus] = useState([[null, null], [null, null, null]]);
@@ -19,14 +17,15 @@ function Login()
 
   const loginMailRef = useRef(null);
   const loginPasswordRef = useRef(null);
-  const registerUserNameRef = useRef(null);
+  const registerNameRef = useRef(null);
   const registerMailRef = useRef(null);
   const registerPasswordRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
+  const [signIn, setSignIn] = useState(false);
+  const [name, setName] = useState(false);
 
-  function onClickHandler(event)
-  {
+  function onClickHandler(event) {
     let value = event.currentTarget.dataset.value;
     if (value !== active) {
       setActive(value);
@@ -35,32 +34,27 @@ function Login()
       setRegisterVisibility(value === "right" ? "show" : "hide");
     }
   }
-    function mouseEnterHandler(event)
-  {
+  function mouseEnterHandler(event) {
     setIndicatoPos(event.currentTarget.dataset.value);
   }
-  function mouseLeaveHandler()
-  {
+  function mouseLeaveHandler() {
     setIndicatoPos(active);
   }
 
-  function inputOnClickHandler(event)
-  {
+  function inputOnClickHandler(event) {
     let value = event.currentTarget.dataset.value;
-
     if(active === "left") {
       if(value === "mail") setFocus((prev) => [["focus", prev[0][1]], [...prev[1]]]);
       else setFocus((prev) => [[prev[0][0], "focus"], [...prev[1]]]);
     }
     else {
-      if(value === "username") setFocus((prev) => [[...prev[0]], ["focus", prev[1][1], prev[1][2]]]);
+      if(value === "name") setFocus((prev) => [[...prev[0]], ["focus", prev[1][1], prev[1][2]]]);
       else if(value === "mail") setFocus((prev) => [[...prev[0]], [prev[1][0], "focus", prev[1][2]]]);
       else setFocus((prev) => [[...prev[0]], [prev[1][0], prev[1][1], "focus"]]);
     }
   }
 
-  function inputOnBlurHandler(event)
-  {
+  function inputOnBlurHandler(event) {
     let value = event.currentTarget.dataset.value;
     let input = event.currentTarget.value;
 
@@ -71,70 +65,88 @@ function Login()
       else setFocus((prev) => [ [prev[0][0], null], [...prev[1]]]);
     }
     else {
-      if(value === "username") setFocus((prev) => [[...prev[0]], [null, prev[1][1], prev[1][2]]]);
+      if(value === "name") setFocus((prev) => [[...prev[0]], [null, prev[1][1], prev[1][2]]]);
       else if(value === "mail") setFocus((prev) => [[...prev[0]], [prev[1][0], null, prev[1][2]]]);
       else setFocus((prev) => [[...prev[0]], [prev[1][0], prev[1][1], null]]);
     }
   }
 
-  async function loginHandler(event)
-  {
+  async function loginHandler(event) {
     event.preventDefault();
-
     const mail = loginMailRef.current.value;
     const password = loginPasswordRef.current.value;
     const loginData = {mail, password};
     
     if(!mail || !password) {
-      console.log("input missing")
+      console.log("input missing");
       return;
     }
 
     try {
       setLoading(true);
-      const result = await axios.post("http://127.0.0.1:3001/login", loginData);
+      const result = await axios.post("http://localhost:3001/login", loginData, {withCredentials: true});
       console.log(result);
       console.log(result.data)
       if(result.status==200) {
         navigate("/");
-        setLoading(false);
       }
       else {
-        navigate("/login");
-        setLoading(false);        
+        navigate("/login");    
       }
+      localStorage.setItem("murmurToken", JSON.stringify({name: result.data.name, ID: result.data.ID}));
     } catch (error) {
       console.log(error);
       console.log("Login Fail");
+      navigate("/login"); 
+    } finally {
+      setLoading(false);
     }
+
   }
 
-  async function registerHandler(event)
-  {
+  async function registerHandler(event) {
     event.preventDefault();
-
-    const userName = registerUserNameRef.current.value;
+    const name = registerNameRef.current.value;
     const mail = registerMailRef.current.value;
     const password = registerPasswordRef.current.value;
-    const registerData = {userName, mail, password};
+    const registerData = {name, mail, password};
 
-    if(!userName || !mail || !password) {
+    if(!name || !mail || !password) {
       console.log("input missing")
       return;
     }
 
     try {
       setLoading(true);
-      const result = await axios.post("http://127.0.0.1:3001/register", registerData);
-      console.log(result.data)
+
+      const result = await axios.post("http://localhost:3001/register", registerData, {withCredentials: true});
+      console.log(result.data.name)
+      console.log(result.data.ID)
+
+      setSignIn(true);
       navigate("/");
-      setLoading(false);
-      
     } catch (error) {
       console.log("Login Fail");
+       navigate("/login");
+    } finally {
+      setLoading(false);
     }
   }
 
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const result = await axios.get("http://localhost:3001/auth", {withCredentials: true});
+        setName(result.data.name);
+        setSignIn(true);
+      } catch (err) {
+        setSignIn(false);
+        console.log(err);
+      }
+    }
+    checkAuth();
+  }, []);
+  
   if(loading) {
     return(
       <div className="login container">
@@ -144,6 +156,23 @@ function Login()
             <div className="col-8 center-alignment">
               <div className="middle">
                 <div className="loader fade-in"></div>
+              </div>
+              </div>
+            <div className="col-2"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  else if(signIn) {
+    return (
+      <div className="login container">
+        <div className="content">
+          <div className="row">
+            <div className="col-2"></div>
+            <div className="col-8 center-alignment">
+              <div className="middle">
+                <div className="fade-in">Sign in Already {name}</div>
               </div>
               </div>
             <div className="col-2"></div>
@@ -216,8 +245,8 @@ function Login()
                         <form className="inputs">
                           <div className={`input ${focus[1][0]}`}>
                             <input type="text" required=""
-                              data-value="username"
-                              ref={registerUserNameRef}
+                              data-value="name"
+                              ref={registerNameRef}
                               onClick={inputOnClickHandler}
                               onBlur={inputOnBlurHandler}/>
                             <label htmlFor="input" className="label">名稱</label>

@@ -5,15 +5,17 @@ import "./style.css";
 import Navbar from "./Navbar.jsx";
 import Feed from "./feed/Feed.jsx";
 import Login from "./login/Login.jsx";
+import Write from "./write/Write.jsx";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="murmur feed">
+      <div className="murmur">
         <Navbar/>
         <Routes>
           <Route path="/" element={<Feed/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/write" element={<Write/>}/>
         </Routes>
       </div>
     </BrowserRouter>

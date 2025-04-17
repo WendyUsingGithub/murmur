@@ -15,7 +15,7 @@ function Posts()
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.post("http://localhost:3001/posts", { wendy: "wendy" });
+        const result = await axios.post("http://localhost:3001/posts", {wendy:"wendy"});
     
         console.log("Fetch Data");
         console.log(result.data.length);

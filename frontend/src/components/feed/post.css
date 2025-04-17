@@ -9,8 +9,7 @@
 }
 
 .post .author {
-    margin-top: 2rem;
-    padding-bottom: 1.5rem;
+    padding: 2rem 0 1.5rem 0;
 }
 .post .author-name {
     cursor: pointer;
