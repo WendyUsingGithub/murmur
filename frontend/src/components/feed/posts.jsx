@@ -43,7 +43,7 @@ function Posts()
 
 
   return (
-    <div className="posts fade-in">
+    <div className="posts">
       {postsData.map((postData) =>
         <Post key={postData.id} author={postData.author} content={postData.content}/>
       )}

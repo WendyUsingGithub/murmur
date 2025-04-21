@@ -5,6 +5,7 @@ import "./style.css";
 import Navbar from "./Navbar.jsx";
 import Feed from "./feed/Feed.jsx";
 import Login from "./login/Login.jsx";
+import Profile from "./profile/Profile.jsx";
 import Write from "./write/Write.jsx";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Feed/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/profile" element={<Profile/>}/>
           <Route path="/write" element={<Write/>}/>
         </Routes>
       </div>

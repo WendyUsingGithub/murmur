@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
 :root {
-    --murmur-dark-black: #282828;
+    --murmur-dark-black: #202020;
     --murmur-black: #484848;
     --murmur-dark-gray: #808080;
     --murmur-gray: #b0b0b0;
@@ -76,6 +76,11 @@ button {
     padding-top: 12rem;
     max-width: inherit;
     width: 100%;
+
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-timing-function: ease-out;
+    animation-duration: 0.3s;
 }
 .middle {
     margin: 0 8rem 0 8rem;
@@ -102,53 +107,4 @@ button {
 	100% {
 		opacity: 1;
 	}
-}
-
-/* loader */
-
-.loader,
-.loader:before,
-.loader:after {
-    background: var(--murmur-light-light-gray);
-    animation: loading-keys-app-loading 1s infinite linear;
-    width: 0.4rem;
-    height: 1.2rem;
-}
-
-.loader {
-    position: absolute;
-    right: calc(50% - 6.8px);
-    top: calc(50% - 1rem);
-    animation-delay: 0.16s;
-}
-
-
-.loader:before,
-.loader:after {
-    position: absolute;
-    top: 0;
-    content: '';
-}
-
-.loader:before {
-    left: -1rem;
-}
-
-.loader:after {
-    left: 1rem;
-    animation-delay: 0.32s;
-}
-
-
-@keyframes loading-keys-app-loading {
-
-    0%,
-    80%,
-    100% {
-        box-shadow: 0 0 var(--murmur-light-light-gray);
-    }
-
-    40% {
-        box-shadow: 0 -0.5rem var(--murmur-light-light-gray);
-    }
 }

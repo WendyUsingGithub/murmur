@@ -3,6 +3,8 @@ import "../../../bootstrap/bootstrap.js";
 import "../style.css";
 import "./login.css";
 
+import Loader from "../loader/Loader.jsx"
+
 import {useState, useRef, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -21,9 +23,8 @@ function Login() {
   const registerMailRef = useRef(null);
   const registerPasswordRef = useRef(null);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [signIn, setSignIn] = useState(false);
-  const [name, setName] = useState(false);
 
   function onClickHandler(event) {
     let value = event.currentTarget.dataset.value;
@@ -127,7 +128,7 @@ function Login() {
       navigate("/");
     } catch (error) {
       console.log("Login Fail");
-       navigate("/login");
+      navigate("/login");
     } finally {
       setLoading(false);
     }
@@ -137,53 +138,21 @@ function Login() {
     async function checkAuth() {
       try {
         const result = await axios.get("http://localhost:3001/auth", {withCredentials: true});
-        setName(result.data.name);
+        console.log("Result", result);
         setSignIn(true);
       } catch (err) {
         setSignIn(false);
-        console.log(err);
+      }
+      finally {
+        setLoading(false);
       }
     }
+    setLoading(true);
     checkAuth();
   }, []);
-  
-  if(loading) {
-    return(
-      <div className="login container">
-        <div className="content">
-          <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8 center-alignment">
-              <div className="middle">
-                <div className="loader fade-in"></div>
-              </div>
-              </div>
-            <div className="col-2"></div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-  else if(signIn) {
-    return (
-      <div className="login container">
-        <div className="content">
-          <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8 center-alignment">
-              <div className="middle">
-                <div className="fade-in">Sign in Already {name}</div>
-              </div>
-              </div>
-            <div className="col-2"></div>
 
-          </div>
-        </div>
-      </div>
-    )
-  }
-  else {
-    return(
+  return(
+    <Loader loading={loading} signIn={signIn} navigate="/profile">
       <div className="login container">
         <div className="content">
           <div className="row">
@@ -286,8 +255,8 @@ function Login() {
           </div>
         </div>
       </div>
-    )
-  }
+    </Loader>
+  )
 }
 
 export default Login

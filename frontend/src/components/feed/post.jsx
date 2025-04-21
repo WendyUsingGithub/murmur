@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
