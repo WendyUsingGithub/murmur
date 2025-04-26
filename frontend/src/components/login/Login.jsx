@@ -4,12 +4,15 @@ import "../style.css";
 import "./login.css";
 
 import Loader from "../loader/Loader.jsx"
+import AuthContext from "../auth/AuthContext.jsx";
 
-import {useState, useRef, useEffect} from "react";
+import {useContext, useState, useRef, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 function Login() {
+  const {user, setUser} = useContext(AuthContext);
+
   const navigate = useNavigate();
   const [active, setActive] = useState("left");
   const [indicatorPos, setIndicatoPos] = useState("left");
@@ -25,6 +28,16 @@ function Login() {
 
   const [loading, setLoading] = useState(true);
   const [signIn, setSignIn] = useState(false);
+
+
+  useEffect(() => {
+    function checkAuth() {
+      if(user) setSignIn(true);
+      setLoading(false);
+    }
+    setLoading(true);
+    checkAuth();
+  }, []);
 
   function onClickHandler(event) {
     let value = event.currentTarget.dataset.value;
@@ -89,6 +102,8 @@ function Login() {
       console.log(result);
       console.log(result.data)
       if(result.status==200) {
+        setUser(result.data);
+        console.log(user)
         navigate("/");
       }
       else {
@@ -125,6 +140,8 @@ function Login() {
       console.log(result.data.ID)
 
       setSignIn(true);
+      setUser(result.data);
+      console.log(user)
       navigate("/");
     } catch (error) {
       console.log("Login Fail");
@@ -133,23 +150,6 @@ function Login() {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    async function checkAuth() {
-      try {
-        const result = await axios.get("http://localhost:3001/auth", {withCredentials: true});
-        console.log("Result", result);
-        setSignIn(true);
-      } catch (err) {
-        setSignIn(false);
-      }
-      finally {
-        setLoading(false);
-      }
-    }
-    setLoading(true);
-    checkAuth();
-  }, []);
 
   return(
     <Loader loading={loading} signIn={signIn} navigate="/profile">
