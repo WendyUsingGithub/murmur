@@ -117,7 +117,7 @@ button {
     overflow: hidden;
     color: var(--murmur-light-light-gray);
     text-decoration: none;
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
 }
 .murmur .navbar .item .icon .material-symbols-outlined {
     font-variation-settings:
