@@ -1,18 +1,17 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
-import Posts from "./posts.jsx";
+import FeedPosts from "./feedPosts.jsx";
 import "../style.css";
 
-function Feed()
-{
+function Feed() {
   return (
-    <div className="container">
+    <div className="container feed">
       <div className="content">
         <div className="row">
           <div className="col-2"></div>
           <div className="col-8">
             <div className="middle">
-              <Posts/>
+              <FeedPosts/>
             </div>
           </div>
           <div className="col-2"></div>
@@ -23,3 +22,4 @@ function Feed()
 }
 
 export default Feed;
+

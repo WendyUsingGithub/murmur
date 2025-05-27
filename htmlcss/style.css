@@ -67,7 +67,7 @@ button {
 
 /* content */
 
-.murmur .content {
+.content {
     padding-top: 14rem;
     max-width: inherit;
     width: 100%;
@@ -75,7 +75,7 @@ button {
 
 /* middle */
 
-.murmur .middle {
+.middle {
     margin: 0 8rem 0 8rem;
 }
 
@@ -84,7 +84,7 @@ button {
 #navbar {
     transition: all 0.5s;
 }
-.murmur .navbar {
+.navbar {
     position: fixed;
     top: 0;
     width: 100%;
@@ -93,7 +93,7 @@ button {
     z-index: 100;
     transition: all 0.5s ease-out;
 }
-.murmur .navbar .logo {
+.navbar .logo {
     font-family: "Fugaz One";
     font-weight: 400;
     font-size: 2rem;
@@ -102,13 +102,13 @@ button {
     text-decoration: none;
     transition: all 0.3s ease-out;
 }
-.murmur .navbar .logo:hover {
+.navbar .logo:hover {
     scale: 1.2;
 }
-.murmur .navbar .items {
+.navbar .items {
     margin-left: auto;
 }
-.murmur .navbar .item {
+.navbar .item {
     display: inline-flex;
     width: 3.5rem;
     height: 3.5rem;
@@ -119,14 +119,14 @@ button {
     text-decoration: none;
     transition: all 0.1s ease-out;
 }
-.murmur .navbar .item .icon .material-symbols-outlined {
+.navbar .item .icon .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
     'wght' 500,
     'GRAD' 0,
     'opsz' 24
 }
-.murmur .navbar .item:hover .icon .material-symbols-outlined{
+.navbar .item:hover .icon .material-symbols-outlined{
     font-variation-settings:
     'FILL' 1;
 }
@@ -135,7 +135,7 @@ input[type="search" i]::-webkit-search-cancel-button {
     display: none;
 }
 
-.murmur .navbar .search {
+.navbar .search {
     display: inline-flex;
     position: relative;
     font-size: 1.05rem;
@@ -150,7 +150,7 @@ input[type="search" i]::-webkit-search-cancel-button {
     outline: none;
     border: none;
 }
-.murmur .navbar .search .icon{
+.navbar .search .icon{
     display: inline-flex;
     position: absolute;
     top: 0;
@@ -162,7 +162,7 @@ input[type="search" i]::-webkit-search-cancel-button {
     border: none;
 }
 
-.murmur .navbar .search input{
+.navbar .search input{
     position: relative;
     top: -0.1rem;
     display: none;
@@ -174,30 +174,30 @@ input[type="search" i]::-webkit-search-cancel-button {
     font-size: 1.05rem;
     letter-spacing: 0.1rem;
 }
-.murmur .navbar .search:hover,
-.murmur .navbar .search:valid {
+.navbar .search:hover,
+.navbar .search:valid {
     width: 15rem;
     cursor: pointer;
 }
 
-.murmur .navbar .search:hover input,
-.murmur .navbar .search:valid input,
-.murmur .navbar .search:hover input:active,
-.murmur .navbar .search:hover input:focus {
+.navbar .search:hover input,
+.navbar .search:valid input,
+.navbar .search:hover input:active,
+.navbar .search:hover input:focus {
     display: block;
     background-color: var(--murmur-dark-black);
     color: var(--murmur-light-light-gray);
     font-weight: 500;
 }
-.murmur .navbar .search:hover .icon,
-.murmur .navbar .search:active .icon,
-.murmur .navbar .search:focus .icon,
-.murmur .navbar .search:valid .icon {
+.navbar .search:hover .icon,
+.navbar .search:active .icon,
+.navbar .search:focus .icon,
+.navbar .search:valid .icon {
     right: 12rem;
     color: var(--murmur-light-light-gray);
 }
 
-.murmur .navitem .material-symbols-outlined {
+.navitem .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
     'wght' 500,
@@ -205,9 +205,42 @@ input[type="search" i]::-webkit-search-cancel-button {
     'opsz' 24
 }
 
-.murmur .divider {
+.divider {
     height: 1px;
     width: 100%;
     margin: 1rem auto 1rem auto;
     background-color: var(--murmur-black);
 }
+
+/* post */
+
+.post .author {
+    padding-bottom: 2rem;
+}
+
+.post .author-name {
+    padding-bottom: 0.35rem;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-bottom: solid 0.15rem var(--murmur-dark-black);
+    letter-spacing: 0.1rem;
+    transition: all 0.1s;
+}
+
+.post .author-name:hover {
+    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+}
+
+.post .paragraphs {
+    padding-bottom: 2.5rem;
+    border-bottom: solid 1.5px var(--murmur-black);
+}
+
+/* .post p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+    margin-bottom: 1.4rem;
+} */

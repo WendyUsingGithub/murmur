@@ -42,6 +42,15 @@ button {
     outline: none;
     border-color: none;
 }
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    padding-bottom: 1.4rem;
+    text-align: justify;
+}
 .vh {
     height: 100vh;
 }
