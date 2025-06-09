@@ -4,11 +4,109 @@
   box-sizing: border-box;
 }
 
+.feeds{
+    padding-bottom: 12rem;
+}
+
+.author {
+    padding-bottom: 1.5rem;
+}
+.author-name {
+    cursor: pointer;
+    padding-bottom: 0.35rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-bottom: solid 0.15rem var(--murmur-dark-black);
+    letter-spacing: 0.1rem;
+    text-align: left;
+    transition: all 0.1s;
+}
+.author-name:hover {
+    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+}
+
+p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    margin-bottom: 1.2rem;
+    text-align: justify;
+}
+
+.interact .interact_item {
+    display: inline-block;
+    cursor: pointer;
+}
+.interact .number {
+    display: inline-block;
+    position: relative;
+    bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--murmur-light-light-gray);
+    padding: 1rem 1.2rem 0rem 0;
+    letter-spacing: 0.1rem;
+}
+.interact .material-symbols-outlined {
+    display: inline-block;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 24;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding: 1rem 0.2rem 0rem 0;
+}
+.interact .interact_item:hover .material-symbols-outlined,
+.interact .interact_item:focus .material-symbols-outlined
+ {
+    font-variation-settings:
+    'FILL' 1;
+}
+
+.profile .divider {
+    height: 1px;
+    width: 100%;
+    margin: 2rem auto 2rem auto;
+    background-color: var(--murmur-black);
+}
+
+.post-tags {
+    text-align: left;
+    margin-top: 1.5rem;
+    color: var(--murmur-light-light-gray);
+}
+.post-tag::before {
+    font-family: "Open Sans";
+    position: relative;
+    right: 0rem;
+    font-size: 1.05rem;
+    content: "#";
+}  
+.post-tag input{
+    width: calc(100% - 1.05rem);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.06rem;
+    padding: 0rem 0.2rem 0.2rem 0.2rem;
+    color: var(--murmur-light-light-gray);
+    border-bottom: solid 0.15rem var(--murmur-dark-black);
+    background-color: var(--murmur-dark-black);
+    outline: none;
+    border: none;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* post */
 
 .post .author {
     padding-bottom: 2rem;
 }
+
 .post .author-name {
     padding-bottom: 0.35rem;
     cursor: pointer;
@@ -18,20 +116,22 @@
     letter-spacing: 0.1rem;
     transition: all 0.1s;
 }
-.post .author-name:hover{
+
+.post .author-name:hover {
     border-bottom: solid 0.15rem var(--murmur-light-light-gray);
 }
 
-.post .paragraphs{
+.post .paragraphs {
     padding-bottom: 2.5rem;
     border-bottom: solid 1.5px var(--murmur-black);
 }
-.post p{
+
+.post p {
     font-size: 1.05rem;
     line-height: 1.6;
     letter-spacing: 0.08rem;
     text-align: justify;
-    /* margin-bottom: 1.4rem; */
+    margin-bottom: 1.4rem;
 }
 
 /* post tag */
@@ -40,13 +140,15 @@
     text-align: left;
     margin-top: 2.5rem;
 }
+
 .post .post-tag::before {
     font-family: "Open Sans";
     position: relative;
     right: 0.2rem;
     font-size: 1.05rem;
     content: "#";
-}  
+}
+
 .post .post-tag {
     display: inline-flex;
     padding: 0rem 0.2rem 0.2rem 0.2rem;
@@ -58,6 +160,7 @@
     margin-right: 0.6rem;
     transition: all 0.1s;
 }
+
 .post .post-tag:hover,
 .post .post-tag:focus {
     border-bottom: solid 0.15rem var(--murmur-light-light-gray);
@@ -81,6 +184,7 @@
     letter-spacing: 0.1rem;
     transition: all 0.1s ease-out;
 }
+
 .post .comment .author-name:hover {
     color: var(--murmur-light-light-gray);
     border-bottom: solid 0.15rem var(--murmur-light-light-gray);
@@ -91,6 +195,7 @@
     position: relative;
     color: var(--murmur-dark-gray);
 }
+
 .post .leave-comment .content {
     width: 100%;
     line-height: 1.6;
@@ -106,11 +211,13 @@
     overflow-y: hidden;
     border: none;
 }
+
 .post .leave-comment .content:active,
-.post .leave-comment .content:focus {    
+.post .leave-comment .content:focus {
     outline: none;
     border: none;
 }
+
 .post .leave-comment .content:focus::placeholder {
     color: transparent;
 }
@@ -119,10 +226,12 @@
     display: none;
     position: absolute;
     right: -6rem;
-    bottom: 0;;
+    bottom: 0;
+    ;
     cursor: pointer;
     padding: 2rem;
 }
+
 .post .leave-comment .empty {
     display: block;
     color: var(--murmur-dark-gray);
@@ -135,14 +244,15 @@
 
 .post .leave-comment .active:hover {
     font-variation-settings:
-    'FILL' 1;
+        'FILL' 1;
 }
 
 .post .comment {
     color: var(--murmur-light-light-gray);
     margin: 2rem 0 2rem 0;
 }
-.post .comment p{
+
+.post .comment p {
     font-size: 1.05rem;
     line-height: 1.6;
     letter-spacing: 0.08rem;
@@ -156,10 +266,10 @@
     font-weight: 300;
 
     font-variation-settings:
-    'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24
+        'FILL' 0,
+        'wght' 200,
+        'GRAD' 0,
+        'opsz' 24
 }
 
 .post .comment-content {
@@ -170,13 +280,31 @@
     margin-bottom: 1.4rem;
 }
 
-.post .comments .subComment2 {
-    padding-left: 2rem;
+.col-2 {
+
+}
+.left-panel {
+    padding-top: 0.15rem;
+    position: sticky;
+    top: 5rem;
+    left: 0;
+}
+.left-panel .author-name {
+    font-size: 1.05rem;
+}
+.left-panel p {
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
-.post .divider {
-    height: 1px;
-    width: 100%;
-    margin: 0 auto 0 auto;
-    background-color: var(--murmur-black);
+.right-panel {
+    padding-top: 3.25rem;
+    position: sticky;
+    top: 7rem;
+    left: 0;
+}
+
+.right-panel p {
+    font-size: 0.9rem;
+    line-height: 1.6;
 }

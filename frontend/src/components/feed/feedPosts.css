@@ -1,0 +1,11 @@
+.feed .posts {
+    padding-bottom: 15rem;
+}
+
+.feed .parapraphs {
+    cursor: pointer;
+}
+
+.feed .post-tags {
+    display: none;
+}

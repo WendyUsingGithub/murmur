@@ -15,7 +15,7 @@ app.use(cors({
 const JWT_SECRET = "murmurSecretKey";
 const port = 3001;
 
-const {MongoClient} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb");
 var url = "mongodb://localhost:27017/mydb";
 const client = new MongoClient(url);
 const db = client.db("murmur");
@@ -47,6 +47,66 @@ app.listen(3001, () => {
   console.log("Server listining on http://localhost:3001");
 })
 
+// insert(
+//   "black_cat",
+//   "一般來講，我們都必須務必慎重的考慮考慮。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。\n貓的出現，必將帶領人類走向更高的巔峰。\n深入的探討貓，是釐清一切的關鍵。\n一般來講，我們都必須務必慎重的考慮考慮。",
+//   "2025-01-01T10:00:00",
+//   [
+//     [
+//       "tuxedo_cat",
+//       "貓真的太可愛了。",
+//       "2025-01-01T10:00:00"
+//     ],
+//     [
+//       "tabby",
+//       "我也想要一隻黑貓。",
+//       "2025-01-01T10:00:00"
+//     ]
+//   ]
+// );
+
+// insert(
+//   "black_cat",
+//   "一般來講，我們都必須務必慎重的考慮考慮。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。\n貓的出現，必將帶領人類走向更高的巔峰。\n深入的探討貓，是釐清一切的關鍵。\n一般來講，我們都必須務必慎重的考慮考慮。",
+//   "2025-01-01T10:00:00",
+//   [
+//     [
+//       "tuxedo_cat",
+//       "貓真的太可愛了。",
+//       "2025-01-01T10:00:00",
+//       [
+//         [
+//           "orange_cat",
+//           "你說的真對。",
+//           "2025-03-01T10:00:00"
+//         ],
+//         [
+//           "orange_cat",
+//           "你說的真對。",
+//           "2025-03-01T10:00:00"
+//         ],
+//       ]
+//     ],
+//     [
+//       "tabby",
+//       "我也想要一隻黑貓。",
+//       "2025-01-01T11:00:00",
+//       [
+//         [
+//           "orange_cat",
+//           "你說的真對。",
+//           "2025-03-01T10:00:00"
+//         ],
+//         [
+//           "orange_cat",
+//           "你說的真對。",
+//           "2025-03-01T10:00:00"
+//         ],
+//       ]
+//     ]
+//   ]
+// );
+
 process.on("SIGINT", async () => {
     await closeDB();
     console.log("Process end! Bye!");
@@ -62,17 +122,25 @@ class UserData {
   }
 }
 
-async function insert(author, createAt, content) {
+async function insert(author, content, createdAt, comments = []) {
   const db = client.db("murmur");
   const coll = db.collection("posts");
-  if(createAt == null) {
-    createAt = new Date("2025-01-01T10:00:00");
-  }
-  console.log(typeof createAt);
-  console.log(createAt);
 
-  const result = await coll.insertOne({ author, createAt, content });
-  console.log(result.insertedId);
+  const formattedComments = comments.map(comment => ({
+    author: comment[0],
+    content: comment[1],
+    createdAt: new Date(comment[2])
+  }));
+
+  const post = {
+    author: author,
+    content: content,
+    createdAt: new Date(createdAt),
+    comments: formattedComments
+  };
+
+  const result = await coll.insertOne(post);
+  console.log("Inserted post with ID:", result.insertedId);
 }
 
 async function insertUserData(userData) {
@@ -87,50 +155,84 @@ async function findUserData(mail, password) {
 }
 
 async function findOne() {
-  await client.connect();
   const db = client.db("murmur");
   const coll = db.collection("posts");
   const doc = await coll.findOne({
-    createAt: {
-      $gte: new Date("2024-12-01T00:00:00").toISOString(),
-      $lte: new Date("2025-01-05T23:59:59").toISOString(),
+    createdAt: {
+      $gte: new Date("2020-01-01T10:00:00"),
+      $lte: new Date("2026-01-01T10:00:00"),
     },
   });
   return doc;
 };
 
-async function find() {
-  await client.connect();
+function find() {
   const db = client.db("murmur");
   const coll = db.collection("posts");
   const cursor = coll
     .find({
-      createAt: {
-        $gte: new Date("2020-01-01T00:00:00Z").toISOString(),
-        $lte: new Date("2025-01-30T23:59:59Z").toISOString(),
+      createdAt: {
+        $gte: new Date("2020-01-01T10:00:00"),
+        $lte: new Date("2026-01-01T10:00:00"),
       },
     }).limit(5);
   return cursor;
 };
 
-app.post("/posts", (req, res) => {
-  console.log("POSTS");
-  find().then(async(cursor)=>{
+async function findPostById(id) {
+  const db = client.db("murmur");
+  const coll = db.collection("posts");
+  const post = await coll.findOne({_id: new ObjectId(id)});
+  return post;
+};
+
+app.post("/posts", async (req, res) => {
+  try {
+    const cursor = await find();
     let postsData = [];
+
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
-      const postData =
-      {
+      const postData = {
         id: doc._id.toString(),
         author: doc.author,
         content: doc.content,
-        createdAt: doc.createAt
+        createdAt: doc.createAt,
       };
+      // console.log(postData);
       postsData.push(postData);
     }
+
     res.json(postsData);
-  })
-})
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/post", async (req, res) => {
+  console.log("POST");
+  const {id} = req.body;
+  // console.log("ID", id);
+
+  try {
+    const doc = await findPostById(id);
+    const postData = {
+      id: doc._id.toString(),
+      author: doc.author,
+      content: doc.content,
+      createdAt: doc.createAt,
+      comments: doc.comments
+    };
+
+    console.log("%%%", postData);
+
+    res.json(postData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app.post("/register", async (req, res) => {
   console.log("REGISTER");
@@ -195,7 +297,7 @@ app.post("/write", async (req, res) => {
 
 
 app.get("/auth", (req, res) => {
-  console.log("AUTH");
+  // console.log("AUTH");
   const token = req.cookies.murmurToken;
   if (!token) return res.status(401).json({ error: "No token" });
     

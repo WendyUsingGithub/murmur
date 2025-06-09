@@ -4,120 +4,56 @@
   box-sizing: border-box;
 }
 
-/* post */
-
 .post .author {
-    padding-bottom: 2rem;
-}
-.post .author-name {
-    padding-bottom: 0.35rem;
-    cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border-bottom: solid 0.15rem var(--murmur-dark-black);
-    letter-spacing: 0.1rem;
-    transition: all 0.1s;
-}
-.post .author-name:hover{
-    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
-}
-
-.post p{
-    font-size: 1.05rem;
-    line-height: 1.6;
-    letter-spacing: 0.08rem;
-    text-align: justify;
-    margin-bottom: 1.4rem;
-}
-
-/* post tag */
-
-.post .post-tags {
-    text-align: left;
-    margin-top: 2.5rem;
-}
-.post .post-tag::before {
-    font-family: "Open Sans";
-    position: relative;
-    right: 0.2rem;
-    font-size: 1.05rem;
-    content: "#";
-}  
-.post .post-tag {
-    display: inline-flex;
-    padding: 0rem 0.2rem 0.2rem 0.2rem;
-    font-size: 0.95rem;
-    font-weight: 400;
-    letter-spacing: 0.06rem;
-    cursor: pointer;
-    border-bottom: solid 0.15rem var(--murmur-dark-black);
-    margin-right: 0.6rem;
-    transition: all 0.1s;
-}
-.post .post-tag:hover,
-.post .post-tag:focus {
-    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
-}
-
-.post .comments {
-    padding-bottom: 9rem;
-    cursor: pointer;
-}
-
-.post .comment .author {
     padding-bottom: 1.4rem;
 }
-
-.post .comment .author-name {
-    padding-bottom: 0.35rem;
+.post .author-name {
+    display: flex;
     cursor: pointer;
-    font-size: 1.05rem;
+    align-items: center;
+    font-size: 1rem;
     font-weight: 600;
-    border-bottom: solid 0.15rem var(--murmur-dark-black);
     letter-spacing: 0.1rem;
-    transition: all 0.1s ease-out;
-}
-.post .comment .author-name:hover {
-    color: var(--murmur-light-light-gray);
-    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+    text-align: left;
 }
 
-
-.post .leave-comment {
-    color: var(--murmur-dark-gray);
-    margin: 2rem 0 2rem 0;
-}
-.post .comment {
-    color: var(--murmur-light-light-gray);
-    margin: 2rem 0 2rem 0;
-}
-.post .comment p{
-    font-size: 1.05rem;
-    line-height: 1.6;
-    letter-spacing: 0.08rem;
-    text-align: justify;
-    margin-bottom: 1.4rem;
-    transition: all 0.2s ease-out;
+.post .author-name:before {
+    background-color: var(--murmur-white);
+    content: "";
+    display: inline-block;
+    height: 0.15rem;
+    width: 0;
+    transition: all 0.2s linear;
 }
 
-.post .comment .material-symbols-outlined {
-    font-size: 1.8rem;
-    font-weight: 300;
+.post .author-name:hover:before {
+    margin-right: 0.5rem;
+    width: 2rem;
+}
 
+.post .interact .item {
+    cursor: pointer;
+}
+.post .interact .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24
-
+    'wght' 300,
+    'GRAD' 24;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 0.3rem;
 }
-
-.post .commen-contentt {
-    display: flex;
-    border-bottom: solid 1.5px var(--murmur-black);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    letter-spacing: 0.08rem;
-    text-align: justify;
-    margin-bottom: 1.4rem;
+.post .interact .number {
+    position: relative;
+    bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 1.3rem;
+    letter-spacing: 0.1rem;
+}
+.post .interact .item:hover .material-symbols-outlined,
+.post .interact .item:focus .material-symbols-outlined
+ {
+    font-variation-settings:
+    'FILL' 1;
 }

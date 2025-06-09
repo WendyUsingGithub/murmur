@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.leave-comment {
+  position: relative;
+  color: var(--murmur-dark-gray);
+}
+
+.leave-comment .textArea {
+  width: 100%;
+  line-height: 1.6;
+  min-height: 1.6rem;
+  height: auto;
+  padding: 0 0 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.08rem;
+  font-family: "Noto Sans TC";
+  color: var(--murmur-light-light-gray);
+  background-color: var(--murmur-dark-black);
+  resize: none;
+  overflow-y: hidden;
+  border: none;
+}
+
+.leave-comment .textArea:active,
+.leave-comment .textArea:focus {
+  outline: none;
+  border: none;
+}
+
+.leave-comment .textArea:focus::placeholder {
+  color: transparent;
+}
+
+.leave-comment .material-symbols-outlined {
+  display: none;
+  position: absolute;
+  right: -6rem;
+  bottom: 0;
+  cursor: pointer;
+  padding: 2rem;
+}
+
+.leave-comment .empty {
+  display: block;
+  color: var(--murmur-dark-gray);
+}
+
+.leave-comment .active {
+  display: block;
+  color: var(--murmur-white);
+}
+
+.postComment .leave-comment .active:hover {
+  font-variation-settings:
+    'FILL' 1;
+}

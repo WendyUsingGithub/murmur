@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+TC:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+TC:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
 :root {
@@ -42,6 +42,15 @@ button {
     outline: none;
     border-color: none;
 }
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 0.08rem;
+    padding-bottom: 1.4rem;
+    text-align: justify;
+}
 .vh {
     height: 100vh;
 }
@@ -81,36 +90,8 @@ button {
     margin: 0 8rem 0 8rem;
 }
 .divider {
-    display: flex;
     height: 1px;
     width: 100%;
-    margin: 2rem auto 2rem auto;
+    margin: 1.4rem 0 1.4rem 0;
     background-color: var(--murmur-black);
 }
-
-/* 
-.fade-in {
-    animation: fadeIn 0.3s ease-out forwards;
-}
-
-.fade-out {
-    animation: fadeOut 0.3s ease-out forwards;
-} */
-/* 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-} */

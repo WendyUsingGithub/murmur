@@ -1,0 +1,72 @@
+.comment .author {
+  padding-bottom: 1.4rem;
+}
+
+.comment .author-name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: solid 0.15rem var(--murmur-dark-black);
+  letter-spacing: 0.1rem;
+}
+
+.comment .author-name:before {
+  background-color: var(--murmur-white);
+  content: "";
+  display: inline-block;
+  height: 0.15rem;
+  width: 0;
+  transition: all 0.15s linear;
+}
+
+.comment .author-name:hover:before {
+  margin-right: 0.5rem;
+  width: 1.5rem;
+}
+
+.comment .divider {
+  margin: 0rem auto 1.4rem auto;
+}
+
+.comment .expandIcon {
+  position: relative;
+  right: -3rem;
+  bottom: 1.5rem;
+  height: 3rem;
+  width: 3rem;
+  margin-left: auto;
+  transition: linear 0.05s;
+}
+
+.comment .expandIcon:hover {
+  scale: 1.2;
+}
+.comment .expandIcon:hover .expandIconHorizontal, 
+.comment .expandIcon:hover .expandIconVerticle {
+  background-color: var(--murmur-light-gray);
+}
+.comment .expandIconHorizontal {
+  position: relative;
+  right: -1rem;
+  top: 1.5rem;
+  height: 1px;
+  width: 1rem;
+  background-color: var(--murmur-black);
+}
+
+.comment .expandIconVerticle {
+  position: relative;
+  right: -1rem;
+  top: 1.5rem;
+  height: 1px;
+  width: 1rem;
+  background-color: var(--murmur-black);
+  transform: rotate(90deg);
+} 
+
+.comment p {
+  padding-bottom: 1.4rem;
+  font-size: 1rem;
+}
