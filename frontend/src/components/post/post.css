@@ -5,29 +5,32 @@
 }
 
 .post .author {
-    margin: 2rem 0 1.5rem 0;
+    padding-bottom: 1.4rem;
 }
 .post .author-name {
+    display: flex;
     cursor: pointer;
-    padding-bottom: 0.35rem;
-    font-size: 1.05rem;
+    align-items: center;
+    font-size: 1rem;
     font-weight: 600;
-    border-bottom: solid 0.15rem var(--murmur-dark-black);
     letter-spacing: 0.1rem;
     text-align: left;
-    transition: all 0.1s;
-}
-.post .author-name:hover {
-    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
 }
 
-.parapraphs {
-    cursor: pointer;
+.post .author-name:before {
+    background-color: var(--murmur-white);
+    content: "";
+    display: inline-block;
+    height: 0.15rem;
+    width: 0;
+    transition: all 0.2s linear;
 }
 
-.post .interact {
-    padding-top: 0.7em;
+.post .author-name:hover:before {
+    margin-right: 0.5rem;
+    width: 2rem;
 }
+
 .post .interact .item {
     cursor: pointer;
 }

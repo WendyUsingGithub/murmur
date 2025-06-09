@@ -1,51 +1,49 @@
 import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 
+import Paragraph from "../paragraph/paragraph.jsx"
+
 import "../style.css"
 import "./comment.css"
 
-function Comment(author, content) {
+function Comment({comment}) {
 
-  const [comment, setComment] = useState([]);
+  const [paragraphs, setParagraphs] = useState([]);
+  const [author, setAuthor] = useState();
 
   useEffect(() => {
     function parseContent(content) {
-      const sentences = content.split("\n\n");
-      for(let i=0; i<sentences.length; i++) {
-        sentences[i] = sentences[i].replaceAll("\n", "<br>");
+      const parapraphs = content.split("\n\n");
+      for(let i=0; i<parapraphs.length; i++) {
+        parapraphs[i] = parapraphs[i].replaceAll("\n", "<br>");
       }
-    const commentHTML = sentences.map((sentence, index) => (
-      <p key={index} dangerouslySetInnerHTML={{__html:sentence}}/>
-    ));
-    setComment(commentHTML);
-  }
-  parseContent(content);  
-}, [content]);
+    setAuthor(comment.author);
+    setParagraphs(parapraphs);
+    }
+    parseContent(comment.content);
+}, [comment]);
 
   return (
     <div className="comment">
       <div className="author">
         <span className="author-name">
-          orange_cat
+          {author}
         </span>
       </div>
 
-      <div className="comment-content">
-        <p>
-          我們不妨可以這樣來想:做好貓咪這件事，可以說已經成為了全民運動。
-          {comment}
-        </p>
+      <div>
+        {paragraphs.map((paragraph, index) =>
+          <Paragraph key={index} sentence={paragraph}/>
+        )}
       </div>
+      
       <div className="divider"></div>
     </div>
-
   )
-
 }
 
 Comment.propTypes = {
-  author: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  comment: PropTypes.object.isRequired,
 }
 
 export default Comment

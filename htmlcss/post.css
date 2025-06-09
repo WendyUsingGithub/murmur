@@ -169,6 +169,11 @@
     text-align: justify;
     margin-bottom: 1.4rem;
 }
+
+.post .comments .subComment2 {
+    padding-left: 2rem;
+}
+
 .post .divider {
     height: 1px;
     width: 100%;

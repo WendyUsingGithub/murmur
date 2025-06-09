@@ -9,6 +9,7 @@ import {useParams} from "react-router-dom";
 
 import Post from "../post/post.jsx";
 import Comments from "./comments.jsx"
+import LeaveComment from "./leaveComment.jsx"
 
 function PostComment() {
   const {id} = useParams();
@@ -18,7 +19,7 @@ function PostComment() {
     async function fetchData() {
       try {
         const result = await axios.post("http://localhost:3001/post", {id:id});
-        console.log("RESULT!!!");
+        console.log("RESULT");
         console.log(result);
 
         let postData = {
@@ -27,7 +28,7 @@ function PostComment() {
           content: result.data.content,
           comments: result.data.comments
         }
-        console.log("POSTDATA!!");
+        console.log("POSTDATA");
         console.log(postData);
         setData(postData);
         
@@ -40,14 +41,15 @@ function PostComment() {
 
   if (postData) {
     return(
-    <div className="container feed">
+    <div className="container postComment">
       <div className="content">
         <div className="row">
           <div className="col-2"></div>
           <div className="col-8">
             <div className="middle">
               <Post postId={postData.id} author={postData.author} content={postData.content}/>
-              <Comments postId={postData.id} content={postData.comments}/>
+              <LeaveComment/>
+              <Comments postId={postData.id} comments={postData.comments}/>
             </div>
           </div>
           <div className="col-2"></div>

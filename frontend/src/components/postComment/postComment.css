@@ -4,157 +4,52 @@
   box-sizing: border-box;
 }
 
-/* post */
-
-.postComment .author {
-  padding-bottom: 2rem;
-}
-
-.postComment .author-name {
-  padding-bottom: 0.35rem;
-  cursor: pointer;
-  font-size: 1.05rem;
-  font-weight: 600;
-  border-bottom: solid 0.15rem var(--murmur-dark-black);
-  letter-spacing: 0.1rem;
-  transition: all 0.1s;
-}
-
-.postComment .author-name:hover {
-  border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+.postComment .parapraphs {
+  cursor: auto;
 }
 
 .postComment .paragraphs {
   padding-bottom: 2.5rem;
   border-bottom: solid 1.5px var(--murmur-black);
+} 
+
+.postComment .post-tags {
+  display: block;
 }
 
-/* post tag */
-
-.postComment .postComment-tags {
+.postComment .post-tags {
   text-align: left;
-  margin-top: 2.5rem;
+  padding-bottom: 1.4rem;
 }
 
-.postComment .postComment-tag::before {
-  font-family: "Open Sans";
+.postComment .post-tag::before {
+  font-family: "Roboto Mono";
   position: relative;
-  right: 0.2rem;
   font-size: 1.05rem;
-  content: "#";
+  content: "###";
+  width: 1.3ch;
+  overflow: hidden;
+  transition: all 0.15s linear;
+  letter-spacing: 0.3ch;
+  box-sizing: border-box;
 }
 
-.postComment .postComment-tag {
+.postComment .post-tag {
   display: inline-flex;
-  padding: 0rem 0.2rem 0.2rem 0.2rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: 0.06rem;
   cursor: pointer;
-  border-bottom: solid 0.15rem var(--murmur-dark-black);
-  margin-right: 0.6rem;
-  transition: all 0.1s;
 }
 
-.postComment .postComment-tag:hover,
-.postComment .postComment-tag:focus {
-  border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+.postComment .post-tag:hover::before {
+  width: 4.1ch;
 }
 
 .postComment .comments {
   padding-bottom: 9rem;
   cursor: pointer;
 }
-
-.postComment .comment .author {
-  padding-bottom: 1.4rem;
-}
-
-.postComment .comment .author-name {
-  padding-bottom: 0.35rem;
-  cursor: pointer;
-  font-size: 1.05rem;
-  font-weight: 600;
-  border-bottom: solid 0.15rem var(--murmur-dark-black);
-  letter-spacing: 0.1rem;
-  transition: all 0.1s ease-out;
-}
-
-.postComment .comment .author-name:hover {
-  color: var(--murmur-light-light-gray);
-  border-bottom: solid 0.15rem var(--murmur-light-light-gray);
-}
-
-
-.postComment .leave-comment {
-  position: relative;
-  color: var(--murmur-dark-gray);
-}
-
-.postComment .leave-comment .content {
-  width: 100%;
-  line-height: 1.6;
-  min-height: 3.6rem;
-  height: auto;
-  padding: 2rem 0 2rem 0;
-  font-size: 1.05rem;
-  letter-spacing: 0.08rem;
-  font-family: "Noto Sans TC";
-  color: var(--murmur-light-light-gray);
-  background-color: var(--murmur-dark-black);
-  resize: none;
-  overflow-y: hidden;
-  border: none;
-}
-
-.postComment .leave-comment .content:active,
-.postComment .leave-comment .content:focus {
-  outline: none;
-  border: none;
-}
-
-.postComment .leave-comment .content:focus::placeholder {
-  color: transparent;
-}
-
-.postComment .leave-comment .material-symbols-outlined {
-  display: none;
-  position: absolute;
-  right: -6rem;
-  bottom: 0;
-  ;
-  cursor: pointer;
-  padding: 2rem;
-}
-
-.postComment .leave-comment .empty {
-  display: block;
-  color: var(--murmur-dark-gray);
-}
-
-.postComment .leave-comment .active {
-  display: block;
-  color: var(--murmur-light-light-gray);
-}
-
-.postComment .leave-comment .active:hover {
-  font-variation-settings:
-    'FILL' 1;
-}
-
-.postComment .comment {
-  color: var(--murmur-light-light-gray);
-  margin: 2rem 0 2rem 0;
-}
-
-/* .postComment .comment p {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  letter-spacing: 0.08rem;
-  text-align: justify;
-  margin-bottom: 1.4rem;
-  transition: all 0.2s ease-out;
-} */
 
 .postComment .comment .material-symbols-outlined {
   font-size: 1.8rem;

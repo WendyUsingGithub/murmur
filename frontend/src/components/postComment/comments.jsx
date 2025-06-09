@@ -1,23 +1,23 @@
-// import propTypes from "prop-types"
+import PropTypes from "prop-types"
 
+import Comment from "./comment.jsx"
 
-function Comments({postId, content}) {
-  console.log("Comments!!!");
-
+function Comments({postId, comments}) {
   console.log(postId);
-  console.log(content);
+  console.log(comments);
 
-  // const [comments, setComments] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(comm)
-  // }
-
-  // )
-
-  return (
-    <p>{content[0].content}</p>
+  return  (              
+    <div className="comments">
+      {comments.map((comment, index) =>
+        <Comment key={index} comment={comments[index]}/>
+      )}
+    </div>
   )
+}
+
+Comments.propTypes = {
+  postId: PropTypes.string.isRequired,
+  comments: PropTypes.string.isRequired
 }
 
 export default Comments
