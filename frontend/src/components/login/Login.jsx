@@ -117,7 +117,6 @@ function Login() {
     } finally {
       setLoading(false);
     }
-
   }
 
   async function registerHandler(event) {

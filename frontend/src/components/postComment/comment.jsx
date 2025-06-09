@@ -11,6 +11,10 @@ function Comment({comment}) {
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState();
 
+  function expandIconOnClickHandler() {
+
+  }
+  
   useEffect(() => {
     function parseContent(content) {
       const parapraphs = content.split("\n\n");
@@ -37,7 +41,12 @@ function Comment({comment}) {
         )}
       </div>
       
-      <div className="divider"></div>
+      <div className="divider">
+        <div className="expandIcon" onClick={expandIconOnClickHandler}>
+          <div className="expandIconHorizontal"></div>
+          <div className="expandIconVerticle"></div>
+        </div>
+      </div>
     </div>
   )
 }
