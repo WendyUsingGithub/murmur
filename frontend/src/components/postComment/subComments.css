@@ -1,0 +1,11 @@
+.subComments {
+  padding-left: 1.5rem;
+}
+
+.subCommentEndingDivider {
+  position: relative;
+  bottom: calc(1.4rem + 1px);
+  height: 1px;
+  width: 100%;
+  background-color: var(--murmur-black);
+}

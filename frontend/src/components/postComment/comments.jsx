@@ -9,7 +9,7 @@ function Comments({postId, comments}) {
   return  (              
     <div className="comments">
       {comments.map((comment, index) =>
-        <Comment key={index} comment={comments[index]}/>
+        <Comment key={index} comment={comment}/>
       )}
     </div>
   )

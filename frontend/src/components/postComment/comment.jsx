@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 
+import SubComments from "./subComments.jsx"
 import Paragraph from "../paragraph/paragraph.jsx"
 
 import "../style.css"
@@ -8,11 +9,29 @@ import "./comment.css"
 
 function Comment({comment}) {
 
+  console.log(comment);
+
   const [paragraphs, setParagraphs] = useState([]);
-  const [author, setAuthor] = useState();
+  const [author, setAuthor] = useState(null);
+  const subCommentsRef = useRef(null);
+  const [subCommentsVisibility, setSubCommentsVisibility] = useState("subCommentsHide");
+  const [iconVisibility, setExpandIconVisibility] = useState("iconShow");
+  const [collapseIconVisibility, setCollapseIconVisibility] = useState("iconHide");
+  
+  function iconOnClickHandler() {
+    const subComments = subCommentsRef.current;
+    subComments.style.maxHeight = `${subComments.scrollHeight}px`;
+    setSubCommentsVisibility("subCommentsShow");
+    setExpandIconVisibility("iconHide");
+    setCollapseIconVisibility("iconShow");
+  }
 
-  function expandIconOnClickHandler() {
-
+  function collapseIconOnClickHandler() {
+    const subComments = subCommentsRef.current;
+    subComments.style.maxHeight = "0px";
+    setSubCommentsVisibility("subCommentsHide");
+    setExpandIconVisibility("iconShow");
+    setCollapseIconVisibility("iconHide");
   }
   
   useEffect(() => {
@@ -20,7 +39,7 @@ function Comment({comment}) {
       const parapraphs = content.split("\n\n");
       for(let i=0; i<parapraphs.length; i++) {
         parapraphs[i] = parapraphs[i].replaceAll("\n", "<br>");
-      }
+    }
     setAuthor(comment.author);
     setParagraphs(parapraphs);
     }
@@ -42,10 +61,21 @@ function Comment({comment}) {
       </div>
       
       <div className="divider">
-        <div className="expandIcon" onClick={expandIconOnClickHandler}>
-          <div className="expandIconHorizontal"></div>
-          <div className="expandIconVerticle"></div>
+        <div className={`icon ${iconVisibility}`} onClick={iconOnClickHandler}>
+          <div>
+            <div className="iconHorizontal"></div>
+            <div className="iconVerticle"></div>
+          </div>
         </div>
+        <div className={`icon ${collapseIconVisibility}`} onClick={collapseIconOnClickHandler}>
+          <div>
+            <div className="iconHorizontal"></div>
+          </div>
+        </div>
+      </div>
+
+      <div className={subCommentsVisibility} ref={subCommentsRef}>
+        <SubComments subComments={comment.subComments}/>
       </div>
     </div>
   )

@@ -12,11 +12,11 @@ function Navbar() {
     let currentScrollY = window.scrollY;
     if (navbarRef.current) {
       if (prevScrollY.current >= currentScrollY) {
-        navbarRef.current.classList.remove("hide");
-        navbarRef.current.classList.add("show");
+        navbarRef.current.classList.remove("navbarHide");
+        navbarRef.current.classList.add("navbarShow");
       } else {
-        navbarRef.current.classList.remove("show");
-        navbarRef.current.classList.add("hide");
+        navbarRef.current.classList.remove("navbarShow");
+        navbarRef.current.classList.add("navbarHide");
       }
     }
     prevScrollY.current = currentScrollY;

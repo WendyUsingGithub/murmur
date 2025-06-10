@@ -65,47 +65,47 @@ app.listen(3001, () => {
 //   ]
 // );
 
-// insert(
-//   "black_cat",
-//   "一般來講，我們都必須務必慎重的考慮考慮。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。\n貓的出現，必將帶領人類走向更高的巔峰。\n深入的探討貓，是釐清一切的關鍵。\n一般來講，我們都必須務必慎重的考慮考慮。",
-//   "2025-01-01T10:00:00",
-//   [
-//     [
-//       "tuxedo_cat",
-//       "貓真的太可愛了。",
-//       "2025-01-01T10:00:00",
-//       [
-//         [
-//           "orange_cat",
-//           "你說的真對。",
-//           "2025-03-01T10:00:00"
-//         ],
-//         [
-//           "orange_cat",
-//           "你說的真對。",
-//           "2025-03-01T10:00:00"
-//         ],
-//       ]
-//     ],
-//     [
-//       "tabby",
-//       "我也想要一隻黑貓。",
-//       "2025-01-01T11:00:00",
-//       [
-//         [
-//           "orange_cat",
-//           "你說的真對。",
-//           "2025-03-01T10:00:00"
-//         ],
-//         [
-//           "orange_cat",
-//           "你說的真對。",
-//           "2025-03-01T10:00:00"
-//         ],
-//       ]
-//     ]
-//   ]
-// );
+insert(
+  "black_cat",
+  "一般來講，我們都必須務必慎重的考慮考慮。這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。\n貓的出現，必將帶領人類走向更高的巔峰。\n深入的探討貓，是釐清一切的關鍵。\n一般來講，我們都必須務必慎重的考慮考慮。",
+  "2025-01-01T10:00:00",
+  [
+    [
+      "tuxedo_cat",
+      "貓真的太可愛了。",
+      "2025-01-01T10:00:00",
+      [
+        [
+          "orange_cat",
+          "你說的真對。",
+          "2025-03-01T10:00:00"
+        ],
+        [
+          "orange_cat",
+          "你說的真對。",
+          "2025-03-01T10:00:00"
+        ],
+      ]
+    ],
+    [
+      "tabby",
+      "我也想要一隻黑貓。",
+      "2025-01-01T11:00:00",
+      [
+        [
+          "orange_cat",
+          "你說的真對。",
+          "2025-03-01T10:00:00"
+        ],
+        [
+          "orange_cat",
+          "你說的真對。",
+          "2025-03-01T10:00:00"
+        ],
+      ]
+    ]
+  ]
+);
 
 process.on("SIGINT", async () => {
     await closeDB();
@@ -126,11 +126,25 @@ async function insert(author, content, createdAt, comments = []) {
   const db = client.db("murmur");
   const coll = db.collection("posts");
 
-  const formattedComments = comments.map(comment => ({
-    author: comment[0],
-    content: comment[1],
-    createdAt: new Date(comment[2])
-  }));
+
+  const formattedComments = comments.map(comment => {
+    const [commentAuthor, commentContent, commentCreatedAt, subComments=[]] = comment;
+
+    const formattedSubComments = subComments.map(subComment => {
+      const [subCommentAuthor, subCommentContent, subCommentCreatedAt] = subComment;
+      return {
+        author: subCommentAuthor,
+        content: subCommentContent,
+        createdAt: new Date(subCommentCreatedAt)
+      }
+    });
+    return {
+      author: commentAuthor,
+      content: commentContent,
+      createdAt: new Date(commentCreatedAt),
+      subComments: formattedSubComments
+    }
+  });
 
   const post = {
     author: author,

@@ -12,11 +12,6 @@ function FeedPosts() {
     async function fetchData() {
       try {
         const result = await axios.post("http://localhost:3001/posts", {wendy:"wendy"});
-    
-        // console.log("Fetch Data");
-        // console.log(result.data);
-        // console.log(result.data[0].author);
-        // console.log(result.data[0].content);
 
         let postsData = [];
         for(let i=0; i<result.data.length; i++) {
