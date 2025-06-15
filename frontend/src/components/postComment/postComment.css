@@ -25,6 +25,7 @@
 .postComment .post-tag::before {
   font-family: "Roboto Mono";
   position: relative;
+  top: 0.05rem;
   font-size: 1.05rem;
   content: "###";
   width: 1.3ch;

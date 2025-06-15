@@ -41,21 +41,22 @@ function PostComment() {
 
   if (postData) {
     return(
-    <div className="container postComment">
-      <div className="content">
-        <div className="row">
-          <div className="col-2"></div>
-          <div className="col-8">
-            <div className="middle">
-              <Post postId={postData.id} author={postData.author} content={postData.content}/>
-              <LeaveComment/>
-              <Comments postId={postData.id} comments={postData.comments}/>
+      <div className="container postComment">
+        <div className="content">
+          <div className="row">
+            <div className="col-2"/>
+            <div className="col-8">
+              <div className="middle">
+                <Post postId={postData.id} author={postData.author} content={postData.content}/>
+                <LeaveComment/>
+                <Comments postId={postData.id} comments={postData.comments}/>
+              </div>
             </div>
+            <div className="col-2"/>
           </div>
-          <div className="col-2"></div>
         </div>
       </div>
-    </div>)
+    )
   }
 }
 

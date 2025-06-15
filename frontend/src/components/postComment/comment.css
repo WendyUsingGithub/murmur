@@ -16,7 +16,7 @@
 }
 
 .comment .author-name:before {
-  background-color: var(--murmur-white);
+  background-color: var(--murmur-light-light-gray);
   content: "";
   display: inline-block;
   height: 0.15rem;
@@ -40,7 +40,7 @@
   height: 3rem;
   width: 3rem;
   margin-left: auto;
-  transition: linear 0.05s;
+  transition: all linear 0.05s;
 }
 
 .comment .icon:hover {
@@ -79,9 +79,29 @@
   transition: max-height 0.2s ease;
 }
 
-.iconHide {
-  display:none;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.iconHide {
+  display: none;
+}
+
 .iconShow {
   display: block;
 }

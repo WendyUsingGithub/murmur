@@ -50,6 +50,7 @@ p {
     letter-spacing: 0.08rem;
     padding-bottom: 1.4rem;
     text-align: justify;
+    color: var(--murmur-light-light-gray);
 }
 .vh {
     height: 100vh;

@@ -47,7 +47,7 @@
 
 .leave-comment .active {
   display: block;
-  color: var(--murmur-white);
+  color: var(--murmur-light-light-gray);
 }
 
 .postComment .leave-comment .active:hover {

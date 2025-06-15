@@ -1,151 +1,92 @@
-import {useRef} from "react"
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
 import "../style.css";
 import "./write.css";
 
-function Write()
-{
-  // const submitIconRef = useRef(null);
-  // const contentRef = useRef(null);
-  // const tagRef  = useRef(null);
-  // const [loading, setLoading] = useState(false);
-  // const tempJson = JSON.parse(localStorage.getItem("murmurToken"));
-  // const name = tempJson.userName ? tempJson.userName : "bitter";
+import {useRef} from "react";
 
-  // function onInputHandler(event) {
-  //   event.currentTarget.style.height = "auto";
-  //   event.currentTarget.style.height = event.currentTarget.scrollHeight + "px";
 
-  //   if (event.currentTarget.value.trim() === "") {
-  //     submitIconRef.current.classList.remove("active");
-  //     submitIconRef.current.classList.add("empty");
-  //   } else {
-  //     submitIconRef.current.classList.add("active");
-  //   }
-  // }
+function Write() {
 
-  // function onFocusHandler(event) {
-  //   if (event.currentTarget.value.trim() === "") {
-  //     submitIconRef.current.classList.add("empty");
-  //   } else {
-  //     submitIconRef.current.classList.add("active");
-  //   }
-  // }
+  const submitIconRef = useRef(null);
 
-  // function onBlurHandler() {
-  //   submitIconRef.current.classList.remove("active");
-  //   submitIconRef.current.classList.remove("empty");
-  // }
+  function onInputHandler(event) {
+    const textArea = event.currentTarget;
+    const textAreaValue = event.currentTarget.value.trim();
+    const submitIcon = submitIconRef.current;
 
-  // async function onClickHandler() {
-  //   setLoading(true);
-  //   const content = contentRef.current.value;
-  //   const tag = tagRef.current.value;
-  //   const articleData = {author, content, tag};
+    console.log("onInputHandler", textAreaValue);
 
-  //   const result = await axios.post("http://localhost:3001/write", articleData);
-  // }
+    textArea.style.height = "auto";
+    textArea.style.height = `${textArea.scrollHeight}px`;
 
-  // const [postsData, setDatas] = useState([]);
+    if (textAreaValue !== "") {
+      submitIcon.classList.add("active");
+    } else {
+      submitIcon.classList.remove("active");
+    }
+  }
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const result = await axios.post("http://localhost:3001/post", { wendy: "wendy" });
-    
-  //       console.log("Fetch Data");
-  //       console.log(result.data.length);
-  //       console.log(result.data[0].author);
-  //       console.log(result.data[0].content);
+  function onClickHandler(event) {
+    const textArea = event.currentTarget.value.trim();
+    const submitIcon = submitIconRef.current;
+  
+    if (textArea === "") {
+      submitIcon.classList.remove("active");
+    } else {
+      submitIcon.classList.add("active");
+    }
+  }
 
-  //       let postsData = [];
-  //       for(let i=0; i<result.data.length; i++) {
-  //         const postData = 
-  //         {
-  //           id: i,
-  //           author: result.data[i].author,
-  //           content: result.data[i].content,
-  //         }
-  //         postsData.push(postData);
-  //       }
-  //       setDatas(postsData);
-        
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
+  function onBlurHandler(event) {
+    const textArea = event.currentTarget.value.trim();
+    const submitIcon = submitIconRef.current;
 
-  // if(loading) {
-  //   return (
-  //     <div className="login container">
-  //       <div className="content">
-  //         <div className="row">
-  //           <div className="col-2"></div>
-  //           <div className="col-8 center-alignment">
-  //             <div className="middle">
-  //               <div className="loader fade-in"></div>
-  //             </div>
-  //             </div>
-  //           <div className="col-2"></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-  // else {
-  //   return (
-  //     <div className="container fade-in">
-  //       <div className="content">
-  //         <div className="row">
-  //           <div className="col-2"></div>
-  //           <div className="col-8">
-  //             <div className="middle">
-  //               <div className="write">
-  //                 <div className="post">
-  //                   <div id="author" className="author">
-  //                     <span className="author-name">
-  //                       {name}
-  //                     </span>
-  //                   </div>
-  //                   <textarea ref={contentRef} className="content"
-  //                     onInput={onInputHandler}
-  //                     onFocus={onFocusHandler}
-  //                     onBlur={()=>setTimeout(()=>onBlurHandler, 50)}
-  //                     rows="1"
-  //                     placeholder="寫點什麼">
-  //                     </textarea>
-  //                   <span ref={submitIconRef} className="material-symbols-outlined"
-  //                     onClick={onClickHandler}>
-  //                     send
-  //                   </span>
-  //                   <div id="post-tags" className="post-tags">
-  //                     <span className="post-tag">
-  //                       <input
-  //                         ref={tagRef}
-  //                         onInput={onInputHandler}
-  //                         onFocus={onFocusHandler}
-  //                         onBlur={()=>setTimeout(()=>onBlurHandler, 50)}
-  //                         type="text"
-  //                         maxLength="20"/>
-  //                     </span>
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //           <div className="col-2"></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+    if (textArea === "") {
+      submitIcon.classList.remove("active");
+    }
+  }
+  
+  function submitHandler() {
+
+  }
+
+  return (
+      <div className="container write">
+      <div className="content">
+        <div className="row">
+          <div className="col-2"/>
+          <div className="col-8">
+            <div className="middle">
+            <div className="divider"/>
+              <div className="author">
+                <span className="author-name">
+                    black_cat
+                </span>
+              </div>
+
+              <textarea rows="10" placeholder="自言自語是最棒的" 
+                className="textArea"
+                onClick={onClickHandler}
+                onBlur={onBlurHandler}
+                onInput={onInputHandler}/>
+
+              <div className="post-tags">
+                <div className="post-tag">
+                  <input className="post-input"/>
+                </div>
+                <span ref={submitIconRef} className="material-symbols-outlined"
+                  onClick={submitHandler}>
+                  send
+                </span>
+              </div>
+              <div className="divider"/>
+            </div>
+          </div>
+          <div className="col-2"/>
+        </div>
+      </div>
+    </div>
+  )
 }
-
 
 export default Write

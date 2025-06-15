@@ -1,91 +1,33 @@
-*,
-*::before,
-*::after { 
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
-.write .write{
-    padding-bottom: 12rem;
+.write .middle{
+    position: relative;
+    color: var(--murmur-dark-gray);
+    padding: 1.4rem 0 1.4rem 0;
 }
 
 .write .author {
-  padding-top: 2rem;
-  padding-bottom: 1.5rem;
+    padding-bottom: 1.4rem;
 }
+
 .write .author-name {
+    display: flex;
     cursor: pointer;
-    padding-bottom: 0.35rem;
-    font-size: 1.05rem;
+    align-items: center;
+    font-size: 1rem;
     font-weight: 600;
-    border-bottom: solid 0.15rem var(--murmur-dark-black);
     letter-spacing: 0.1rem;
     text-align: left;
-    transition: all 0.1s;
-}
-.write .author-name:hover {
-    border-bottom: solid 0.15rem var(--murmur-light-light-gray);
+    color: var(--murmur-light-light-gray);
 }
 
-.write p {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    letter-spacing: 0.08rem;
-    margin-bottom: 1.2rem;
-    text-align: justify;
-}
-
-.write .interact .interact_item {
-    display: inline-block;
-    cursor: pointer;
-}
-.write .interact .number {
-    display: inline-block;
-    position: relative;
-    bottom: 0.4rem;
-    font-size: 0.95rem;
-    color: var(--murmur-light-light-gray);
-    padding: 1rem 1.2rem 0rem 0;
-    letter-spacing: 0.1rem;
-}
-.write .interact .material-symbols-outlined {
-    display: inline-block;
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 24;
-    font-size: 1.3rem;
-    color: var(--murmur-light-light-gray);
-    padding: 1rem 0.2rem 0rem 0;
-}
-.write .interact .interact_item:hover .material-symbols-outlined,
-.write .interact .interact_item:focus .material-symbols-outlined
- {
-    font-variation-settings:
-    'FILL' 1;
-}
-
-.write .post {
-    position: relative;
-    color: var(--murmur-dark-gray);
-}
-.write .post .author {
-    padding-bottom: 1.5rem;
-}
-.write .post .author-name {
-    cursor: text;
-    color: var(--murmur-light-light-gray);
-    border-bottom: none;
-}
-.write .post .author-name:hover {
-    border-bottom: none;
-}
-.write .post .content {
+.write .textArea {
     width: 100%;
     line-height: 1.6;
     min-height: 1.6rem;
     height: auto;
-    padding: 0rem 0 0rem 0;
-    font-size: 1.05rem;
+    padding: 0 0 0 0;
+    font-size: 1rem;
     letter-spacing: 0.08rem;
     font-family: "Noto Sans TC";
     color: var(--murmur-light-light-gray);
@@ -94,97 +36,74 @@
     overflow-y: hidden;
     border: none;
 }
-.write .post .content:active,
-.write .post .content:focus {    
+
+.write .textArea:active,
+.write .textArea:focus {
     outline: none;
     border: none;
 }
-.write .post .content:focus::placeholder {
+
+.write .textArea:focus::placeholder {
     color: transparent;
 }
 
-.write .post .material-symbols-outlined {
-    display: none;
+.write .material-symbols-outlined {
+    display: block;
     position: absolute;
-    right: -6rem;
-    bottom: -2rem;
+    right: -2rem;
+    bottom: -7rem;
     cursor: pointer;
     padding: 2rem;
-}
-.write .post .empty {
-    display: block;
     color: var(--murmur-dark-gray);
 }
 
-.write .post .active {
+.write .active {
     display: block;
     color: var(--murmur-light-light-gray);
 }
 
-.write .post .active:hover {
+.write .active:hover {
     font-variation-settings:
-    'FILL' 1;
+        'FILL' 1;
 }
 
-.write .comment {
-    color: var(--murmur-light-light-gray);
-    margin: 2rem 0 2rem 0;
-}
-.write .comment p{
-    font-size: 1.05rem;
-    line-height: 1.6;
-    letter-spacing: 0.08rem;
-    text-align: justify;
-    margin-bottom: 1.4rem;
-    transition: all 0.2s ease-out;
-}
-
-.write .comment .material-symbols-outlined {
-    font-size: 1.8rem;
-    font-weight: 300;
-
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24
-}
-
-.write .comment-content {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    letter-spacing: 0.08rem;
-    text-align: justify;
-    margin-bottom: 1.4rem;
-}
-.write .divider {
-    height: 1px;
-    width: 100%;
-    margin: 2rem auto 2rem auto;
-    background-color: var(--murmur-black);
+.write .post-tags {
+    position: relative;
+    display: block;
 }
 
 .write .post-tags {
     text-align: left;
-    margin-top: 1.5rem;
     color: var(--murmur-light-light-gray);
 }
+
 .write .post-tag::before {
-    font-family: "Open Sans";
+    font-family: "Roboto Mono";
     position: relative;
-    bottom: -0.05rem;
     font-size: 1.05rem;
     content: "#";
-}  
-.write .post-tag input{
-    width: calc(100% - 1.05rem);
-    font-size: 0.95rem;
+    width: 1.3ch;
+    overflow: hidden;
+    transition: all 0.15s linear;
+    letter-spacing: 0.3ch;
+    box-sizing: border-box;
+}
+
+.write .post-tag {
+    display: inline-flex;
+    width: 90%;
+    font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0.06rem;
-    padding: 0rem 0.2rem 0.2rem 0.2rem;
+    cursor: pointer;
+}
+
+.write .post-input {
+    position: relative;
+    width: 100%;
+    bottom: 0.05rem;
+    background-color: transparent;
     color: var(--murmur-light-light-gray);
-    border-bottom: solid 0.15rem var(--murmur-dark-black);
-    background-color: var(--murmur-dark-black);
     outline: none;
     border: none;
 }
