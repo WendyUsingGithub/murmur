@@ -2,12 +2,17 @@ import "../../../bootstrap/bootstrap.js";
 import "../style.css";
 import "./write.css";
 
-import {useRef} from "react";
-
+import {useContext, useRef} from "react";
+import axios from "axios"
+import {useNavigate} from "react-router-dom";
+import AuthContext from "../auth/AuthContext.jsx";
 
 function Write() {
-
+  const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
   const submitIconRef = useRef(null);
+  const textAreaRef = useRef(null);
+  const tagRef = useRef(null);
 
   function onInputHandler(event) {
     const textArea = event.currentTarget;
@@ -46,8 +51,23 @@ function Write() {
     }
   }
   
-  function submitHandler() {
-
+  async function submitHandler() {
+    try {
+      const textArea = textAreaRef.current.value;
+      const tag = tagRef.current.value;
+      const writeData =
+      {
+        content: textArea,
+        tag: tag,
+      }
+      const result = await axios.post("http://localhost:3001/write", {data:writeData}, {withCredentials: true});
+      console.log(result.data);
+      if(result.data) {
+        navigate(`/postComment/${result.data.postID}`);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -60,11 +80,12 @@ function Write() {
             <div className="divider"/>
               <div className="author">
                 <span className="author-name">
-                    black_cat
+                  {user.name}
                 </span>
               </div>
 
-              <textarea rows="10" placeholder="自言自語是最棒的" 
+              <textarea ref={textAreaRef} rows="10" 
+                placeholder="自言自語是最棒的"
                 className="textArea"
                 onClick={onClickHandler}
                 onBlur={onBlurHandler}
@@ -72,7 +93,7 @@ function Write() {
 
               <div className="post-tags">
                 <div className="post-tag">
-                  <input className="post-input"/>
+                  <input ref={tagRef} className="post-input"/>
                 </div>
                 <span ref={submitIconRef} className="material-symbols-outlined"
                   onClick={submitHandler}>

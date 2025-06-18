@@ -26,6 +26,7 @@ function PostComment() {
           id: result.data.id,
           author: result.data.author,
           content: result.data.content,
+          tag: result.data.tag,
           comments: result.data.comments
         }
         console.log("POSTDATA");
@@ -47,7 +48,7 @@ function PostComment() {
             <div className="col-2"/>
             <div className="col-8">
               <div className="middle">
-                <Post postId={postData.id} author={postData.author} content={postData.content}/>
+                <Post postId={postData.id} author={postData.author} content={postData.content} tag={postData.tag}/>
                 <LeaveComment/>
                 <Comments postId={postData.id} comments={postData.comments}/>
               </div>

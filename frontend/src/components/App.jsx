@@ -7,7 +7,7 @@ import Auth from "./auth/Auth.jsx";
 import Navbar from "./Navbar.jsx";
 import Feed from "./feed/Feed.jsx";
 import Login from "./login/Login.jsx";
-// import Profile from "./profile/Profile.jsx";
+import Profile from "./profile/Profile.jsx";
 import PostComment from "./postComment/postComment.jsx";
 import Write from "./write/Write.jsx";
 
@@ -28,7 +28,6 @@ function App() {
 
 function RoutesLocation() {
   const location = useLocation();
-
   return (
     <SwitchTransition>
       <CSSTransition key={location.pathname} classNames="forward" timeout={300}>
@@ -37,6 +36,7 @@ function RoutesLocation() {
             <Route path="/" element={<Feed/>}/>
             <Route path="/postComment/:id" element={<PostComment/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/profile" element={<Profile/>}/>
             <Route path="/write" element={<Write/>}/>
           </Routes>
         </div>

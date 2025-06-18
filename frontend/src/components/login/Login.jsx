@@ -12,7 +12,6 @@ import axios from "axios";
 
 function Login() {
   const {user, setUser} = useContext(AuthContext);
-
   const navigate = useNavigate();
   const [active, setActive] = useState("left");
   const [indicatorPos, setIndicatoPos] = useState("left");

@@ -4,9 +4,7 @@ import {useState, useEffect} from "react";
 
 import "./loader.css";
 
-function Loader({loading, signIn, children, navigate}) {
-  // console.log("loading signIn", loading, signIn);
-  
+function Loader({loading, signIn, children, navigate}) {  
   const [withinOneSecond, setWithinOneSecond] = useState(true);
 
   useEffect(() => {

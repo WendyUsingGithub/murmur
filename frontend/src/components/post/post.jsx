@@ -9,7 +9,7 @@ import "../../../bootstrap/bootstrap.js";
 import "../style.css";
 import "./post.css";
 
-function Post({postId, author, content})
+function Post({postId, author, content, tag})
 {
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
@@ -43,12 +43,16 @@ function Post({postId, author, content})
         )}
       </div>
 
-      <div className="post-tags">
-        <span className="post-tag">
-          貓咪
-        </span>
-      </div>
-      
+      {
+        tag ? (
+          <div className="post-tags">
+            <span className="post-tag">
+              {tag}
+            </span>
+          </div>
+        ) : null
+      }
+
       <div className="interact">
         <span className="item">
           <span className="material-symbols-outlined">
@@ -75,7 +79,8 @@ function Post({postId, author, content})
 Post.propTypes = {
   postId: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
+  tag: PropTypes.string
 }
 
 export default Post

@@ -30,6 +30,7 @@
     font-size: 1rem;
     letter-spacing: 0.08rem;
     font-family: "Noto Sans TC";
+    caret-color: var(--murmur-gray);
     color: var(--murmur-light-light-gray);
     background-color: var(--murmur-dark-black);
     resize: none;
@@ -41,6 +42,10 @@
 .write .textArea:focus {
     outline: none;
     border: none;
+}
+
+.write .textArea::placeholder {
+    color: var(--murmur-dark-gray);
 }
 
 .write .textArea:focus::placeholder {
@@ -69,6 +74,7 @@
 
 .write .post-tags {
     position: relative;
+    padding-top: 2rem;
     display: block;
 }
 
@@ -102,6 +108,7 @@
     position: relative;
     width: 100%;
     bottom: 0.05rem;
+    caret-color: var(--murmur-dark-gray);
     background-color: transparent;
     color: var(--murmur-light-light-gray);
     outline: none;

@@ -19,7 +19,7 @@ function FeedPosts() {
           {
             id: result.data[i].id,
             author: result.data[i].author,
-            content: result.data[i].content,
+            content: result.data[i].content
           }
           postsData.push(postData);
         }
