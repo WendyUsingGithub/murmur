@@ -49,7 +49,7 @@ function PostComment() {
             <div className="col-8">
               <div className="middle">
                 <Post postId={postData.id} author={postData.author} content={postData.content} tag={postData.tag}/>
-                <LeaveComment/>
+                <LeaveComment postId={postData.id}/>
                 <Comments postId={postData.id} comments={postData.comments}/>
               </div>
             </div>

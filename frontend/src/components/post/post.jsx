@@ -1,13 +1,13 @@
+import "../../../bootstrap/bootstrap.css";
+import "../../../bootstrap/bootstrap.js";
+import "../style.css";
+import "./post.css";
+
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
 import Paragraph from "../paragraph/paragraph.jsx"
-
-import "../../../bootstrap/bootstrap.css";
-import "../../../bootstrap/bootstrap.js";
-import "../style.css";
-import "./post.css";
 
 function Post({postId, author, content, tag})
 {

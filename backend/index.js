@@ -305,23 +305,24 @@ async function insert(author, content, tag, createdAt, comments = []) {
   const db = client.db("murmur");
   const coll = db.collection("posts");
 
-
   const formattedComments = comments.map(comment => {
     const [commentAuthor, commentContent, commentCreatedAt, subComments=[]] = comment;
 
     const formattedSubComments = subComments.map(subComment => {
       const [subCommentAuthor, subCommentContent, subCommentCreatedAt] = subComment;
       return {
+        _id: new ObjectId(),
         author: subCommentAuthor,
         content: subCommentContent,
         createdAt: new Date(subCommentCreatedAt)
       }
     });
     return {
+      _id: new ObjectId(),
       author: commentAuthor,
       content: commentContent,
       createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date(),
-      subComments: formattedSubComments
+      comments: formattedSubComments
     }
   });
 
@@ -342,6 +343,45 @@ async function insertUserData(userData) {
   const result = await coll_userData.insertOne(userData);
   console.log(result);
   return result;
+}
+
+async function addComment(postId, author, content, createdAt) {
+
+  try{
+
+    const db = client.db("murmur");
+    const coll = db.collection("posts");
+    
+  console.log("postId", postId);
+  console.log("ObjectId.isValid(postId)", ObjectId.isValid(postId));
+  if (!ObjectId.isValid(postId)) throw new Error("Invalid postId");
+
+  console.log("addComment");
+  const commentId = new ObjectId();
+  const formattedComment = {
+    _id: commentId,
+    author: author,
+    content: content,
+    createdAt: createdAt ? new Date(createdAt) : new Date(),
+    comments: []
+  }
+  console.log("addComment");
+    const result = await coll.updateOne(
+      {_id: new ObjectId(postId)},
+      {$push: {comments: formattedComment}}
+    )
+    console.log("addComment");
+    console.log("result", result); 
+  } catch (err) {
+    console.log(err);
+  }
+  const result = await coll.updateOne(
+    {_id: new ObjectId(postId)},
+    {$push: {comments: formattedComment}}
+  )
+  console.log("addComment");
+  console.log("result", result);
+  return commentId;
 }
 
 async function findUserData(mail, password) {
@@ -480,7 +520,6 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/write", async (req, res) => {
-  console.log("WRITE");
   const {content, tag} = req.body.data;
   const token = req.cookies.murmurToken;
   console.log("token", token);
@@ -496,7 +535,30 @@ app.post("/write", async (req, res) => {
     const result = await insert(name, content, tag);
     console.log("result", result);
 
-    res.status(200).json({postID: result});
+    res.status(200).json({postId: result});
+  } catch (err) {
+    res.status(401).json({error: "Invalid token"});
+  }
+})
+
+app.post("/leaveComment", async(req, res) => {
+  console.log("LEAVECOMMENT");
+  const {postId, content} = req.body.data;
+  const token = req.cookies.murmurToken;
+  console.log("token", token);
+  
+  if (!token) return res.status(401).json({error: "Please Login"});
+  
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const {ID, name} = decoded;
+    console.log("decoded", decoded);
+    console.log("IDname", ID, name);
+
+    const result = await addComment(postId, name, content);
+    console.log("result", result);
+
+    res.status(200).json({commentId: result});
   } catch (err) {
     res.status(401).json({error: "Invalid token"});
   }

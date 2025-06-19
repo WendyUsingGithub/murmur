@@ -9,8 +9,6 @@ import "./comment.css"
 
 function Comment({comment}) {
 
-  console.log(comment);
-
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
   const subCommentsRef = useRef(null);
@@ -75,7 +73,7 @@ function Comment({comment}) {
       </div>
 
       <div className={subCommentsVisibility} ref={subCommentsRef}>
-        <SubComments subComments={comment.subComments}/>
+        <SubComments subComments={comment.comments}/>
       </div>
     </div>
   )

@@ -4,7 +4,7 @@ import {useState, useEffect} from "react";
 
 import "./loader.css";
 
-function Loader({loading, signIn, children, navigate}) {  
+function Loader({loading, signIn, navigate, children}) {  
   const [withinOneSecond, setWithinOneSecond] = useState(true);
 
   useEffect(() => {
@@ -54,8 +54,8 @@ function Loader({loading, signIn, children, navigate}) {
 Loader.propTypes = {
   loading: PropTypes.bool.isRequired,
   signIn: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  navigate: PropTypes.string
+  navigate: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Loader;

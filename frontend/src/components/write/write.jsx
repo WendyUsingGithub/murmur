@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import AuthContext from "../auth/AuthContext.jsx";
 
 function Write() {
+
   const {user} = useContext(AuthContext);
   const navigate = useNavigate();
   const submitIconRef = useRef(null);
@@ -63,7 +64,7 @@ function Write() {
       const result = await axios.post("http://localhost:3001/write", {data:writeData}, {withCredentials: true});
       console.log(result.data);
       if(result.data) {
-        navigate(`/postComment/${result.data.postID}`);
+        navigate(`/postComment/${result.data.postId}`);
       }
     } catch (err) {
       console.error(err);
@@ -71,7 +72,7 @@ function Write() {
   }
 
   return (
-      <div className="container write">
+    <div className="container write">
       <div className="content">
         <div className="row">
           <div className="col-2"/>
