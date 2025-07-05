@@ -1,4 +1,5 @@
 const mongo = require("mongodb");
+//**** */
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
@@ -302,8 +303,6 @@ class UserData {
 }
 
 async function insert(author, content, tag, createdAt, comments = []) {
-  const db = client.db("murmur");
-  const coll = db.collection("posts");
 
   const formattedComments = comments.map(comment => {
     const [commentAuthor, commentContent, commentCreatedAt, subComments=[]] = comment;
@@ -334,7 +333,7 @@ async function insert(author, content, tag, createdAt, comments = []) {
     comments: formattedComments
   };
 
-  const result = await coll.insertOne(post);
+  const result = await coll_post.insertOne(post);
   console.log("Inserted post with ID:", result.insertedId);
   return result.insertedId;
 }
@@ -346,18 +345,9 @@ async function insertUserData(userData) {
 }
 
 async function addComment(postId, author, content, createdAt) {
-
-  try{
-
-    const db = client.db("murmur");
-    const coll = db.collection("posts");
-    
-  console.log("postId", postId);
-  console.log("ObjectId.isValid(postId)", ObjectId.isValid(postId));
-  if (!ObjectId.isValid(postId)) throw new Error("Invalid postId");
-
-  console.log("addComment");
+  console.log("add comment 1");
   const commentId = new ObjectId();
+  console.log("ID", commentId);
   const formattedComment = {
     _id: commentId,
     author: author,
@@ -365,22 +355,12 @@ async function addComment(postId, author, content, createdAt) {
     createdAt: createdAt ? new Date(createdAt) : new Date(),
     comments: []
   }
-  console.log("addComment");
-    const result = await coll.updateOne(
-      {_id: new ObjectId(postId)},
-      {$push: {comments: formattedComment}}
-    )
-    console.log("addComment");
-    console.log("result", result); 
-  } catch (err) {
-    console.log(err);
-  }
-  const result = await coll.updateOne(
+  console.log("add comment 2");
+  const result = await coll_post.updateOne(
     {_id: new ObjectId(postId)},
     {$push: {comments: formattedComment}}
   )
-  console.log("addComment");
-  console.log("result", result);
+  console.log("add comment 3", result, commentId);
   return commentId;
 }
 
@@ -390,9 +370,7 @@ async function findUserData(mail, password) {
 }
 
 async function findOne() {
-  const db = client.db("murmur");
-  const coll = db.collection("posts");
-  const doc = await coll.findOne({
+  const doc = await coll_post.findOne({
     createdAt: {
       $gte: new Date("2020-01-01T10:00:00"),
       $lte: new Date("2026-01-01T10:00:00"),
@@ -402,9 +380,7 @@ async function findOne() {
 };
 
 function find() {
-  const db = client.db("murmur");
-  const coll = db.collection("posts");
-  const cursor = coll
+  const cursor = coll_post
     .find({
       createdAt: {
         $gte: new Date("2020-01-01T10:00:00"),
@@ -415,9 +391,7 @@ function find() {
 };
 
 async function findPostById(id) {
-  const db = client.db("murmur");
-  const coll = db.collection("posts");
-  const post = await coll.findOne({_id: new ObjectId(id)});
+  const post = await coll_post.findOne({_id: new ObjectId(id)});
   return post;
 };
 
@@ -541,24 +515,31 @@ app.post("/write", async (req, res) => {
   }
 })
 
-app.post("/leaveComment", async(req, res) => {
+app.post("/addComment", async(req, res) => {
   console.log("LEAVECOMMENT");
   const {postId, content} = req.body.data;
   const token = req.cookies.murmurToken;
   console.log("token", token);
   
   if (!token) return res.status(401).json({error: "Please Login"});
-  
+    
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
     console.log("decoded", decoded);
     console.log("IDname", ID, name);
 
-    const result = await addComment(postId, name, content);
-    console.log("result", result);
+    const commentId = await addComment(postId, name, content);
+    console.log("AFETR addComment1", commentId);
 
-    res.status(200).json({commentId: result});
+    const comment = {
+      _id: commentId,
+      author: name,
+      content: content,
+      createdAt: new Date(),
+      comments: []
+    }
+    res.status(200).json(comment);
   } catch (err) {
     res.status(401).json({error: "Invalid token"});
   }

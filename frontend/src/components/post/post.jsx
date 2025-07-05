@@ -15,7 +15,7 @@ function Post({postId, author, content, tag})
   const [paragraphs, setParagraphs] = useState([]);
 
   function onClickHandler() {
-    navigate(`/postComment/${postId}`);
+    navigate(`/postPage/${postId}`);
   }
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Post({postId, author, content, tag})
       setParagraphs(paragraphs);
     }
     parseContent(content);
-  }, [content]); 
+  }, [content]);
 
   return (
     <div className="post">

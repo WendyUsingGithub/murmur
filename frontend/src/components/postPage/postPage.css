@@ -4,25 +4,25 @@
   box-sizing: border-box;
 }
 
-.postComment .parapraphs {
+.postPage .parapraphs {
   cursor: auto;
 }
 
-.postComment .paragraphs {
+.postPage .paragraphs {
   padding-bottom: 2.5rem;
   border-bottom: solid 1.5px var(--murmur-black);
 } 
 
-.postComment .post-tags {
+.postPage .post-tags {
   display: block;
 }
 
-.postComment .post-tags {
+.postPage .post-tags {
   text-align: left;
   padding-bottom: 1.4rem;
 }
 
-.postComment .post-tag::before {
+.postPage .post-tag::before {
   font-family: "Roboto Mono";
   position: relative;
   top: 0.05rem;
@@ -35,7 +35,7 @@
   box-sizing: border-box;
 }
 
-.postComment .post-tag {
+.postPage .post-tag {
   display: inline-flex;
   font-size: 1rem;
   font-weight: 400;
@@ -43,16 +43,16 @@
   cursor: pointer;
 }
 
-.postComment .post-tag:hover::before {
+.postPage .post-tag:hover::before {
   width: 4.1ch;
 }
 
-.postComment .comments {
+.postPage .comments {
   padding-bottom: 9rem;
   cursor: pointer;
 }
 
-.postComment .comment .material-symbols-outlined {
+.postPage .comment .material-symbols-outlined {
   font-size: 1.8rem;
   font-weight: 300;
 
@@ -63,7 +63,7 @@
     'opsz' 24
 }
 
-.postComment .comment-content {
+.postPage .comment-content {
   font-size: 1.05rem;
   line-height: 1.6;
   letter-spacing: 0.08rem;

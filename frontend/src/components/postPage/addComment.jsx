@@ -1,13 +1,11 @@
 import "../../../bootstrap/bootstrap.js";
 import "../style.css";
-import "./leaveComment.css";
+import "./addComment.css";
 
 import PropTypes from "prop-types"
-import axios from "axios"
 import {useRef} from "react";
 
-
-function LeaveComment({postId}) {
+function AddComment({postId, onSubmit}) {
   const submitIconRef = useRef(null);
   const textAreaRef = useRef(null);
 
@@ -50,23 +48,20 @@ function LeaveComment({postId}) {
   }
 
   async function submitHandler() {
-    console.log("submitHandler");
     try {
       const textArea = textAreaRef.current.value;
-      const commentData =
-      {
+      const commentData = {
         postId: postId,
-        content: textArea,
+        content: textArea
       }
-      const result = await axios.post("http://localhost:3001/leaveComment", {data:commentData}, {withCredentials: true});
-      return result;
+      onSubmit(commentData);
     } catch (err) {
       console.error(err);
     }
   }
 
   return (
-    <div className="leave-comment">
+    <div className="addComment">
       <textarea rows="1" placeholder="留言" 
         ref={textAreaRef}
         className="textArea"
@@ -77,13 +72,15 @@ function LeaveComment({postId}) {
         onClick={submitHandler}>
         send
       </span>
+      <div className="circular-loader"/>
       <div className="divider"></div>
     </div>
   )
 }
 
-LeaveComment.propTypes = {
-  postId: PropTypes.string.isRequired
+AddComment.propTypes = {
+  postId: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
 
-export default LeaveComment
+export default AddComment

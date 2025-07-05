@@ -1,0 +1,111 @@
+.tempComments {
+  background-color: red;
+}
+
+.tempcomments .author {
+  padding-bottom: 0.6rem;
+}
+.tempcomments p {
+  padding-bottom: 0.6rem;
+}
+
+.tempcomments .author-name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: solid 0.15rem var(--murmur-dark-black);
+  letter-spacing: 0.1rem;
+}
+
+.tempcomments .author-name:before {
+  background-color: var(--murmur-light-light-gray);
+  content: "";
+  display: inline-block;
+  height: 0.15rem;
+  width: 0;
+  transition: all 0.15s linear;
+}
+
+.tempcomments .author-name:hover:before {
+  margin-right: 0.5rem;
+  width: 1.5rem;
+}
+
+.tempcomments .divider {
+  margin: 0.8rem auto 1.4rem auto;
+}
+
+.tempcomments .icon {
+  position: relative;
+  right: -3rem;
+  bottom: 1.5rem;
+  height: 3rem;
+  width: 3rem;
+  margin-left: auto;
+  transition: all linear 0.05s;
+}
+
+.tempcomments .icon:hover {
+  scale: 1.2;
+}
+.tempcomments .icon:hover .iconHorizontal, 
+.tempcomments .icon:hover .iconVerticle {
+  background-color: var(--murmur-light-gray);
+}
+.tempcomments .iconHorizontal {
+  position: relative;
+  right: -1rem;
+  top: 1.5rem;
+  height: 1px;
+  width: 1rem;
+  background-color: var(--murmur-black);
+}
+
+.tempcomments .iconVerticle {
+  position: relative;
+  right: -1rem;
+  top: 1.5rem;
+  height: 1px;
+  width: 1rem;
+  background-color: var(--murmur-black);
+  transform: rotate(90deg);
+}
+
+.subCommentsShow {
+  transition: max-height 0.2s ease;
+  overflow: hidden;
+}
+.subCommentsHide {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.iconHide {
+  display: none;
+}
+
+.iconShow {
+  display: block;
+}

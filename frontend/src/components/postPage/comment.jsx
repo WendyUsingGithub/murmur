@@ -11,10 +11,10 @@ function Comment({comment}) {
 
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
-  const subCommentsRef = useRef(null);
   const [subCommentsVisibility, setSubCommentsVisibility] = useState("subCommentsHide");
   const [iconVisibility, setExpandIconVisibility] = useState("iconShow");
   const [collapseIconVisibility, setCollapseIconVisibility] = useState("iconHide");
+  const subCommentsRef = useRef(null);
   
   function iconOnClickHandler() {
     const subComments = subCommentsRef.current;

@@ -64,7 +64,7 @@ function Write() {
       const result = await axios.post("http://localhost:3001/write", {data:writeData}, {withCredentials: true});
       console.log(result.data);
       if(result.data) {
-        navigate(`/postComment/${result.data.postId}`);
+        navigate(`/postPage/${result.data.postId}`);
       }
     } catch (err) {
       console.error(err);
