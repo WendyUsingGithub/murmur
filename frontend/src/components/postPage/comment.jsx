@@ -37,9 +37,9 @@ function Comment({comment}) {
       const parapraphs = content.split("\n\n");
       for(let i=0; i<parapraphs.length; i++) {
         parapraphs[i] = parapraphs[i].replaceAll("\n", "<br>");
-    }
-    setAuthor(comment.author);
-    setParagraphs(parapraphs);
+      }
+      setAuthor(comment.author);
+      setParagraphs(parapraphs);
     }
     parseContent(comment.content);
 }, [comment]);

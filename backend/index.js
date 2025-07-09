@@ -361,7 +361,9 @@ async function addComment(postId, author, content, createdAt) {
     {$push: {comments: formattedComment}}
   )
   console.log("add comment 3", result, commentId);
-  return commentId;
+  if(result.modifiedCount==1) {
+    return commentId;
+  }
 }
 
 async function findUserData(mail, password) {

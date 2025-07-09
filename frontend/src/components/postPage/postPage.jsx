@@ -12,16 +12,6 @@ import Comments from "./comments.jsx"
 import TempComments from "./tempComments.jsx"
 import AddComment from "./addComment.jsx"
 
-// class IdGernerator {
-//   constructor() {
-//     this.count = 0;
-//   }
-//   generate() {
-//     this.count++;
-//     return this.count;
-//   }
-// }
-
 function PostPage() {
   const {id} = useParams();
   const [postData, setData] = useState(null);
@@ -32,29 +22,16 @@ function PostPage() {
     console.log("ADD COMMENT");
 
     try {
-      // const commentData =
-      // {
-      //   postId: posstId,
-      //   content: textArea,
-      // }
-
       const result = await axios.post("http://localhost:3001/addComment", {data:commentData}, {withCredentials: true});
       console.log("PostPage result", result);
       const tempComment = result.data;
       console.log("TEMP", tempComment);
       setTempComments((prev) => [tempComment, ...prev]);
-
-      //   _id: new ObjectId(),
-      //   author: commentAuthor,
-      //   content: commentContent,
-      //   createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date(),
-      //   comments: formattedSubComments
-      // }
-
+      console.log("ADD COMMENT FINISH");
     } catch (err) {
       console.error(err);
     }
-  } 
+  }
 
   useEffect(() => {
     async function fetchData() {

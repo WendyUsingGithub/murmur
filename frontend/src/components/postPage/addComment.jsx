@@ -3,19 +3,20 @@ import "../style.css";
 import "./addComment.css";
 
 import PropTypes from "prop-types"
-import {useRef} from "react";
+import {useState, useRef} from "react";
 
 function AddComment({postId, onSubmit}) {
+  const [isSubmitting, setSubmitting] = useState(false);
   const submitIconRef = useRef(null);
   const textAreaRef = useRef(null);
 
   function onInputHandler(event) {
-    const textarea = event.currentTarget;
+    const textArea = event.currentTarget;
     const textAreaValue = event.currentTarget.value.trim();
     const submitIcon = submitIconRef.current;
 
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    textArea.style.height = "auto";
+    textArea.style.height = `${textArea.scrollHeight}px`;
 
     if (textAreaValue !== "") {
       submitIcon.classList.add("active");
@@ -49,12 +50,18 @@ function AddComment({postId, onSubmit}) {
 
   async function submitHandler() {
     try {
-      const textArea = textAreaRef.current.value;
+      const textArea = textAreaRef.current;
+      const textAreaValue = textAreaRef.current.value;
       const commentData = {
         postId: postId,
-        content: textArea
+        content: textAreaValue
       }
-      onSubmit(commentData);
+      setSubmitting(true);
+      await onSubmit(commentData);
+      textArea.value = "";
+      textArea.style.height = "auto";
+      textArea.style.height = `${textArea.scrollHeight}px`;
+      setSubmitting(false);
     } catch (err) {
       console.error(err);
     }
@@ -68,11 +75,14 @@ function AddComment({postId, onSubmit}) {
         onClick={onClickHandler}
         onBlur={onBlurHandler}
         onInput={onInputHandler}/>
-      <span ref={submitIconRef} className="material-symbols-outlined"
-        onClick={submitHandler}>
-        send
-      </span>
-      <div className="circular-loader"/>
+      {
+        isSubmitting ?
+        (<div className="circular-loader"/>) : 
+        (<span ref={submitIconRef} className="material-symbols-outlined"
+          onClick={submitHandler}>
+          send
+        </span>)
+      }
       <div className="divider"></div>
     </div>
   )

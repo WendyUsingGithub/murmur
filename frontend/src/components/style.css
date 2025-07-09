@@ -104,14 +104,28 @@ p {
     border-radius: 50%;
     width: 1.6rem;
     height: 1.6rem;
-    animation: spin 1.2s linear infinite;
+    animation: spin 1.2s linear infinite, fadeInBorder 0.6s forwards;
 }
 
 @keyframes spin {
-0% {
-    transform: rotate(0deg);
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-100% {
-    transform: rotate(360deg);
-} }
+@keyframes fadeInBorder {
+    0% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: transparent;
+    }
+    75% {
+        border-color: var(--murmur-light-light-gray);
+        border-left-color: transparent;
+    }
+    100% {
+        border-color: var(--murmur-light-light-gray);
+        border-left-color: transparent;
+    }
+}
