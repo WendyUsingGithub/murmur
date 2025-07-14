@@ -3,13 +3,11 @@ import PropTypes from "prop-types"
 import Comment from "./comment.jsx"
 
 function Comments({postId, comments}) {
-  console.log(postId);
-  console.log(comments);
-
+  console.log("Comments", postId, comments);
   return  (              
     <div className="comments">
       {comments.map((comment, index) =>
-        <Comment key={index} comment={comment}/>
+        <Comment key={index} postId={postId} comment={comment}/>
       )}
     </div>
   )

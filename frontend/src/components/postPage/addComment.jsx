@@ -5,7 +5,7 @@ import "./addComment.css";
 import PropTypes from "prop-types"
 import {useState, useRef} from "react";
 
-function AddComment({postId, onSubmit}) {
+function AddComment({postId, commentId, onSubmit}) {
   const [isSubmitting, setSubmitting] = useState(false);
   const submitIconRef = useRef(null);
   const textAreaRef = useRef(null);
@@ -49,13 +49,26 @@ function AddComment({postId, onSubmit}) {
   }
 
   async function submitHandler() {
+    if(!(postId || commentId)) return;
     try {
       const textArea = textAreaRef.current;
       const textAreaValue = textAreaRef.current.value;
-      const commentData = {
-        postId: postId,
-        content: textAreaValue
+      let commentData;
+
+      if(commentId) {
+        commentData = {
+          postId: postId,
+          commentId: commentId,
+          content: textAreaValue
+        }
       }
+      else {
+        commentData = {
+          postId: postId,
+          content: textAreaValue
+        }
+      }
+
       setSubmitting(true);
       await onSubmit(commentData);
       textArea.value = "";
@@ -89,7 +102,8 @@ function AddComment({postId, onSubmit}) {
 }
 
 AddComment.propTypes = {
-  postId: PropTypes.string.isRequired,
+  postId: PropTypes.string,
+  commentId: PropTypes.string,
   onSubmit: PropTypes.func.isRequired
 }
 

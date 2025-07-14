@@ -28,6 +28,7 @@ async function connectDB() {
   try {
     await client.connect();
     console.log("Connect to MongoDB successfully");
+
   } catch (error) {
     console.error("Fail to connect to MongoDB", error);
     process.exit(1);
@@ -355,12 +356,10 @@ async function addComment(postId, author, content, createdAt) {
     createdAt: createdAt ? new Date(createdAt) : new Date(),
     comments: []
   }
-  console.log("add comment 2");
   const result = await coll_post.updateOne(
     {_id: new ObjectId(postId)},
     {$push: {comments: formattedComment}}
   )
-  console.log("add comment 3", result, commentId);
   if(result.modifiedCount==1) {
     return commentId;
   }

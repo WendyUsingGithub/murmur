@@ -5,13 +5,13 @@ import "./subComments.css"
 function SubComments({subComments}) {
   console.log("subComments", subComments);
   return (
-    <div>
-      <div className="subComments">
+    <div className="subComments">
+      <div>
         {subComments.map((subComment, index) =>
           <SubComment key={index} subComment={subComment}/>
         )}
       </div>
-      <div className="subCommentEndingDivider"/>
+      <div className="subCommentLastDivider"/>
     </div>
   )
 }

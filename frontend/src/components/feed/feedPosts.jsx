@@ -10,7 +10,6 @@ function FeedPosts() {
 
   useEffect(() => {
     async function fetchData() {
-      console.log("FEEEEEEEEEEED");
       try {
         const result = await axios.post("http://localhost:3001/posts", {wendy:"wendy"});
 

@@ -37,8 +37,7 @@ function PostPage() {
     async function fetchData() {
       try {
         const result = await axios.post("http://localhost:3001/post", {id:id});
-
-        let data = {
+        const data = {
           id: result.data.id,
           author: result.data.author,
           content: result.data.content,
@@ -46,7 +45,6 @@ function PostPage() {
           comments: result.data.comments
         }
         setData(data);
-        
       } catch (err) {
         console.error(err);
       }
