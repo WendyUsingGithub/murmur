@@ -6,7 +6,7 @@
 }
 
 .comment .author-name {
-  display: flex;
+  display: inline-flex;
   cursor: pointer;
   align-items: center;
   font-size: 1rem;
@@ -42,13 +42,6 @@
   transition: all linear 0.05s;
 }
 
-.comment .icon:hover {
-  scale: 1.2;
-}
-.comment .icon:hover .iconHorizontal, 
-.comment .icon:hover .iconVerticle {
-  background-color: var(--murmur-light-gray);
-}
 .comment .iconHorizontal {
   position: relative;
   right: -1rem;
@@ -68,20 +61,10 @@
   transform: rotate(90deg);
 }
 
-.subCommentsVisibility {
+.comment .accordion {
   max-height: 0;
   transition: max-height 0.3s ease;
   overflow: hidden;
-}
-
-.addCommentVisibility {
-  max-height: 0;
-  transition: max-height 0.3s ease;
-  overflow: hidden;
-}
-
-.comment .addComment .divider {
-  margin: 1.4rem 0 1.4rem 0;
 }
 
 @keyframes fadeIn {

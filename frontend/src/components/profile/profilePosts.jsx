@@ -1,11 +1,11 @@
 import "../style.css";
-import "./feedPosts.css";
+import "../feed/feedPosts.css";
 
 import {useState, useEffect} from "react";
 import axios from "axios";
 import Post from "../post/post.jsx";
 
-function FeedPosts() {
+function ProfilePosts() {
   const [postsData, setDatas] = useState([]);
 
   useEffect(() => {
@@ -43,4 +43,4 @@ function FeedPosts() {
   )
 }
 
-export default FeedPosts
+export default ProfilePosts

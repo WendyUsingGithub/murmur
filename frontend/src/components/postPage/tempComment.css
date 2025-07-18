@@ -34,13 +34,10 @@
   margin: 0.8rem auto 1.4rem auto;
 }
 
-.tempCommentShow {
-  transition: max-height 0.3s ease;
-  overflow: hidden;
+.comment .tempComment {
+  padding-left: 1.5rem;
 }
 
-.tempCommentHide {
-  max-height: 0px;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+.tempComment {
+  max-height: max-height 0.3s ease;;
 }

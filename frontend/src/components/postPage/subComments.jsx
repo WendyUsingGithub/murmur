@@ -3,7 +3,6 @@ import SubComment from "./subComment.jsx"
 import "./subComments.css"
 
 function SubComments({subComments}) {
-  console.log("subComments", subComments);
   return (
     <div className="subComments">
       <div>

@@ -18,16 +18,10 @@ function PostPage() {
   const [tempComments, setTempComments] = useState([]);
 
   async function addComment(commentData) {
-
-    console.log("ADD COMMENT");
-
     try {
       const result = await axios.post("http://localhost:3001/addComment", {data:commentData}, {withCredentials: true});
-      console.log("PostPage result", result);
       const tempComment = result.data;
-      console.log("TEMP", tempComment);
       setTempComments((prev) => [tempComment, ...prev]);
-      console.log("ADD COMMENT FINISH");
     } catch (err) {
       console.error(err);
     }
@@ -42,6 +36,7 @@ function PostPage() {
           author: result.data.author,
           content: result.data.content,
           tag: result.data.tag,
+          likes: result.data.likes,
           comments: result.data.comments
         }
         setData(data);
@@ -60,7 +55,7 @@ function PostPage() {
             <div className="col-2"/>
             <div className="col-8">
               <div className="middle">
-                <Post postId={postData.id} author={postData.author} content={postData.content} tag={postData.tag}/>
+                <Post postId={postData.id} author={postData.author} content={postData.content} tag={postData.tag} likes={postData.likes} commentsNum={postData.comments.length}/>
                 <AddComment postId={postData.id} onSubmit={addComment}/>
                 <TempComments postId={postData.id} comments={tempComments}/>
                 <Comments postId={postData.id} comments={postData.comments}/>

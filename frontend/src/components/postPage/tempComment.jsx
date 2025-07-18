@@ -9,7 +9,6 @@ import "./tempComment.css"
 function TempComment({comment}) {
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
-  const [visibility, setVisibility] = useState("tempCommentHide")
   const tempCommentRef = useRef(null);
 
   useEffect(() => {
@@ -22,17 +21,10 @@ function TempComment({comment}) {
       setParagraphs(parapraphs);
     }
     parseContent(comment.content);
-
-    setTimeout(() => {
-      const tempComment = tempCommentRef.current;
-      tempComment.style.maxHeight = `${tempComment.scrollHeight}px`;
-      console.log("tempComment.style.maxHeight", tempComment.style.maxHeight);
-      setVisibility("tempCommentShow");
-    }, 50);
   }, [comment]);
 
   return (
-    <div className={`tempComment ${visibility}`} ref={tempCommentRef}>
+    <div className="tempComment" ref={tempCommentRef}>
       <div className="author">
         <span className="author-name">
           {author}

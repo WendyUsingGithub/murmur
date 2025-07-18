@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 
 import Paragraph from "../paragraph/paragraph.jsx"
 
-function Post({postId, author, content, tag})
+function Post({postId, author, content, tag, likes, commentsNum})
 {
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
@@ -59,7 +59,7 @@ function Post({postId, author, content, tag})
           favorite
           </span>
           <span className="number">
-          25
+            {likes}
           </span>
         </span>
         <span className="item">
@@ -67,7 +67,7 @@ function Post({postId, author, content, tag})
           tooltip
           </span>
           <span className="number">
-          3K
+            {commentsNum}
           </span>
         </span>
       </div>
@@ -80,7 +80,9 @@ Post.propTypes = {
   postId: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  tag: PropTypes.string
+  tag: PropTypes.string,
+  likes: PropTypes.number.isRequired,
+  commentsNum: PropTypes.number.isRequired
 }
 
 export default Post

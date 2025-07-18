@@ -67,7 +67,7 @@
     color: var(--murmur-light-light-gray);
 }
 
-.write .active:hover {
+.write .active:hover, .write .active:focus, .write .active:active {
     font-variation-settings:
         'FILL' 1;
 }

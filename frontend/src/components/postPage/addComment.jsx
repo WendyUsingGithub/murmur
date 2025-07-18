@@ -7,49 +7,51 @@ import {useState, useRef} from "react";
 
 function AddComment({postId, commentId, onSubmit}) {
   const [isSubmitting, setSubmitting] = useState(false);
+  const [isEmpty, setEmpty] = useState("");
+  const [isActive, setActive] = useState("");
   const submitIconRef = useRef(null);
   const textAreaRef = useRef(null);
 
   function onInputHandler(event) {
     const textArea = event.currentTarget;
     const textAreaValue = event.currentTarget.value.trim();
-    const submitIcon = submitIconRef.current;
 
     textArea.style.height = "auto";
     textArea.style.height = `${textArea.scrollHeight}px`;
 
     if (textAreaValue !== "") {
-      submitIcon.classList.add("active");
+      setActive("active");
+      setEmpty("");
     } else {
-      submitIcon.classList.remove("active");
-      submitIcon.classList.add("empty");
+      setActive("");
+      setEmpty("empty");
     }
   }
 
   function onClickHandler(event) {
     const textArea = event.currentTarget.value.trim();
-    const submitIcon = submitIconRef.current;
   
     if (textArea === "") {
-      submitIcon.classList.add("empty");
-      submitIcon.classList.remove("active");
+      setEmpty("empty");
+      setActive("");
     } else {
-      submitIcon.classList.add("active");
-      submitIcon.classList.remove("empty");
+      setActive("active");
+      setEmpty("");
     }
   }
 
   function onBlurHandler() {
-    const textArea = event.currentTarget.value.trim();
-    const submitIcon = submitIconRef.current;
+    const textAreaValue = textAreaRef.current.value.trim();
 
-    if (textArea === "") {
-      submitIcon.classList.remove("active");
+    if (textAreaValue === "") {
+      setActive("");
+      setEmpty("");
     }
   }
 
   async function submitHandler() {
     if(!(postId || commentId)) return;
+    
     try {
       const textArea = textAreaRef.current;
       const textAreaValue = textAreaRef.current.value;
@@ -65,6 +67,7 @@ function AddComment({postId, commentId, onSubmit}) {
       else {
         commentData = {
           postId: postId,
+          commentId: null,
           content: textAreaValue
         }
       }
@@ -88,14 +91,15 @@ function AddComment({postId, commentId, onSubmit}) {
         onClick={onClickHandler}
         onBlur={onBlurHandler}
         onInput={onInputHandler}/>
+
       {
         isSubmitting ?
         (<div className="circular-loader"/>) : 
-        (<span ref={submitIconRef} className="material-symbols-outlined"
-          onClick={submitHandler}>
+        (<span ref={submitIconRef} className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={submitHandler}>
           send
         </span>)
       }
+
       <div className="divider"></div>
     </div>
   )

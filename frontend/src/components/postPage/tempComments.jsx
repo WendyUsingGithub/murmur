@@ -17,7 +17,7 @@ function TempComments({postId, comments}) {
 
 TempComments.propTypes = {
   postId: PropTypes.string.isRequired,
-  comments: PropTypes.string.isRequired
+  comments: PropTypes.string.isRequired,
 }
 
 export default TempComments
