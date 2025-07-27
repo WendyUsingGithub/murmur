@@ -1,7 +1,6 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
 import "../style.css";
-import "./post.css";
 
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
@@ -14,8 +13,9 @@ function Post({postId, author, content, tag, likes, commentsNum})
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
 
-  function onClickHandler() {
-    navigate(`/postPage/${postId}`);
+  function onClickHandler(e) {
+    e.stopPropagation();
+    navigate(`/author/${author}`);
   }
 
   useEffect(() => {
@@ -30,28 +30,27 @@ function Post({postId, author, content, tag, likes, commentsNum})
   }, [content]);
 
   return (
-    <div className="post">
+    <div className="post" onClick={() => navigate(`/postPage/${postId}`)}>
       <div className="author">
-          <span className="author-name">
+          <span className="author-name" onClick={onClickHandler}>
               {author}
           </span>
       </div>
 
-      <div className="parapraphs" onClick={onClickHandler}>
+      <div className="parapraphs">
         {paragraphs.map((paragraph, index) =>
           <Paragraph key={index} sentence={paragraph}/>
         )}
       </div>
 
       {
-        tag ? (
-          <div className="post-tags">
-            <span className="post-tag">
-              {tag}
-            </span>
-          </div>
-        ) : null
-      }
+        tag && (
+        <div className="post-tags" onClick={(e) => {e.stopPropagation(); navigate(`/tag/${tag}`);}}>
+          <span className="post-tag">
+            {tag}
+          </span>
+        </div>
+      )}
 
       <div className="interact">
         <span className="item">

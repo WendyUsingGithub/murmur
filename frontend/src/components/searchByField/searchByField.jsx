@@ -1,17 +1,15 @@
-import "../style.css";
-import "../feed/feedPosts.css";
-
+import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 import axios from "axios";
 import Post from "../post/post.jsx";
 
-function ProfilePosts() {
+function SearchByField({field, target}) {
   const [postsData, setDatas] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.post("http://localhost:3001/posts", {wendy:"wendy"});
+        const result = await axios.post("http://localhost:3001/searchByField", {[field]: target});
 
         let postsData = [];
         for(let i=0; i<result.data.length; i++) {
@@ -43,4 +41,9 @@ function ProfilePosts() {
   )
 }
 
-export default ProfilePosts
+SearchByField.propTypes = {
+  field: PropTypes.string.isRequired,
+  target: PropTypes.string.isRequired,
+}
+
+export default SearchByField

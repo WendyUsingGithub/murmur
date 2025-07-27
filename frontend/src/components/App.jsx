@@ -4,11 +4,12 @@ import "../../bootstrap/bootstrap.css";
 import "../../bootstrap/bootstrap.js";
 import "./style.css";
 import Auth from "./auth/Auth.jsx";
-import Navbar from "./Navbar.jsx";
+import Navbar from "./navbar/Navbar.jsx";
 import Feed from "./feed/Feed.jsx";
-import Login from "./login/Login.jsx";
-import Profile from "./profile/Profile.jsx";
 import PostPage from "./postPage/postPage.jsx";
+import Login from "./login/Login.jsx";
+import User from "./user/user.jsx";
+import Tag from "./tag/Tag.jsx";
 import Write from "./write/Write.jsx";
 
 import './index.css';
@@ -36,8 +37,10 @@ function RoutesLocation() {
             <Route path="/" element={<Feed/>}/>
             <Route path="/postPage/:id" element={<PostPage/>}/>
             <Route path="/login" element={<Login/>}/>
-            <Route path="/profile" element={<Profile/>}/>
             <Route path="/write" element={<Write/>}/>
+            <Route path="/author/:author" element={<User/>}/>
+            <Route path="/tag/:tag" element={<Tag/>}/>
+            <Route path="/user" element={<User/>}/>
           </Routes>
         </div>
       </CSSTransition>

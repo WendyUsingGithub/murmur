@@ -1,3 +1,4 @@
+import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 import axios from "axios";
@@ -13,6 +14,7 @@ import "../style.css"
 import "./comment.css"
 
 function Comment({postId, comment}) {
+  const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
   const [iconVisibility, setIconVisibility] = useState("iconShow");
@@ -25,6 +27,11 @@ function Comment({postId, comment}) {
     tempCommentsToggle();
     if(iconVisibility=="iconShow") setIconVisibility("iconHide");
     else setIconVisibility("iconShow");
+  }
+
+  function onClickHandlerAuthor(e) {
+    e.stopPropagation();
+    navigate(`/author/${author}`);
   }
 
   async function addComment(commentData) {
@@ -57,7 +64,7 @@ function Comment({postId, comment}) {
     <div className="comment">
       <div onClick={onClickHandler}>
         <div className="author">
-          <span className="author-name">
+          <span className="author-name" onClick={onClickHandlerAuthor}>
             {author}
           </span>
         </div>

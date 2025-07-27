@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+TC:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
     --murmur-dark-black: #202020;
     --murmur-black: #484848;
@@ -34,6 +40,7 @@ body {
     color: var(--murmur-light-light-gray);
     background-color: var(--murmur-dark-black);
     font-size: 1.05rem;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 button {
@@ -52,6 +59,15 @@ p {
     text-align: justify;
     color: var(--murmur-light-light-gray);
 }
+a {
+    color: var(--murmur-light-light-gray);
+    text-decoration: none;
+}
+
+.row {
+    justify-content: space-between !important;
+}
+
 .vh {
     height: 100vh;
 }
@@ -83,13 +99,19 @@ p {
 }
 
 .content {
-    padding-top: 12rem;
+    padding-top: 2rem;
     max-width: inherit;
     width: 100%;
 }
-.middle {
-    margin: 0 8rem 0 8rem;
+
+@media (min-width: 992px) {
+    .content {
+        padding-top: 12rem;
+        max-width: inherit;
+        width: 100%;
+    }
 }
+
 .divider {
     height: 1px;
     width: 100%;
@@ -105,6 +127,76 @@ p {
     width: 1.6rem;
     height: 1.6rem;
     animation: spin 1.2s linear infinite, fadeInBorder 0.6s forwards;
+}
+
+.author {
+    padding-bottom: 1.4rem;
+}
+
+.author-name {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    color: var(--murmur-light-light-gray);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-align: left;
+}
+
+.author-name:before {
+    background-color: var(--murmur-light-light-gray);
+    content: "";
+    display: inline-block;
+    height: 0.15rem;
+    width: 0;
+    transition: all 0.2s linear;
+}
+
+.author-name:hover:before {
+    margin-right: 0.5rem;
+    width: 2rem;
+}
+
+.tags {
+    padding-top: 2.8rem;
+}
+
+.posts {
+    padding-bottom: 15rem;
+}
+
+.parapraphs {
+    cursor: pointer;
+}
+
+.interact .item {
+    cursor: pointer;
+}
+
+.interact .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 24;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 0.3rem;
+}
+
+.interact .number {
+    position: relative;
+    bottom: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 1.3rem;
+    letter-spacing: 0.1rem;
+}
+
+.interact .item:hover .material-symbols-outlined,
+.interact .item:focus .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1;
 }
 
 @keyframes spin {

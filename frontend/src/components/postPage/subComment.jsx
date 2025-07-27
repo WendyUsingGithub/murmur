@@ -1,3 +1,4 @@
+import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 
@@ -5,10 +6,15 @@ import Paragraph from "../paragraph/paragraph.jsx"
 import "./subComments.css"
 
 function SubComment({subComment}) {
+  const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
 
-  
+  function onClickHandler(e) {
+    e.stopPropagation();
+    navigate(`/author/${author}`);
+  }
+
   useEffect(() => {
     function parseContent(content) {
       const parapraphs = content.split("\n\n");
@@ -23,11 +29,11 @@ function SubComment({subComment}) {
 
   return (
     <div className="subComment">
-      <div className="author">
-        <span className="author-name">
-          {author}
-        </span>
-      </div>
+        <div className="author">
+          <span className="author-name" onClick={onClickHandler}>
+            {author}
+          </span>
+        </div>
 
       <div>
         {paragraphs.map((paragraph, index) =>

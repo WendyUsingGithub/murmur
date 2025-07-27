@@ -15,9 +15,6 @@
 
 .postPage .post-tags {
   display: block;
-}
-
-.postPage .post-tags {
   text-align: left;
   padding-bottom: 1.4rem;
 }
@@ -39,6 +36,7 @@
   display: inline-flex;
   font-size: 1rem;
   font-weight: 400;
+  color: var(--murmur-light-light-gray);
   letter-spacing: 0.06rem;
   cursor: pointer;
 }

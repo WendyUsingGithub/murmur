@@ -1,0 +1,214 @@
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 4rem;
+    padding: 0 1rem 0 1rem;
+    background-color: var(--murmur-dark-black);
+    z-index: 100;
+    transition: all 0.5s ease-out;
+}
+
+.navbar .logo .material-symbols-outlined {
+    color: var(--murmur-light-light-gray);
+}
+
+.navbar .icons {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.navbar .icon {
+    display: inline-flex;
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
+    overflow: hidden;
+    color: var(--murmur-light-light-gray);
+    text-decoration: none;
+    transition: all 0.2s ease-out;
+}
+
+.navbar .icon .material-symbols-outlined {
+    font-size: 1.4rem;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.navbar .icon:focus .material-symbols-outlined,
+.navbar .icon:active .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.navbar .search {
+    display: inline-flex;
+    position: relative;
+    font-size: 1.05rem;
+    color: var(--murmur-light-light-gray);
+    width: 3.5rem;
+    height: 3.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.8s ease-out;
+    outline: none;
+    border: none;
+}
+
+.navbar .search .icon {
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.05rem;
+    height: 3.5rem;
+    scale: 1.1;
+    transition: all 0.8s ease-out;
+    outline: none;
+    border: none;
+}
+
+.navbar .search input {
+    position: relative;
+    top: -0.1rem;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-indent: 3.5rem;
+    outline: none;
+    border: none;
+    font-size: 1.05rem;
+    letter-spacing: 0.1rem;
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+.navbar {
+    justify-content: flex-start;
+    height: 6rem;
+    top: 0;
+    padding: 0 3rem 0 3rem;
+    background-color: transparent;
+}
+
+.navbar .logo .material-symbols-outlined{
+    display: inline-flex;
+    font-size: 2rem;
+    color: var(--murmur-light-light-gray);
+    text-decoration: none;
+    transition: all 0.3s ease-out;
+}
+
+.navbar .logo:hover {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 500,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.navbar .icons_desktop {
+    display: inline-flex;
+    margin-left: auto;
+}
+
+.navbar .icon .material-symbols-outlined {
+    font-size: 1.6rem;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 500,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.navbar .icon:hover .material-symbols-outlined,
+.navbar .icon:focus .material-symbols-outlined,
+.navbar .icon:active .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 500,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.navbar .search {
+    display: inline-flex;
+    position: relative;
+    font-size: 1.05rem;
+    color: var(--murmur-light-light-gray);
+    width: 3.5rem;
+    height: 3.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.8s ease-out;
+    outline: none;
+    border: none;
+}
+
+.navbar .search .icon {
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.05rem;
+    height: 3.5rem;
+    scale: 1.1;
+    transition: all 0.8s ease-out;
+    outline: none;
+    border: none;
+}
+
+.navbar .search input {
+    position: relative;
+    top: -0.1rem;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-indent: 3.5rem;
+    outline: none;
+    border: none;
+    font-size: 1.05rem;
+    letter-spacing: 0.1rem;
+}
+
+.navbar .search:hover,
+.navbar .search:valid {
+    width: 15rem;
+    cursor: pointer;
+}
+
+.navbar .search:hover input,
+.navbar .search:valid input,
+.navbar .search:hover input:active,
+.navbar .search:hover input:focus {
+    display: block;
+    background-color: var(--murmur-dark-black);
+    color: var(--murmur-light-light-gray);
+    font-weight: 500;
+}
+
+.navbar .search:hover .icon,
+.navbar .search:active .icon,
+.navbar .search:focus .icon,
+.navbar .search:valid .icon {
+    right: 12rem;
+    color: var(--murmur-light-light-gray);
+}
+.navbarHide {
+    transform: translateY(-100%);
+}
+
+.navbarShow {
+    transform: translateY(0);
+}
+}

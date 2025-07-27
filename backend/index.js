@@ -160,17 +160,6 @@ async function findOne() {
   return doc;
 };
 
-function find() {
-  const cursor = coll_post
-    .find({
-      createdAt: {
-        $gte: new Date("2020-01-01T10:00:00"),
-        $lte: new Date("2026-01-01T10:00:00"),
-      },
-    }).limit(100);
-  return cursor;
-};
-
 async function findPostById(id) {
   const post = await coll_post.findOne({_id: new ObjectId(id)});
   return post;
@@ -178,8 +167,13 @@ async function findPostById(id) {
 
 app.post("/posts", async (req, res) => {
   try {
-    const cursor = await find();
     let postsData = [];
+    const cursor = await coll_post.find({
+        createdAt: {
+          $gte: new Date("2020-01-01T10:00:00"),
+          $lte: new Date("2026-01-01T10:00:00"),
+        },
+      }).limit(100).sort({createdAt: -1});
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
@@ -218,6 +212,50 @@ app.post("/post", async (req, res) => {
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/searchByField", async (req, res) => {
+  const {author} = req.body;
+  const {tag} = req.body;
+  let field;
+  let target;
+
+  console.log(req.body);
+
+  try {
+    let postsData = [];
+    if (author) {
+      field = "author";
+      target = author;
+    }
+    else if (tag) {
+      field = "tag";
+      target = tag;
+    }
+
+    console.log(field, target);
+
+    const cursor = await coll_post.find({[field]: target}).limit(100).sort({createdAt: -1});
+
+    while (await cursor.hasNext()) {
+      const doc = await cursor.next();
+      const postData = {
+        id: doc._id.toString(),
+        author: doc.author,
+        content: doc.content,
+        likes: doc.likes,
+        commentsNum: doc.comments.length,
+        createdAt: doc.createAt,
+      };
+      postsData.push(postData);
+      console.log("postData");
+    }
+
+    res.json(postsData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({error: "Internal Server Error"});
   }
 });
 

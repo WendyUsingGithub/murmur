@@ -1,11 +1,11 @@
-.profile .tags {
+.personal .tags {
   padding-top: 2.8rem;
 }
 
-.profile .posts {
+.personal .posts {
   padding-bottom: 15rem;
 }
 
-.profile .parapraphs {
+.personal .parapraphs {
   cursor: pointer;
 }

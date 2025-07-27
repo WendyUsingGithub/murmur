@@ -1,39 +1,3 @@
-.tempComment .author {
-  padding-bottom: 0.6rem;
-}
-
-.tempComment p {
-  padding-bottom: 0.6rem;
-}
-
-.tempComment .author-name {
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: 600;
-  border-bottom: solid 0.15rem var(--murmur-dark-black);
-  letter-spacing: 0.1rem;
-}
-
-.tempComment .author-name:before {
-  background-color: var(--murmur-light-light-gray);
-  content: "";
-  display: inline-block;
-  height: 0.15rem;
-  width: 0;
-  transition: all 0.15s linear;
-}
-
-.tempComment .author-name:hover:before {
-  margin-right: 0.5rem;
-  width: 1.5rem;
-}
-
-.tempComment .divider {
-  margin: 0.8rem auto 1.4rem auto;
-}
-
 .comment .tempComment {
   padding-left: 1.5rem;
 }

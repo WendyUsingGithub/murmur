@@ -150,7 +150,7 @@ function Login() {
   }
 
   return(
-    <Loader loading={loading} signIn={signIn} navigate="/profile">
+    <Loader loading={loading} signIn={signIn} navigate="/user">
       <div className="login container">
         <div className="content">
           <div className="row">

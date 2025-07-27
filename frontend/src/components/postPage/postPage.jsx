@@ -52,16 +52,14 @@ function PostPage() {
       <div className="container postPage">
         <div className="content">
           <div className="row">
-            <div className="col-2"/>
-            <div className="col-8">
-              <div className="middle">
-                <Post postId={postData.id} author={postData.author} content={postData.content} tag={postData.tag} likes={postData.likes} commentsNum={postData.comments.length}/>
-                <AddComment postId={postData.id} onSubmit={addComment}/>
-                <TempComments postId={postData.id} comments={tempComments}/>
-                <Comments postId={postData.id} comments={postData.comments}/>
-              </div>
+            <div className="col-2 d-none d-lg-block"/>
+            <div className="col-12 col-lg-6">
+              <Post postId={postData.id} author={postData.author} content={postData.content} tag={postData.tag} likes={postData.likes} commentsNum={postData.comments.length}/>
+              <AddComment postId={postData.id} onSubmit={addComment}/>
+              <TempComments postId={postData.id} comments={tempComments}/>
+              <Comments postId={postData.id} comments={postData.comments}/>
             </div>
-            <div className="col-2"/>
+            <div className="col-2 d-none d-lg-block"/>
           </div>
         </div>
       </div>
