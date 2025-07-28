@@ -50,24 +50,22 @@ function AddComment({postId, commentId, onSubmit}) {
   }
 
   async function submitHandler() {
-    if(!(postId || commentId)) return;
-    
     try {
       const textArea = textAreaRef.current;
       const textAreaValue = textAreaRef.current.value;
       let commentData;
 
-      if(commentId) {
+      if(commentId == "post") {
         commentData = {
           postId: postId,
-          commentId: commentId,
+          parentId: postId,
           content: textAreaValue
         }
       }
       else {
         commentData = {
           postId: postId,
-          commentId: null,
+          parentId: commentId,
           content: textAreaValue
         }
       }

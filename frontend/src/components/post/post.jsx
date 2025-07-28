@@ -5,9 +5,9 @@ import "../style.css";
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-
 import Paragraph from "../paragraph/paragraph.jsx"
 
+// function Post({postId, author, content, tag, likes, commentsNum})
 function Post({postId, author, content, tag, likes, commentsNum})
 {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Post({postId, author, content, tag, likes, commentsNum})
   }, [content]);
 
   return (
-    <div className="post" onClick={() => navigate(`/postPage/${postId}`)}>
+    <div className="post" onClick={() => navigate(`/postPage/${postId}/post`)}>
       <div className="author">
           <span className="author-name" onClick={onClickHandler}>
               {author}
@@ -66,7 +66,7 @@ function Post({postId, author, content, tag, likes, commentsNum})
           tooltip
           </span>
           <span className="number">
-            {commentsNum}
+            {/* {commentsNum} */}50
           </span>
         </span>
       </div>

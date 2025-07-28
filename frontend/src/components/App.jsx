@@ -35,7 +35,7 @@ function RoutesLocation() {
         <div>
           <Routes location={location}>
             <Route path="/" element={<Feed/>}/>
-            <Route path="/postPage/:id" element={<PostPage/>}/>
+            <Route path="/postPage/:postId/:commentId" element={<PostPage/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/write" element={<Write/>}/>
             <Route path="/author/:author" element={<User/>}/>

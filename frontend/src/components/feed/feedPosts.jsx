@@ -21,7 +21,7 @@ function FeedPosts() {
             author: result.data[i].author,
             content: result.data[i].content,
             likes: result.data[i].likes,
-            commentsNum: result.data[i].commentsNum
+            // commentsNum: result.data[i].commentsNum
           }
           postsData.push(postData);
         }
@@ -37,7 +37,8 @@ function FeedPosts() {
   return (
     <div className="posts">
       {postsData.map((postData) =>
-        <Post key={postData.id} postId={postData.id} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
+        // <Post key={postData.id} postId={postData.id} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
+        <Post key={postData.id} postId={postData.id} author={postData.author} content={postData.content} likes={postData.likes}/>
       )}
     </div>
   )

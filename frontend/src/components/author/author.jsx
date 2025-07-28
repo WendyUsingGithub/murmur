@@ -5,7 +5,7 @@ import "./user.css"
 
 import {useContext} from "react";
 import AuthContext from "../auth/AuthContext";
-import {useParams} from "react-router-dom";
+// import {useParams} from "react-router-dom";
 import SearchByField from "../searchByField/searchByField.jsx";
 
 function Personal() {

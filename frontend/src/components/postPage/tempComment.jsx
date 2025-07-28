@@ -1,15 +1,21 @@
 import PropTypes from "prop-types"
-import {useState, useEffect, useRef} from "react";
-
+import {useState, useEffect} from "react";
+import useAccordion from "../customHook/useAccordion.jsx";
 import Paragraph from "../paragraph/paragraph.jsx"
+import {useNavigate} from "react-router-dom";
 
 import "../style.css"
 import "./tempComment.css"
 
 function TempComment({comment}) {
+  const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
-  const tempCommentRef = useRef(null);
+  const {accordionRef, expand} = useAccordion();
+
+  function onClickHandler() {
+    navigate(`/postpage/${comment.postId}/${comment.id}`);
+  }
 
   useEffect(() => {
     function parseContent(content) {
@@ -21,10 +27,13 @@ function TempComment({comment}) {
       setParagraphs(parapraphs);
     }
     parseContent(comment.content);
+    setTimeout(() => {
+      expand();
+    }, 100);
   }, [comment]);
 
   return (
-    <div className="tempComment" ref={tempCommentRef}>
+    <div className="comment tempComment" ref={accordionRef} onClick={onClickHandler}>
       <div className="author">
         <span className="author-name">
           {author}

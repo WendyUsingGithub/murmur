@@ -1,5 +1,4 @@
 import PropTypes from "prop-types"
-
 import TempComment from "./tempComment.jsx"
 
 function TempComments({postId, comments}) {
@@ -8,8 +7,8 @@ function TempComments({postId, comments}) {
 
   return  (              
     <div className="tempComments">
-      {comments.map((comment, index) =>
-        <TempComment key={index} comment={comment}/>
+      {comments.map((comment) =>
+        <TempComment key={comment.id} comment={comment}/>
       )}
     </div>
   )

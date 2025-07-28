@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-import SubComments from "./subComments.jsx"
 import AddComment from "./addComment.jsx"
 import TempComments from "./tempComments.jsx"
 import useAccordionOverflowX from "../customHook/useAccordionOverflowX.jsx"
@@ -13,7 +12,7 @@ import Paragraph from "../paragraph/paragraph.jsx"
 import "../style.css"
 import "./comment.css"
 
-function Comment({postId, comment}) {
+function Comment({postId, commentId, comment}) {
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
   const [author, setAuthor] = useState(null);
@@ -23,32 +22,23 @@ function Comment({postId, comment}) {
   const [tempComments, setTempComments] = useState([]);
 
   function onClickHandler() {
-    addCommentToggle();
-    tempCommentsToggle();
-    if(iconVisibility=="iconShow") setIconVisibility("iconHide");
-    else setIconVisibility("iconShow");
+
+    navigate(`/postPage/${postId}/${commentId}`);
+    // addCommentToggle();
+    // tempCommentsToggle();
+    // if(iconVisibility=="iconShow") setIconVisibility("iconHide");
+    // else setIconVisibility("iconShow");
   }
 
   function onClickHandlerAuthor(e) {
     e.stopPropagation();
     navigate(`/author/${author}`);
   }
-
-  async function addComment(commentData) {
-    try {
-      const result = await axios.post("http://localhost:3001/addComment", {data:commentData}, {withCredentials: true});
-      console.log("PostPage result", result);
-      const tempComment = result.data;
-      setTempComments((prev) => [tempComment, ...prev]);
-      setTimeout(() => {
-        tempCommentsExpand();
-      }, 50);
-    } catch (err) {
-      console.error(err);
-    }
-  }
   
   useEffect(() => {
+
+    console.log("COMMENT", comment);
+
     function parseContent(content) {
       const parapraphs = content.split("\n\n");
       for(let i=0; i<parapraphs.length; i++) {
@@ -76,7 +66,9 @@ function Comment({postId, comment}) {
         </div>
       </div>
 
-      {
+      <div className="divider"/>
+
+      {/* {
         (comment.comments.length == 0) ? 
         (<div className="divider"/>) :
         (<div className="divider">
@@ -85,22 +77,19 @@ function Comment({postId, comment}) {
             <div className="iconVerticle"></div>
           </div>
         </div>)
-      }
+      } */}
 
-      <div className="accordion" ref={addCommentRef}>
-        <AddComment postId={postId} commentId={comment._id} onSubmit={addComment}/>
-      </div>
-
-      <div className="accordion" ref={tempCommentsRef}>
+      {/* <div className="accordion" ref={tempCommentsRef}>
         <TempComments comments={tempComments}/>
         <SubComments subComments={comment.comments}/>
-      </div>
+      </div> */}
     </div>
   )
 }
 
 Comment.propTypes = {
   postId: PropTypes.object.isRequired,
+  commentId: PropTypes.object.isRequired,
   comment: PropTypes.object.isRequired,
 }
 

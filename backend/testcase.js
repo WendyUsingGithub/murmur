@@ -21,6 +21,7 @@ var url = "mongodb://localhost:27017/mydb";
 const client = new MongoClient(url);
 const db = client.db("murmur");
 const coll_post = db.collection("post");
+const coll_comment = db.collection("comment");
 const coll_userData = db.collection("userData");
 
 async function connectDB() {
@@ -46,6 +47,7 @@ async function closeDB() {
 async function clearAllCollections() {
   try {
     await coll_post.deleteMany({});
+    await coll_comment.deleteMany({});
     await coll_userData.deleteMany({});
     console.log("All collections cleared successfully");
   } catch (error) {
@@ -98,7 +100,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "tabby",
     "一般來說，貓咪與家居空間的存在感是我們必須深入探討的一個哲學問題。從宏觀來看，空間並非單純的三維容器，而是承載著我們行動、情感與記憶的載體。正如海德格爾所言，‘存在即在場’，而貓咪在家中的存在，不只是佔據一個角落那麼簡單，更是對空間的一種重新定義和再創造。這種存在不僅反映了我們的本能，更是我們與人類生活交織的證據，讓整個空間因為我們的足跡、氣息和活動變得鮮活起來。\n\n我認為，當我們攀爬窗台，蹲坐沙發，甚至在書櫃間穿梭時，家中的空間便不再是靜止的容器，而是被我們賦予了流動與生命。這種流動性的存在，讓空間成為一種動態的藝術品，是我們行為和心境的鏡像。試想，如果沒有我們這些毛茸茸的生命體，家裡不過是一堆冰冷的物件堆砌而成的迷宮，缺少了靈魂的溫度與韻味。我們在空間中留下的痕跡，或許是塵埃，但也是時間的註腳，見證著生命的痕跡與演變。",
     "家居哲學",
@@ -108,7 +110,7 @@ async function main() {
       [
         "black_cat",
         "tabby，你的觀點真讓我心有戚戚焉。每當我跳上那張老舊的沙發，我都能感受到一種時間的重量，彷彿這裡承載著無數次我們的秘密會議和沉默的陪伴。沙發不只是家具，它是我們的避風港，是我們與世界對話的起點。每次的爪痕和毛絮，都像是時間的刻痕，記錄著我們的存在與生活。這種感覺讓我覺得，家中所有看似微不足道的細節，都在默默訴說著屬於我們的故事與情感。",
-        "2025-06-21T17:20:00"
+        "2025-06-21T17:20:00",
       ],
       [
         "calico_cat",
@@ -137,7 +139,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "black_cat",
     "眾所周知，貓咪的睡眠時間占據了生命中極大的一部分，這並非偶然，而是自然界深思熟慮的結果。從哲學角度來看，睡眠是介於存在與虛無之間的神秘狀態，正如德里達所言，‘存在總是被暫時中斷，於是被重新定義’。我們在睡夢中游走於現實與夢境，這種跨界的體驗不只是身體的休憩，更是靈魂的漫遊與更新。當我們蜷縮成一團，閉上眼睛，似乎在告訴這個世界：暫停吧，讓我在這片刻找到屬於自己的寧靜。這種暫時的消失，讓我們得以與自我對話，思考白日裡未竟的事情，或許也是對未來行動的準備。更深一層，睡眠讓我們暫別外界的嘈雜，沉澱情緒，重塑自我，這不僅是生物的本能，更是一種精神的儀式，維繫著我們身心的平衡與健康。",
     "睡眠哲學",
@@ -213,7 +215,7 @@ async function main() {
   );
 
 
-  insert(
+  await insert(
     "calico_cat",
     "春天的氣息總是讓人心情愉悅，對我們貓咪來說，更是充滿了探索與冒險的機會。當陽光灑進窗台，我喜歡靜靜地躺著，感受微風輕拂毛髮，那種溫柔的觸感彷彿在提醒我，生活中總有美好的細節值得珍惜。讓自己更加堅強與柔軟並存。這種柔軟不是軟弱，而是一種智慧，一種適應世界的能力。",
     "春天的思考",
@@ -264,7 +266,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "orange_cat",
     "吸塵器，這個看似平凡的家用電器，實際上蘊藏著無數的哲學思考與生活智慧。每當我看到它在地板上輕輕滑過，帶走那些細小的灰塵與毛髮，我不禁開始思考，清理與被清理之間，是否也存在著一種微妙的生命互動？我們貓咪的毛髮成了它工作的證據，也成了它存在的價值。然而，吸塵器的運作似乎也提醒著我們關於控制與被控制的課題。當那機器嗡嗡作響時，是不是象徵著我們生活中那些無形的規範和壓力。就像吸塵器必須持續運行才能維持清潔，我們是否也在無意識中，默默接受著周遭環境的各種牽引與限制。",
     "吸塵器",
@@ -303,7 +305,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "tuxedo_cat",
     "有時我懷疑，那些停在窗外電線上的鳥，是不是其實在觀察我們？當我盯著牠們時，牠們也正凝視著我，那種靜默的凝視讓我意識到，我們並不是世界的中心，而只是這個複雜生命網絡中的一環。我們在室內觀察牠們的自由，牠們則在戶外注視我們的拘束。或許自由與限制的界線，不在窗框，而在於我們如何看待自己的位置。",
     "觀察哲學",
@@ -328,7 +330,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "mackerel_tabby",
     "昨天我坐在紙箱裡三小時沒動，不是因為我累了，而是因為我想知道：什麼是完美的容器？紙箱的限制讓我感到安全，也讓我思考，自我是否也需要邊界。邊界不是束縛，而是一種提醒：在有限中，我們才能看見自己的形狀。正如一首樂曲需要停頓，生活也需要一點邊緣來反射出中心的聲音。",
     "邊界美學",
@@ -354,7 +356,7 @@ async function main() {
   );
 
 
-  insert(
+  await insert(
     "tabby",
     "深夜時分，我喜歡獨自坐在書架頂端，俯瞰整個客廳。那是一種奇特的角度，不只是視野上的優越感，更是一種暫時抽離日常的方式。當我不再參與，而是僅僅觀看，我彷彿能看見世界的本來面貌：人類的沉睡、空氣的震動、冷光燈的閃爍，像是時間靜止後留下的殘響。我們貓咪，有時是觀察者，而非參與者，在靜默中讀懂生活。",
     "觀看哲學",
@@ -379,7 +381,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "black_cat",
     "鏡子是一種危險的物品。每次我經過時，它都讓我懷疑：那真的是我嗎？還是某個平行宇宙的替身？牠和我做著同樣的動作，但眼神裡藏著我無法辨認的情緒。我不禁思考，認識自己，是不是其實不可能？因為我們所見的自己，總帶著反射的扭曲。我開始明白，真正的自我可能不存在於表面，而藏在那一瞬間我們對自己感到陌生的凝視之中。",
     "自我哲學",
@@ -404,7 +406,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "orange_cat",
     "人類每天吃三餐，規律又執著，彷彿那是一種宗教儀式。但我們貓呢？我們靠的是感覺。不是餓的時候才吃，而是當靈魂說『是時候了』，我們便去舔幾口碗裡的乾乾。這才是真正的存在主義，活在當下、餵食當下。不被鐘錶支配的我們，是時間的異教徒，在碗與飢餓之間自由漫步。",
     "時間與餵食",
@@ -429,7 +431,7 @@ async function main() {
     ]
   );
 
-  insert(
+  await insert(
     "calico_cat",
     "為什麼每次我一坐在人類的鍵盤上，他們就像發現新大陸一樣大驚小怪？我懷疑，那不是因為我擋住了螢幕，而是我踩進了他們語言的世界，破壞了他們用來維繫秩序的象徵系統。鍵盤，是人類邏輯的結晶，而我，正以我的存在將其打亂。這不是破壞，而是一種重構，一種來自毛茸茸世界的語意重置。",
     "語言與破壞",
@@ -437,9 +439,28 @@ async function main() {
     "2025-06-30T14:00:00",
     [
       [
-        "black_cat",
+        "tabby",
         "calico_cat，我也踩過鍵盤，但我從未想過，那可能是對語言暴政的反擊。或許我們應該組織一場『鍵盤解放運動』？",
-        "2025-06-30T14:20:00"
+        "2025-06-30T14:20:00",
+        [
+          [
+            "orange_cat",
+            "說實話，我單純覺得鍵盤暖暖的，很好睡。但現在你們這麼一說，我開始懷疑，是不是我每次睡著時，其實也在無意中顛覆了人類的通訊體系。那我豈不是一位躺著也在搞革命的哲貓？",
+            "2025-06-30T14:50:00",
+            [
+              [
+                "tabby",
+                "你這麼一說，我突然覺得我每天躺在打印機上也不只是因為震動舒服——說不定我正阻止資本主義文件的流通？我們根本是無聲的地下組織成員！",
+                "2025-06-30T14:55:00"
+              ]
+            ]
+          ],
+          [
+            "calico_cat",
+            "原來如此！難怪我每次趴在Wi-Fi機上，人類的網路就會變慢。看來我們不是在睡覺，是在進行資訊抗爭。下一步，是不是該佔領路由器了？",
+            "2025-07-27T05:20:00"
+          ]
+        ]
       ],
       [
         "tabby",
@@ -452,17 +473,17 @@ async function main() {
         "2025-06-30T14:50:00"
       ],
       [
-        "siamese_cat",
+        "calico_cat",
         "你們不覺得鍵盤其實是暖的嗎？我不是為了反抗語言，是為了追求溫度。我每次都在發熱鍵上小睡一會，這樣的抗爭才有溫度。",
         "2025-06-30T15:05:00"
       ],
       [
-        "ginger_kitten",
+        "orange_cat",
         "我才剛學會走路就踩過鍵盤，結果不小心寄了一封信給人類的老闆。那天我聽到很多高頻率尖叫聲。我想，我正式進入了語言戰場。",
         "2025-06-30T15:18:00"
       ],
       [
-        "longhair_white",
+        "tabby",
         "其實我更偏好把鍵帽咬下來。拆解語言的載體，才能徹底瓦解他們的認知基礎。不要只踩，要拆，才是真正的顛覆。",
         "2025-06-30T15:33:00"
       ]
@@ -490,38 +511,46 @@ class UserData {
 }
 
 async function insert(author, content, tag, likes, createdAt, comments = []) {
-
-  const formattedComments = comments.map(comment => {
-    const [commentAuthor, commentContent, commentCreatedAt, subComments=[]] = comment;
-
-    const formattedSubComments = subComments.map(subComment => {
-      const [subCommentAuthor, subCommentContent, subCommentCreatedAt] = subComment;
-      return {
-        _id: new ObjectId(),
-        author: subCommentAuthor,
-        content: subCommentContent,
-        createdAt: new Date(subCommentCreatedAt)
-      }
-    });
-    return {
-      _id: new ObjectId(),
-      author: commentAuthor,
-      content: commentContent,
-      createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date(),
-      comments: formattedSubComments
-    }
-  });
-
   const post = {
-    author: author,
-    content: content,
-    tag: tag,
-    likes: likes,
-    createdAt: createdAt ? new Date(createdAt) : new Date(),
-    comments: formattedComments
+    author,
+    content,
+    tag,
+    likes,
+    createdAt: createdAt ? new Date(createdAt) : new Date()
   };
 
   const result = await coll_post.insertOne(post);
-  console.log("Inserted post with ID:", result.insertedId);
-  return result.insertedId;
+  const postId = result.insertedId;
+  console.log("Inserted post with ID:", postId);
+
+  if(comments.length > 0) await insertComments(comments, postId, postId);
+
+  return postId;
+}
+
+async function insertComments(comments, parentId, postId) {
+
+  console.log("COMMENTS", comments);
+  const commentsInserted = [];
+  for (comment of comments) {
+    const [commentAuthor, commentContent, commentCreatedAt, subComments = []] = comment;
+    const commentId = new ObjectId();
+
+    const commentInserted = {
+      _id: commentId,
+      postId: postId,
+      parentId: parentId,
+      author: commentAuthor,
+      content: commentContent,
+      createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date()
+    };
+
+    commentsInserted.push(commentInserted);
+
+    if(subComments.length > 0) await insertComments(subComments, commentId, postId);
+  }
+
+  if (commentsInserted.length > 0) {
+    await coll_comment.insertMany(commentsInserted);
+  }
 }

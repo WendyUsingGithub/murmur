@@ -21,8 +21,8 @@ var url = "mongodb://localhost:27017/mydb";
 const client = new MongoClient(url);
 const db = client.db("murmur");
 const coll_post = db.collection("post");
-const coll_userData = db.collection("userData");
 const coll_comment = db.collection("comment");
+const coll_userData = db.collection("userData");
 
 async function connectDB() {
   try {
@@ -64,85 +64,18 @@ class UserData {
   }
 }
 
-async function insert(author, content, tag, likes, createdAt, comments = []) {
-
-  const formattedComments = comments.map(comment => {
-    const [commentAuthor, commentContent, commentCreatedAt, subComments=[]] = comment;
-
-    const formattedSubComments = subComments.map(subComment => {
-      const [subCommentAuthor, subCommentContent, subCommentCreatedAt] = subComment;
-      return {
-        _id: new ObjectId(),
-        author: subCommentAuthor,
-        content: subCommentContent,
-        createdAt: new Date(subCommentCreatedAt)
-      }
-    });
-    return {
-      _id: new ObjectId(),
-      author: commentAuthor,
-      content: commentContent,
-      createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date(),
-      comments: formattedSubComments
-    }
-  });
-
-  const post = {
+async function addComment(postId, parentId, author, content, createdAt) {
+  const commentId = new ObjectId();
+  const comment = {
+    _id: commentId,
+    postId: new ObjectId(postId),
+    parentId: new ObjectId(parentId),
     author: author,
     content: content,
-    tag: tag,
-    likes: likes,
-    createdAt: createdAt ? new Date(createdAt) : new Date(),
-    comments: formattedComments
+    createdAt: new Date()
   };
-
-  const result = await coll_post.insertOne(post);
-  console.log("Inserted post with ID:", result.insertedId);
-  return result.insertedId;
-}
-
-async function insertUserData(userData) {
-  const result = await coll_userData.insertOne(userData);
-  console.log(result);
-  return result;
-}
-
-async function addComment(postId, commentId, author, content, createdAt) {
-  const addCommentId = new ObjectId();
-
-  if(!commentId) {
-    const formattedComment = {
-      _id: addCommentId,
-      author: author,
-      content: content,
-      createdAt: createdAt ? new Date(createdAt) : new Date(),
-      comments: []
-    }
-    const result = await coll_post.updateOne(
-      {_id: new ObjectId(postId)},
-      {$push: {comments: formattedComment}}
-    )
-    if(result.modifiedCount==1) {
-      return addCommentId;
-    }
-  }
-  else {
-    const formattedComment = {
-      _id: addCommentId,
-      author: author,
-      content: content,
-      createdAt: createdAt ? new Date(createdAt) : new Date(),
-    }
-    const result = await coll_post.updateOne(
-      {
-        _id: new ObjectId(postId),
-        "comments._id": new ObjectId(commentId)
-      },
-      {
-        $push: {"comments.$.comments": formattedComment}
-      }
-    );
-  }
+  const result = await coll_comment.insertOne(comment);
+  return commentId;
 }
 
 async function findUserData(mail, password) {
@@ -165,6 +98,11 @@ async function findPostById(id) {
   return post;
 };
 
+async function findCommentById(id) {
+  const comment = await coll_comment.findOne({_id: new ObjectId(id)});
+  return comment;
+};
+
 app.post("/posts", async (req, res) => {
   try {
     let postsData = [];
@@ -182,7 +120,7 @@ app.post("/posts", async (req, res) => {
         author: doc.author,
         content: doc.content,
         likes: doc.likes,
-        commentsNum: doc.comments.length,
+        // commentsNum: doc.comments.length,
         createdAt: doc.createAt,
       };
       postsData.push(postData);
@@ -205,7 +143,6 @@ app.post("/post", async (req, res) => {
       content: doc.content,
       tag: doc.tag,
       likes: doc.likes,
-      comments: doc.comments,
       createdAt: doc.createAt
     };
     res.json(postData);
@@ -245,7 +182,7 @@ app.post("/searchByField", async (req, res) => {
         author: doc.author,
         content: doc.content,
         likes: doc.likes,
-        commentsNum: doc.comments.length,
+        // commentsNum: doc.comments.length,
         createdAt: doc.createAt,
       };
       postsData.push(postData);
@@ -256,6 +193,54 @@ app.post("/searchByField", async (req, res) => {
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
+  }
+});
+
+app.post("/comments", async (req, res) => {
+  try {
+    const {postId, parentId} = req.body;
+    const comments = [];
+    const cursor = await coll_comment.find({
+      postId: new ObjectId(postId),
+      parentId: new ObjectId(parentId)
+    });
+
+    while (await cursor.hasNext()) {
+      const doc = await cursor.next();
+      const commentData = {
+        id: doc._id.toString(),
+        parentId: doc.parentId.toString(),
+        postId: doc.postId.toString(),
+        author: doc.author,
+        content: doc.content,
+        createdAt: doc.createdAt
+      };
+      comments.push(commentData);
+    }
+    res.json(comments);
+  } catch (err) {
+    console.error("Error fetching comments:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/comment", async (req, res) => {
+  const {id} = req.body;
+  try {
+    const doc = await findCommentById(id);
+    const commentData = {
+      id: doc._id.toString(),
+      postId: doc.postId.toString(),
+      author: doc.author,
+      content: doc.content,
+      tag: doc.tag,
+      likes: doc.likes,
+      createdAt: doc.createAt
+    };
+    res.json(commentData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -338,18 +323,20 @@ app.post("/write", async (req, res) => {
 })
 
 app.post("/addComment", async(req, res) => {
-  const {postId, commentId, content} = req.body.data;
+  const {postId, parentId, content} = req.body.data;
   const token = req.cookies.murmurToken;
   
   if (!token) return res.status(401).json({error: "Please Login"});
-    
+  
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
-    const addCommentId = await addComment(postId, commentId, name, content);
+    const addCommentId = await addComment(postId, parentId, name, content);
 
     const comment = {
-      _id: addCommentId,
+      id: addCommentId,
+      postId: postId,
+      parentId: parentId,
       author: name,
       content: content,
       createdAt: new Date(),
