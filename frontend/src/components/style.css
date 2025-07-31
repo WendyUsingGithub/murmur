@@ -33,6 +33,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 html {
     font-size: 15px;
     scrollbar-color: var(--murmur-black) var(--murmur-dark-black);
+    background-color: var(--murmur-dark-black);
 }
 body {
     margin: 0;
@@ -62,6 +63,10 @@ p {
 a {
     color: var(--murmur-light-light-gray);
     text-decoration: none;
+}
+
+.murmur {
+    padding-bottom: 30rem;
 }
 
 .row {
@@ -162,10 +167,6 @@ a {
     padding-top: 2.8rem;
 }
 
-.posts {
-    padding-bottom: 15rem;
-}
-
 .parapraphs {
     cursor: pointer;
 }
@@ -220,4 +221,65 @@ a {
         border-color: var(--murmur-light-light-gray);
         border-left-color: transparent;
     }
+}
+
+/* First Load */
+
+.first-load {
+    animation: firstLoad 0.3s linear forwards;
+}
+
+@keyframes firstLoad {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    50% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* CSS Transition Group */
+
+.forward-enter {
+    opacity: 0;
+    transition: all 0.15s ease-in;
+}
+
+.forward-enter-active {
+    opacity: 1;
+    transition: all 0.15s ease-in;
+}
+
+.forward-exit {
+    transition: all 0.15s ease-out;
+}
+
+.forward-exit-active {
+    opacity: 0;
+    transition: all 0.15s ease-out;
+}
+
+.back-enter {
+    opacity: 1;
+    transition: all 0.15s linear;
+}
+
+.back-enter-active {
+    opacity: 0;
+    transition: all 0.15s linear;
+}
+
+.back-exit {
+    opacity: 0;
+    transition: all 0.15s linear;
+}
+
+.back-exit-active {
+    opacity: 1;
+    transition: all 0.15s linear;
 }

@@ -11,11 +11,12 @@ import Post from "../post/post.jsx";
 import Comments from "./comments.jsx"
 import TempComments from "./tempComments.jsx"
 import AddComment from "./addComment.jsx"
+import Ancestor from "./ancestor.jsx"
 
 function PostPage() {
   const {postId, commentId} = useParams();
   const [data, setData] = useState(null);
-  const [parentId, setParentId] = useState(null);
+  const [id, setId] = useState(null);
   const [tempComments, setTempComments] = useState([]);
 
   async function addComment(commentData) {
@@ -33,12 +34,13 @@ function PostPage() {
       try {
         const result = await axios.post("http://localhost:3001/post", {id:postId});
         const data = {
-          id: result.data.id,
+          postId: result.data.postId,
+          commentId: result.data.commentId,
+          parentId: result.data.parentId,
           author: result.data.author,
           content: result.data.content,
           tag: result.data.tag,
           likes: result.data.likes,
-          comments: result.data.comments
         }
         setData(data);
         console.log("data", data);
@@ -51,11 +53,11 @@ function PostPage() {
       try {
         const result = await axios.post("http://localhost:3001/comment", {id:commentId});
         const data = {
-          id: result.data.id,
+          postId: result.data.postId,
+          commentId: result.data.commentId,
+          parentId: result.data.parentId,
           author: result.data.author,
           content: result.data.content,
-          tag: result.data.tag,
-          likes: result.data.likes,
           comments: result.data.comments
         }
         setData(data);
@@ -64,12 +66,12 @@ function PostPage() {
       }
     }
 
-    if(commentId == "post") {
-      setParentId(postId);
+    if(postId == commentId) {
+      setId(postId);
       fetchPostData();
     }
     else {
-      setParentId(commentId);
+      setId(commentId);
       fetchCommentData();
     }
 
@@ -82,10 +84,11 @@ function PostPage() {
           <div className="row">
             <div className="col-2 d-none d-lg-block"/>
             <div className="col-12 col-lg-6">
-              <Post postId={postId} commentId={commentId} author={data.author} content={data.content} tag={data.tag} likes={data.likes}/>
+              <Ancestor postId={postId} commentId={commentId} parentId={data.parentId}/>
+              <Post postId={postId} commentId={commentId} parentId={data.parentId} author={data.author} content={data.content} tag={data.tag} likes={data.likes}/>
               <AddComment postId={postId} commentId={commentId} onSubmit={addComment}/>
               <TempComments postId={postId} comments={tempComments}/>
-              <Comments postId={postId} parentId={parentId}/>
+              <Comments postId={postId} commentId={commentId}/>
             </div>
             <div className="col-2 d-none d-lg-block"/>
           </div>

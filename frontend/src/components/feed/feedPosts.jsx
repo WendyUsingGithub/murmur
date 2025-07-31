@@ -17,7 +17,9 @@ function FeedPosts() {
         for(let i=0; i<result.data.length; i++) {
           const postData = 
           {
-            id: result.data[i].id,
+            postId: result.data[i].postId,
+            commentId: result.data[i].postId,
+            parentId: result.data[i].postId,
             author: result.data[i].author,
             content: result.data[i].content,
             likes: result.data[i].likes,
@@ -37,8 +39,7 @@ function FeedPosts() {
   return (
     <div className="posts">
       {postsData.map((postData) =>
-        // <Post key={postData.id} postId={postData.id} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
-        <Post key={postData.id} postId={postData.id} author={postData.author} content={postData.content} likes={postData.likes}/>
+        <Post key={postData.postId} postId={postData.postId} commentId={postData.commentId} author={postData.author} content={postData.content} likes={postData.likes}/>
       )}
     </div>
   )

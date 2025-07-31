@@ -9,16 +9,15 @@ import Feed from "./feed/Feed.jsx";
 import PostPage from "./postPage/postPage.jsx";
 import Login from "./login/Login.jsx";
 import User from "./user/user.jsx";
+import Author from "./author/author.jsx";
 import Tag from "./tag/Tag.jsx";
 import Write from "./write/Write.jsx";
-
-import './index.css';
 
 function App() {
   return (
     <Auth>
       <BrowserRouter>
-        <div className="murmur">
+        <div className="murmur first-load">
           <Navbar/>
           <RoutesLocation/>
         </div>
@@ -38,7 +37,7 @@ function RoutesLocation() {
             <Route path="/postPage/:postId/:commentId" element={<PostPage/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/write" element={<Write/>}/>
-            <Route path="/author/:author" element={<User/>}/>
+            <Route path="/author/:author" element={<Author/>}/>
             <Route path="/tag/:tag" element={<Tag/>}/>
             <Route path="/user" element={<User/>}/>
           </Routes>

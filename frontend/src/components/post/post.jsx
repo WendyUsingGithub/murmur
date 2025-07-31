@@ -8,12 +8,16 @@ import {useNavigate} from "react-router-dom";
 import Paragraph from "../paragraph/paragraph.jsx"
 
 // function Post({postId, author, content, tag, likes, commentsNum})
-function Post({postId, author, content, tag, likes, commentsNum})
+function Post({postId, commentId, author, content, tag, likes})
 {
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
 
-  function onClickHandler(e) {
+  function onClickHandler() {
+    navigate(`/postPage/${postId}/${commentId}`);
+  }
+
+  function onClickHandlerAuthor(e) {
     e.stopPropagation();
     navigate(`/author/${author}`);
   }
@@ -30,9 +34,9 @@ function Post({postId, author, content, tag, likes, commentsNum})
   }, [content]);
 
   return (
-    <div className="post" onClick={() => navigate(`/postPage/${postId}/post`)}>
+    <div className="post" onClick={onClickHandler}>
       <div className="author">
-          <span className="author-name" onClick={onClickHandler}>
+          <span className="author-name" onClick={onClickHandlerAuthor}>
               {author}
           </span>
       </div>
@@ -77,6 +81,9 @@ function Post({postId, author, content, tag, likes, commentsNum})
 
 Post.propTypes = {
   postId: PropTypes.string.isRequired,
+  commentId: PropTypes.string.isRequired,
+  rootId: PropTypes.string.isRequired,
+  parentId: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   tag: PropTypes.string,

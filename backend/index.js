@@ -64,19 +64,6 @@ class UserData {
   }
 }
 
-async function addComment(postId, parentId, author, content, createdAt) {
-  const commentId = new ObjectId();
-  const comment = {
-    _id: commentId,
-    postId: new ObjectId(postId),
-    parentId: new ObjectId(parentId),
-    author: author,
-    content: content,
-    createdAt: new Date()
-  };
-  const result = await coll_comment.insertOne(comment);
-  return commentId;
-}
 
 async function findUserData(mail, password) {
   const result = await coll_userData.findOne({mail: mail, password: password});
@@ -84,12 +71,7 @@ async function findUserData(mail, password) {
 }
 
 async function findOne() {
-  const doc = await coll_post.findOne({
-    createdAt: {
-      $gte: new Date("2020-01-01T10:00:00"),
-      $lte: new Date("2026-01-01T10:00:00"),
-    },
-  });
+  const doc = await coll_post.findOne();
   return doc;
 };
 
@@ -106,17 +88,14 @@ async function findCommentById(id) {
 app.post("/posts", async (req, res) => {
   try {
     let postsData = [];
-    const cursor = await coll_post.find({
-        createdAt: {
-          $gte: new Date("2020-01-01T10:00:00"),
-          $lte: new Date("2026-01-01T10:00:00"),
-        },
-      }).limit(100).sort({createdAt: -1});
+    const cursor = await coll_post.find().limit(100).sort({createdAt: -1});
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       const postData = {
-        id: doc._id.toString(),
+        postId: doc._id.toString(),
+        commentId: doc._id.toString(),
+        parentId: doc._id.toString(),
         author: doc.author,
         content: doc.content,
         likes: doc.likes,
@@ -127,6 +106,62 @@ app.post("/posts", async (req, res) => {
     }
 
     res.json(postsData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({error: "Internal Server Error"});
+  }
+});
+
+
+async function ancestor(postId, parentId, ancestorArr) {
+  console.log("IN ANCESTOR");
+
+  if(postId == parentId) {
+    console.log("FIND POST");
+    result = await findPostById(parentId);
+    if(result) {
+      const postData = {
+        id: result._id.toString(),
+        author: result.author,
+        content: result.content,
+        tag: result.tag,
+        likes: result.likes,
+        createdAt: result.createAt
+      };
+      ancestorArr.push(postData);
+      console.log("HERE");   
+    }
+  }
+  else {
+    result = await findCommentById(parentId);
+    if(result) {
+      const postData = {
+        id: result._id.toString(),
+        postId: result.postId,
+        parentId: result.parentId,
+        author: result.author,
+        content: result.content,
+        tag: result.tag,
+        likes: result.likes,
+        createdAt: result.createAt
+      };
+      ancestorArr.push(postData);
+      await ancestor(postId, postData.parentId, ancestorArr);
+    }
+  }
+}
+
+app.post("/ancestor", async (req, res) => {
+  console.log("ancestor");
+  try {
+    const {postId, commentId, parentId} = req.body;
+    const ancestorArr = [];
+
+    await ancestor(postId, parentId, ancestorArr);
+
+    ancestorArr.reverse();
+    res.json(ancestorArr);
+    console.log("ancestorArr!!", ancestorArr);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
@@ -152,7 +187,7 @@ app.post("/post", async (req, res) => {
   }
 });
 
-app.post("/searchByField", async (req, res) => {
+app.post("/searchPostByField", async (req, res) => {
   const {author} = req.body;
   const {tag} = req.body;
   let field;
@@ -178,12 +213,54 @@ app.post("/searchByField", async (req, res) => {
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       const postData = {
-        id: doc._id.toString(),
+        postId: doc._id.toString(),
+        commentId: doc._id.toString(),
+        parentId: doc._id.toString(),
         author: doc.author,
         content: doc.content,
-        likes: doc.likes,
-        // commentsNum: doc.comments.length,
-        createdAt: doc.createAt,
+        createdAt: doc.createdAt
+      };
+      postsData.push(postData);
+      console.log("postData");
+    }
+
+    res.json(postsData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({error: "Internal Server Error"});
+  }
+});
+
+app.post("/searchCommentByField", async (req, res) => {
+  const {author} = req.body;
+  const {tag} = req.body;
+  let field;
+  let target;
+
+  console.log(req.body);
+
+  try {
+    let postsData = [];
+    if (author) {
+      field = "author";
+      target = author;
+    }
+    else if (tag) {
+      field = "tag";
+      target = tag;
+    }
+
+    const cursor = await coll_comment.find({[field]: target}).limit(100).sort({createdAt: -1});
+
+    while (await cursor.hasNext()) {
+      const doc = await cursor.next();
+      const postData = {
+        postId: doc.postId.toString(),
+        commentId: doc._id.toString(),
+        parentId: doc.parentId.toString(),
+        author: doc.author,
+        content: doc.content,
+        createdAt: doc.createdAt
       };
       postsData.push(postData);
       console.log("postData");
@@ -198,19 +275,19 @@ app.post("/searchByField", async (req, res) => {
 
 app.post("/comments", async (req, res) => {
   try {
-    const {postId, parentId} = req.body;
+    const {postId, commentId} = req.body;
     const comments = [];
     const cursor = await coll_comment.find({
       postId: new ObjectId(postId),
-      parentId: new ObjectId(parentId)
+      parentId: new ObjectId(commentId)
     });
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       const commentData = {
-        id: doc._id.toString(),
-        parentId: doc.parentId.toString(),
         postId: doc.postId.toString(),
+        commentId: doc._id.toString(),
+        parentId: doc.parentId.toString(),
         author: doc.author,
         content: doc.content,
         createdAt: doc.createdAt
@@ -229,8 +306,9 @@ app.post("/comment", async (req, res) => {
   try {
     const doc = await findCommentById(id);
     const commentData = {
-      id: doc._id.toString(),
       postId: doc.postId.toString(),
+      commentId: doc._id.toString(),
+      parentId: doc.parentId.toString(),
       author: doc.author,
       content: doc.content,
       tag: doc.tag,
@@ -321,6 +399,20 @@ app.post("/write", async (req, res) => {
     res.status(401).json({error: "Invalid token"});
   }
 })
+
+async function addComment(postId, parentId, author, content, createdAt) {
+  const commentId = new ObjectId();
+  const comment = {
+    _id: commentId,
+    postId: new ObjectId(postId),
+    parentId: new ObjectId(parentId),
+    author: author,
+    content: content,
+    createdAt: new Date()
+  };
+  const result = await coll_comment.insertOne(comment);
+  return commentId;
+}
 
 app.post("/addComment", async(req, res) => {
   const {postId, parentId, content} = req.body.data;

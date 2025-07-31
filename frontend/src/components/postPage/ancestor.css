@@ -1,0 +1,28 @@
+
+.ancestor .divider {
+  margin: 0.8rem auto 1.4rem auto;
+}
+
+.ancestor p {
+  color: var(--murmur-gray);
+}
+.ancestor .author-name {
+  color: var(--murmur-gray);
+}
+
+.ancestor .author-name:before {
+  background-color: var(--murmur-gray);
+}
+
+
+.ancestor .post-tag {
+  color: var(--murmur-gray);
+}
+
+.ancestor .interact .material-symbols-outlined {
+  color: var(--murmur-gray);
+}
+
+.ancestor .interact .number {
+  color: var(--murmur-gray);
+}

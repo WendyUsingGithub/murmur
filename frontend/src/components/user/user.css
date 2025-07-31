@@ -1,49 +1,198 @@
+
+/* actions */
+
+.login .actions{
+    width: 100%;
+    padding-bottom: 3rem;
+    font-size: 0;
+}
+.login .actions .action {
+    display: inline-block;
+    width: 50%;
+    padding-bottom: 2rem;
+    background-color: var(--murmur-dark-black);
+    color: var(--murmur-light-light-gray);
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;          
+    transition: 0.2s ease color;
+}
+.login .actions .action span {
+    margin: auto;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+}
+  
+.login .indicator {
+    position: relative;
+    bottom: 1rem;
+    margin-bottom: 5rem;
+    width: 50%;
+    height: 0.2rem;
+    background-color: var(--murmur-light-light-gray);
+    transition: all 0.3s ease-out;
+}
+
+.indicator {
+    pointer-events: none;
+}
+
+.login .actions .left {
+    left: 0%;
+}
+.login .actions .right {
+    left: 50%;
+}
+
+/* input card */
+
+.login .actions .show {
+    display: block;
+}
+
+.login .actions .hide {
+    display: none;
+}
+
+.login .slide-up {
+    animation: slide-up 0.5s ease-out;
+}
+.login .inputs {
+    padding-bottom: 5.5rem;
+}
+.login .input {
+    position: relative;
+    width: 100%;
+    margin: 3rem auto;
+    color: var(--murmur-light-light-gray);
+}
+  
+.login .input input[type="text"] {
+    width: 100%;
+    padding-bottom: 0.4rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.1rem;
+    color: var(--murmur-light-light-gray);
+    background-color: var(--murmur-dark-black);
+    caret-color: var(--murmur-light-gray);
+    border: none;
+    outline: none;
+    border-bottom: 0.2rem solid var(--murmur-light-light-gray);
+    transition: all 0.5s ease-out;
+}
+  
+.login .input .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.3rem;
+    color: var(--murmur-gray);
+    pointer-events: none;
+}
+
+
+.login .focus input[type="text"]{
+    padding-top: 2rem;
+    color: var(--murmur-light-light-gray);
+}
+
+.login .focus .label{
+    color: var(--murmur-light-light-gray);
+}
+
+/* submit */
+
+.login .submit {
+    display: flex;
+    position: relative;
+    left: 0.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    border: solid 0.15rem var(--murmur-light-light-gray);
+    color: var(--murmur-light-light-gray);
+    background-color: var(--murmur-dark-black);
+    border-radius: 100rem;
+    transition: all 0.2s ease-out;
+}
+  
+.login .submit .material-symbols-outlined {
+    font-size: 2rem;
+}
+  
+.login .submit:hover {
+    color: var(--murmur-dark-black);
+    background-color: var(--murmur-light-light-gray);
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(1.5rem);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 .user .header {
-  margin: 0;
-  padding: 0;
-  font-size: 1.6rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0.08rem;
-  padding-bottom: 0.4rem;
-  text-align: justify;
-  color: var(--murmur-light-light-gray);
+    margin: 0;
+    padding: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.08rem;
+    padding-bottom: 0.4rem;
+    text-align: justify;
+    color: var(--murmur-light-light-gray);
 }
 
 .user .subHeader {
-  margin: 0;
-  padding-left: 0.1rem;
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: 0.08rem;
-  text-align: justify;
-  color: var(--murmur-light-light-gray);
+    margin: 0;
+    padding-left: 0.1rem;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.08rem;
+    text-align: justify;
+    color: var(--murmur-light-light-gray);
 }
 
 .user .icon {
-  position: relative;
+    position: relative;
 }
 
 .user .icon .material-symbols-outlined {
-  cursor: pointer;
-  color: var(--murmur-light-light-gray);
-  position: absolute;
-  right: 1rem;
-  bottom: 0rem;
-  font-size: 2.5rem;
-  font-variation-settings:
-      'FILL' 0,
-      'wght' 275,
-      'GRAD' 0,
-      'opsz' 33
+    cursor: pointer;
+    color: var(--murmur-light-light-gray);
+    position: absolute;
+    right: 1rem;
+    bottom: 0rem;
+    font-size: 2.5rem;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 275,
+        'GRAD' 0,
+        'opsz' 33
 }
 
 .user .icon .material-symbols-outlined:hover {
-  color: var(--murmur-light-light-gray);
-  font-size: 2.2rem;
-  font-variation-settings:
-      'FILL' 1,
-      'wght' 275,
-      'GRAD' 0,
-      'opsz' 33
+    color: var(--murmur-light-light-gray);
+    font-size: 2.2rem;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 275,
+        'GRAD' 0,
+        'opsz' 33
+}
+
+.user .left-panel .divider {
+    margin: 1.4rem 0 3.2rem 0;
 }

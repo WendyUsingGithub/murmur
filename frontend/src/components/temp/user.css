@@ -1,0 +1,49 @@
+.user .header {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08rem;
+  padding-bottom: 0.4rem;
+  text-align: justify;
+  color: var(--murmur-light-light-gray);
+}
+
+.user .subHeader {
+  margin: 0;
+  padding-left: 0.1rem;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08rem;
+  text-align: justify;
+  color: var(--murmur-light-light-gray);
+}
+
+.user .icon {
+  position: relative;
+}
+
+.user .icon .material-symbols-outlined {
+  cursor: pointer;
+  color: var(--murmur-light-light-gray);
+  position: absolute;
+  right: 1rem;
+  bottom: 0rem;
+  font-size: 2.5rem;
+  font-variation-settings:
+      'FILL' 0,
+      'wght' 275,
+      'GRAD' 0,
+      'opsz' 33
+}
+
+.user .icon .material-symbols-outlined:hover {
+  color: var(--murmur-light-light-gray);
+  font-size: 2.2rem;
+  font-variation-settings:
+      'FILL' 1,
+      'wght' 275,
+      'GRAD' 0,
+      'opsz' 33
+}

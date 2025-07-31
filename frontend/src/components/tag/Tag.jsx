@@ -42,7 +42,7 @@ function Tag() {
           <div className="col-12 col-lg-6">
             {/* {user.name}
             {user.ID} */}
-            <SearchByField field="tag" target={tag}/>
+            <SearchByField type="post" field="tag" target={tag}/>
           </div>
           <div className="col-2 d-none d-lg-block">
             <div className="right-panel">
