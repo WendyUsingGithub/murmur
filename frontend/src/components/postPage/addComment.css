@@ -36,7 +36,7 @@
   font-weight: 300;
   position: absolute;
   right: -6rem;
-  bottom: 0;
+  bottom: -0.5rem;
   cursor: pointer;
   padding: 2rem;
 }
@@ -70,4 +70,25 @@
 
 .comment .addComment .divider {
   margin: 1.4rem 0 1.4rem 0;
+}
+
+@media (max-width: 768px) {
+  .addComment .textArea {
+    font-size: 1.05rem;
+  }
+
+  .addComment .icons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .addComment .material-symbols-outlined {
+    display: inline-block;
+    font-size: 1.8rem;
+    font-weight: 300;
+    position: relative;
+    right: 0rem;
+    bottom: 0rem;
+    cursor: pointer;
+    padding: 0;
+    }
 }

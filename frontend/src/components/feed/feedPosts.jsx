@@ -11,7 +11,7 @@ function FeedPosts() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.post("http://localhost:3001/posts", {wendy:"wendy"});
+        const result = await axios.post("http://1.34.178.127:5555/posts", {wendy:"wendy"});
 
         let postsData = [];
         for(let i=0; i<result.data.length; i++) {
@@ -23,7 +23,7 @@ function FeedPosts() {
             author: result.data[i].author,
             content: result.data[i].content,
             likes: result.data[i].likes,
-            // commentsNum: result.data[i].commentsNum
+            commentsNum: result.data[i].commentsNum
           }
           postsData.push(postData);
         }
@@ -39,7 +39,7 @@ function FeedPosts() {
   return (
     <div className="posts">
       {postsData.map((postData) =>
-        <Post key={postData.postId} postId={postData.postId} commentId={postData.commentId} author={postData.author} content={postData.content} likes={postData.likes}/>
+        <Post key={postData.postId} postId={postData.postId} commentId={postData.commentId} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
       )}
     </div>
   )

@@ -107,10 +107,6 @@
     color: var(--murmur-black);
 }
 
-.feed .middle {
-    margin: 0 7rem 0 7em;
-}
-
 .feed .feed-navbar {
     margin: 2rem 0 2rem 0;
     transition-timing-function: linear 1.5s;

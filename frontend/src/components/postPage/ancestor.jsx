@@ -17,8 +17,9 @@ function Ancestor({postId, commentId, parentId}) {
   const [ancestorDatas, setAncestorDatas] = useState([]);
   useEffect(() => {
     async function fetchData() {
+      console.log("ANSSSS");
       try {
-        const result = await axios.post("http://localhost:3001/ancestor", {postId: postId, commentId: commentId, parentId: parentId});
+        const result = await axios.post("http://1.34.178.127:5555/ancestor", {postId: postId, commentId: commentId, parentId: parentId});
         setAncestorDatas([]);
         const ancestorArr = [];
         for(let i=0; i<result.data.length; i++) {
@@ -31,8 +32,9 @@ function Ancestor({postId, commentId, parentId}) {
               parentId: result.data[i].parentId,
               author: result.data[i].author,
               content: result.data[i].content,
+              tag: result.data[i].tag,
               likes: result.data[i].likes,
-              // commentsNum: result.data[i].commentsNum
+              commentsNum: result.data[i].commentsNum
             }
             ancestorArr.push(ancestorData);
           }
@@ -44,9 +46,8 @@ function Ancestor({postId, commentId, parentId}) {
               parentId: result.data[i].parentId,
               author: result.data[i].author,
               content: result.data[i].content,
-              tag: result.data[i].likes,
               likes: result.data[i].likes,
-              // commentsNum: result.data[i].commentsNum
+              commentsNum: result.data[i].commentsNum
             }
             ancestorArr.push(ancestorData);
           }
@@ -68,8 +69,7 @@ function Ancestor({postId, commentId, parentId}) {
 
         <div className="posts">
           {ancestorDatas.map((ancestorData) =>
-            // <Post key={postData.id} postId={postData.id} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
-            <Post key={ancestorData.id} postId={ancestorData.postId} commentId={ancestorData.commentId} author={ancestorData.author} content={ancestorData.content} tag={ancestorData.tag} likes={ancestorData.likes}/>
+            <Post key={ancestorData.id} postId={ancestorData.postId} commentId={ancestorData.commentId} author={ancestorData.author} content={ancestorData.content} tag={ancestorData.tag} likes={ancestorData.likes} commentsNum={ancestorData.commentsNum}/>
           )}
         </div>
       </div>

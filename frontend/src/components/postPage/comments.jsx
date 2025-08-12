@@ -8,7 +8,7 @@ function Comments({postId, commentId}) {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.post(`http://localhost:3001/comments`, {postId: postId, commentId: commentId})
+      const result = await axios.post(`http://1.34.178.127:5555/comments`, {postId: postId, commentId: commentId})
       setComments(result.data);
     }
     fetchData()

@@ -35,12 +35,19 @@ html {
     scrollbar-color: var(--murmur-black) var(--murmur-dark-black);
     background-color: var(--murmur-dark-black);
 }
+
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
 body {
     margin: 0;
     font-family: "Noto Sans TC";
     color: var(--murmur-light-light-gray);
     background-color: var(--murmur-dark-black);
-    font-size: 1.05rem;
+    font-size: 1rem;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -224,9 +231,9 @@ a {
 }
 
 /* First Load */
-
+/* TODO */
 .first-load {
-    animation: firstLoad 0.3s linear forwards;
+    animation: firstLoad 1s linear forwards;
 }
 
 @keyframes firstLoad {

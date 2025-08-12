@@ -11,7 +11,7 @@ export function Auth({children}) {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await axios.get("http://localhost:3001/auth", {withCredentials: true});
+        const res = await axios.get("http://1.34.178.127:5555/auth", {withCredentials: true});
         setUser(res.data);
         console.log("res data", res.data);
       } catch (err) {

@@ -4,7 +4,7 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@popperjs/core')) :
+  // typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@popperjs/core')) :
   typeof define === 'function' && define.amd ? define(['@popperjs/core'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory(global.Popper));
 }(this, (function (Popper) { 'use strict';
@@ -2072,7 +2072,7 @@
         Manipulator.setDataAttribute(this._menu, 'popper', 'none');
       } else {
         if (typeof Popper__namespace === 'undefined') {
-          throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)');
+          // throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)');
         }
 
         let referenceElement = this._element;
@@ -3571,7 +3571,7 @@
   class Tooltip extends BaseComponent {
     constructor(element, config) {
       if (typeof Popper__namespace === 'undefined') {
-        throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
+        // throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
       }
 
       super(element); // private

@@ -97,7 +97,7 @@ function Login() {
 
     try {
       setLoading(true);
-      const result = await axios.post("http://localhost:3001/login", loginData, {withCredentials: true});
+      const result = await axios.post("http://1.34.178.127:5555/login", loginData, {withCredentials: true});
       console.log(result);
       console.log(result.data)
       if(result.status==200) {
@@ -133,7 +133,7 @@ function Login() {
     try {
       setLoading(true);
 
-      const result = await axios.post("http://localhost:3001/register", registerData, {withCredentials: true});
+      const result = await axios.post("http://1.34.178.127:5555/register", registerData, {withCredentials: true});
       console.log(result.data.name)
       console.log(result.data.ID)
 

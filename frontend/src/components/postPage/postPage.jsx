@@ -16,12 +16,11 @@ import Ancestor from "./ancestor.jsx"
 function PostPage() {
   const {postId, commentId} = useParams();
   const [data, setData] = useState(null);
-  const [id, setId] = useState(null);
   const [tempComments, setTempComments] = useState([]);
 
   async function addComment(commentData) {
     try {
-      const result = await axios.post("http://localhost:3001/addComment", {data:commentData}, {withCredentials: true});
+      const result = await axios.post("http://1.34.178.127:5555/addComment", {data:commentData}, {withCredentials: true});
       const tempComment = result.data;
       setTempComments((prev) => [tempComment, ...prev]);
     } catch (err) {
@@ -32,7 +31,7 @@ function PostPage() {
   useEffect(() => {
     async function fetchPostData() {
       try {
-        const result = await axios.post("http://localhost:3001/post", {id:postId});
+        const result = await axios.post("http://1.34.178.127:5555/post", {id:postId});
         const data = {
           postId: result.data.postId,
           commentId: result.data.commentId,
@@ -41,6 +40,7 @@ function PostPage() {
           content: result.data.content,
           tag: result.data.tag,
           likes: result.data.likes,
+          commentsNum: result.data.commentsNum
         }
         setData(data);
         console.log("data", data);
@@ -51,14 +51,15 @@ function PostPage() {
 
     async function fetchCommentData() {
       try {
-        const result = await axios.post("http://localhost:3001/comment", {id:commentId});
+        const result = await axios.post("http://1.34.178.127:5555/comment", {id:commentId});
         const data = {
           postId: result.data.postId,
           commentId: result.data.commentId,
           parentId: result.data.parentId,
           author: result.data.author,
           content: result.data.content,
-          comments: result.data.comments
+          likes: result.data.likes,
+          commentsNum: result.data.commentsNum
         }
         setData(data);
       } catch (err) {
@@ -67,11 +68,9 @@ function PostPage() {
     }
 
     if(postId == commentId) {
-      setId(postId);
       fetchPostData();
     }
     else {
-      setId(commentId);
       fetchCommentData();
     }
 
@@ -85,7 +84,7 @@ function PostPage() {
             <div className="col-2 d-none d-lg-block"/>
             <div className="col-12 col-lg-6">
               <Ancestor postId={postId} commentId={commentId} parentId={data.parentId}/>
-              <Post postId={postId} commentId={commentId} parentId={data.parentId} author={data.author} content={data.content} tag={data.tag} likes={data.likes}/>
+              <Post postId={postId} commentId={commentId} parentId={data.parentId} author={data.author} content={data.content} tag={data.tag} likes={data.likes} commentsNum={data.commentsNum}/>
               <AddComment postId={postId} commentId={commentId} onSubmit={addComment}/>
               <TempComments postId={postId} comments={tempComments}/>
               <Comments postId={postId} commentId={commentId}/>

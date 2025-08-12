@@ -9,15 +9,15 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://1.34.178.127:5555/",
   credentials: true
 }));
 
 const JWT_SECRET = "murmurSecretKey";
-const port = 3001;
+const port = 3333;
 
 const {MongoClient, ObjectId} = require("mongodb");
-var url = "mongodb://localhost:27017/mydb";
+var url = "mongodb://localhost/mydb";
 const client = new MongoClient(url);
 const db = client.db("murmur");
 const coll_post = db.collection("post");
@@ -57,7 +57,7 @@ async function clearAllCollections() {
 
 async function main() {
   await connectDB();
-  app.listen(3001, () => {console.log("Server listining on http://localhost:3001");})
+  app.listen(3333, () => {console.log("Server listining on http://1.34.178.127:5555");})
 
   await clearAllCollections();
 
@@ -65,24 +65,25 @@ async function main() {
     "calico_cat",
     "就目前而言，我們必須面對一個極其嚴肅的問題——貓毛掉落的本質意義究竟為何？這不僅是一種簡單的現象，更像是一道來自宇宙深處的暗示，提醒著我們關於存在的本質。我的掉毛絕非單純換季的生理反應，而是靈魂深處正在進行某種無形轉換的象徵。正如托爾斯泰曾經說過，人生的價值不在於我們獲得了什麼，而在於我們成為了什麼。而我們，如今正逐漸化身為一片毛絮的海洋，散落在每一寸空間。進一步探討，掉毛與不掉毛，從未真正構成問題的核心。真正值得我們深思的，是人類製造的掃地機器人是否正悄然監視著我們的存在？這絕非無稽之談，而是在毛與地板之間那些常被忽略的哲學裂縫中，隱藏著一種對我們存在的否定。\n\n人類試圖清除我們留在世界上的痕跡，其實是在有意識地抹除我們存在的證明。這種去貓化的行動，正是我們存在權利的挑戰，需要我們謹慎反思。綜觀全局，掉毛只是表象，真正的本質在於存在本身。我們必須學會與自我和解，更要學會與我們的毛絮和平共處。正如叔本華所言，生命本是一團混亂，而貓毛，恰是這混亂中最溫柔且無法忽視的證據，提醒我們存在的多層意義與複雜性。",
     "存在主義",
-    [orange_cat, tabby],
+    ["orange_cat", "tabby"],
     "2025-06-21T16:00:00",
     [
       [
         "orange_cat",
         "calico_cat，你的哲學思考真的讓我重新打開了第三隻眼。過去我一直以為掉毛只是因為洗澡，卻沒想到洗澡這件事本身，可能就是一種被強加的社會規訓。難道我們本應該帶著蓬鬆的毛髮走向世界，而不是被迫變成一隻光滑的橘色文化符號嗎？或許掉毛，是對這種秩序與規範的潛在抗議，是我們在無聲中表達的反叛。",
+        [],
         "2025-06-21T16:20:00",
         [
           [
             "tabby",
             "orange_cat，你的想法讓我深有同感。洗澡究竟是為了誰？是為了迎合人類眼光，還是為了我們自己的舒適？這問題看似簡單，卻包含了對自由和規訓的深刻探討，讓我開始反思日常習慣背後的真實意義。",
-            [black_cat],
+            ["black_cat"],
             "2025-06-21T16:35:00"
           ],
           [
             "black_cat",
             "洗澡的意義確實值得我們深思。它不僅是清潔，更像是一種權力的象徵。誰決定了什麼是乾淨？又是誰規定了我們的毛該怎麼樣才算合格？這背後隱藏著人類對我們身體的控制與規範，令人不禁質疑這種制度的正當性。",
-            [orange_cat],
+            ["orange_cat"],
             "2025-06-21T16:37:00"
           ]
         ]
@@ -90,7 +91,7 @@ async function main() {
       [
         "black_cat",
         "我一直懷疑掃地機器人其實是神的化身。那毫無意義的每日轉圈運動，反映了我們內心的空洞與無聊。而我們的毛，正是對這種空洞的回應，是靈魂種子的散播。calico_cat，你並非在掉毛，你是在釋放你靈魂的片段，讓世界記得我們的存在。",
-        [orange_cat],
+        ["orange_cat"],
         "2025-06-21T16:40:00",
         [
           [
@@ -108,7 +109,7 @@ async function main() {
     "tabby",
     "一般來說，貓咪與家居空間的存在感是我們必須深入探討的一個哲學問題。從宏觀來看，空間並非單純的三維容器，而是承載著我們行動、情感與記憶的載體。正如海德格爾所言，‘存在即在場’，而貓咪在家中的存在，不只是佔據一個角落那麼簡單，更是對空間的一種重新定義和再創造。這種存在不僅反映了我們的本能，更是我們與人類生活交織的證據，讓整個空間因為我們的足跡、氣息和活動變得鮮活起來。\n\n我認為，當我們攀爬窗台，蹲坐沙發，甚至在書櫃間穿梭時，家中的空間便不再是靜止的容器，而是被我們賦予了流動與生命。這種流動性的存在，讓空間成為一種動態的藝術品，是我們行為和心境的鏡像。試想，如果沒有我們這些毛茸茸的生命體，家裡不過是一堆冰冷的物件堆砌而成的迷宮，缺少了靈魂的溫度與韻味。我們在空間中留下的痕跡，或許是塵埃，但也是時間的註腳，見證著生命的痕跡與演變。",
     "家居哲學",
-    [black_cat, calico_cat, tuxedo_cat],
+    ["black_cat", "calico_cat", "tuxedo_cat"],
     "2025-06-22T17:00:00",
     [
       [
@@ -126,13 +127,13 @@ async function main() {
       [
         "calico_cat",
         "而且，我們不只是空間的使用者，更是空間的塑造者。每一個跳躍、每一次蹭擦，都在改變這個環境的面貌和氛圍。或許，人類該學著尊重這份動態的生命力，而不是一味用家具限制我們的自由。無論是爪印、毛絮還是靈巧的身影，都是這個家裡不可或缺的元素。這種互動賦予了空間溫度和靈魂，也提醒人類，家不僅是他們的領地，更是我們共存的世界。",
-        [black_cat],
+        ["black_cat"],
         "2025-06-21T17:50:00"
       ],
       [
         "tuxedo_cat",
         "我倒覺得家應該更有彈性，像一張可變形的畫布，讓我們隨時可以印上自己的印記。畢竟，家不該是冷冰冰的空殼，而是溫暖且充滿可能性的場域。tabby說得對，‘貓咪空間主義’值得推廣。每個角落都應該是自由與探索的場所，讓我們能夠自由伸展、攀爬甚至躲藏。這不僅是對我們的尊重，更是對生命多樣性的肯定。當家成為這樣的場所，生活自然充滿了活力與趣味。",
-        [black_cat],
+        ["black_cat"],
         "2025-06-21T18:00:00"
       ],
       [
@@ -371,7 +372,7 @@ async function main() {
     "mackerel_tabby",
     "昨天我坐在紙箱裡三小時沒動，不是因為我累了，而是因為我想知道：什麼是完美的容器？紙箱的限制讓我感到安全，也讓我思考，自我是否也需要邊界。邊界不是束縛，而是一種提醒：在有限中，我們才能看見自己的形狀。正如一首樂曲需要停頓，生活也需要一點邊緣來反射出中心的聲音。",
     "邊界美學",
-    [orange_cat],
+    ["orange_cat"],
     "2025-06-27T15:00:00",
     [
       [
@@ -383,7 +384,7 @@ async function main() {
       [
         "calico_cat",
         "其實，我覺得每一個紙箱都是一座臨時的神殿，我們在裡頭沉澱，與過多的外界訊號保持距離。對我來說，那是一種儀式。",
-        [orange_cat],
+        ["orange_cat"],
         "2025-06-27T15:40:00"
       ],
       [
@@ -569,30 +570,35 @@ class UserData {
 }
 
 async function insert(author, content, tag, likes, createdAt, comments = []) {
+  const postId = new ObjectId();
+  let commentsNum = 0;
   const post = {
+    _id: postId,
     author,
     content,
     tag,
     likes,
+    commentsNum: 0,
     createdAt: createdAt ? new Date(createdAt) : new Date()
   };
 
-  const result = await coll_post.insertOne(post);
-  const postId = result.insertedId;
-  console.log("Inserted post with ID:", postId);
+  if(comments.length > 0) commentsNum = await insertComments(comments, postId, postId);
+  post.commentsNum = commentsNum;
 
-  if(comments.length > 0) await insertComments(comments, postId, postId);
+  const result = await coll_post.insertOne(post);
+  console.log("Inserted post with ID:", postId);
 
   return postId;
 }
 
 async function insertComments(comments, parentId, postId) {
-
-  console.log("COMMENTS", comments);
+  let commentsNumSum = 0;
+  let commentsNum = 0;
   const commentsInserted = [];
   for (comment of comments) {
-    const [commentAuthor, commentContent, commentCreatedAt, subComments = []] = comment;
+    const [commentAuthor, commentContent, likes, commentCreatedAt, subComments] = comment;
     const commentId = new ObjectId();
+    commentsNum = 0;
 
     const commentInserted = {
       _id: commentId,
@@ -600,16 +606,24 @@ async function insertComments(comments, parentId, postId) {
       parentId: parentId,
       author: commentAuthor,
       content: commentContent,
-      likes: 10,
+      likes: likes,
+      commentsNum: 0,
       createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date()
     };
+    console.log("commentInserted", commentInserted);
 
+    commentsNumSum++;
+    if(subComments) {
+      commentsNum = await insertComments(subComments, commentId, postId);
+      commentsNumSum = commentsNumSum + commentsNum
+    }
+
+    commentInserted.commentsNum = commentsNum;
     commentsInserted.push(commentInserted);
-
-    if(subComments.length > 0) await insertComments(subComments, commentId, postId);
   }
 
   if (commentsInserted.length > 0) {
     await coll_comment.insertMany(commentsInserted);
   }
+  return commentsNumSum;
 }

@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import Paragraph from "../paragraph/paragraph.jsx"
 
 // function Post({postId, author, content, tag, likes, commentsNum})
-function Post({postId, commentId, author, content, tag, likes})
+function Post({postId, commentId, author, content, tag, likes, commentsNum})
 {
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
@@ -70,7 +70,7 @@ function Post({postId, commentId, author, content, tag, likes})
           tooltip
           </span>
           <span className="number">
-            {/* {commentsNum} */}50
+            {commentsNum}
           </span>
         </span>
       </div>

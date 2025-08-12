@@ -52,7 +52,7 @@ function User() {
                 </div>  
 
                 <div className="subscribe-button">
-                  追蹤
+                  <span className="text">追蹤</span>
                   <span className="icon">
                     <span className="material-symbols-outlined">
                       add_2

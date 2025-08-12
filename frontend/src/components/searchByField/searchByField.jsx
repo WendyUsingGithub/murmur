@@ -10,8 +10,8 @@ function SearchByField({type, field, target}) {
     async function fetchData() {
       try {
         let result;
-        if(type=="post") result = await axios.post("http://localhost:3001/searchPostByField", {[field]: target});
-        else if (type=="comment")  result = await axios.post("http://localhost:3001/searchCommentByField", {[field]: target});
+        if(type=="post") result = await axios.post("http://1.34.178.127:5555/searchPostByField", {[field]: target});
+        else if (type=="comment")  result = await axios.post("http://1.34.178.127:5555/searchCommentByField", {[field]: target});
 
         let postsData = [];
         for(let i=0; i<result.data.length; i++) {

@@ -1,23 +1,13 @@
 import {Link} from "react-router-dom";
-import {useRef, useEffect} from "react";
+import {useState, useRef, useEffect} from "react";
 import "./navbar.css";
 
 function MobileNavbar() {
   const navbarRef = useRef(null);
-  const prevScrollY = useRef(window.scrollY);
-
-  function scrollHandler() {
-    let currentScrollY = window.scrollY
-    prevScrollY.current = currentScrollY;
-  }
-
-  useEffect(() => {
-    window.addEventListener("scroll", scrollHandler);
-    return () => window.removeEventListener("scroll", scrollHandler);
-  }, []);
+  const [visibility, setVisibility] = useState("navbarShow");
 
   return (
-    <div ref={navbarRef} className="navbar">
+    <div ref={navbarRef} className={`navbar ${visibility}`}>
       <span className="icons center-alignment-horizontal">
         <Link to="/write" className="search">
           <div className="icon center-alignment">

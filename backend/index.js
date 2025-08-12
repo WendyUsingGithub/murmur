@@ -8,13 +8,28 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+
+const allowedOrigins = [
+  "http://1.34.178.127:3333",
+  "http://1.34.178.127:5555",
+  "http://localhost:5173",
+  "http://wendys.com.tw:3333"
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions))
 
 const JWT_SECRET = "murmurSecretKey";
-const port = 3001;
 
 const {MongoClient, ObjectId} = require("mongodb");
 var url = "mongodb://localhost:27017/mydb";
@@ -45,8 +60,8 @@ async function closeDB() {
 }
 
 connectDB();
-app.listen(3001, () => {
-  console.log("Server listining on http://localhost:3001");
+app.listen(5555, () => {
+  console.log("Server listining on Port 5555");
 })
 
 process.on("SIGINT", async () => {
@@ -64,9 +79,14 @@ class UserData {
   }
 }
 
-
 async function findUserData(mail, password) {
   const result = await coll_userData.findOne({mail: mail, password: password});
+  return result;
+}
+
+async function insertUserData(userData) {
+  const result = await coll_userData.insertOne(userData);
+  console.log(result);
   return result;
 }
 
@@ -98,8 +118,8 @@ app.post("/posts", async (req, res) => {
         parentId: doc._id.toString(),
         author: doc.author,
         content: doc.content,
-        likes: doc.likes,
-        // commentsNum: doc.comments.length,
+        likes: doc.likes.length,
+        commentsNum: doc.commentsNum,
         createdAt: doc.createAt,
       };
       postsData.push(postData);
@@ -114,10 +134,7 @@ app.post("/posts", async (req, res) => {
 
 
 async function ancestor(postId, parentId, ancestorArr) {
-  console.log("IN ANCESTOR");
-
   if(postId == parentId) {
-    console.log("FIND POST");
     result = await findPostById(parentId);
     if(result) {
       const postData = {
@@ -125,11 +142,11 @@ async function ancestor(postId, parentId, ancestorArr) {
         author: result.author,
         content: result.content,
         tag: result.tag,
-        likes: result.likes,
+        likes: result.likes.length,
+        commentsNum: result.commentsNum,
         createdAt: result.createAt
       };
       ancestorArr.push(postData);
-      console.log("HERE");   
     }
   }
   else {
@@ -142,7 +159,8 @@ async function ancestor(postId, parentId, ancestorArr) {
         author: result.author,
         content: result.content,
         tag: result.tag,
-        likes: result.likes,
+        likes: result.likes.length,
+        commentsNum: result.commentsNum,
         createdAt: result.createAt
       };
       ancestorArr.push(postData);
@@ -152,7 +170,6 @@ async function ancestor(postId, parentId, ancestorArr) {
 }
 
 app.post("/ancestor", async (req, res) => {
-  console.log("ancestor");
   try {
     const {postId, commentId, parentId} = req.body;
     const ancestorArr = [];
@@ -161,7 +178,6 @@ app.post("/ancestor", async (req, res) => {
 
     ancestorArr.reverse();
     res.json(ancestorArr);
-    console.log("ancestorArr!!", ancestorArr);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
@@ -177,7 +193,8 @@ app.post("/post", async (req, res) => {
       author: doc.author,
       content: doc.content,
       tag: doc.tag,
-      likes: doc.likes,
+      likes: doc.likes.length,
+      commentsNum: doc.commentsNum,
       createdAt: doc.createAt
     };
     res.json(postData);
@@ -221,7 +238,6 @@ app.post("/searchPostByField", async (req, res) => {
         createdAt: doc.createdAt
       };
       postsData.push(postData);
-      console.log("postData");
     }
 
     res.json(postsData);
@@ -290,6 +306,8 @@ app.post("/comments", async (req, res) => {
         parentId: doc.parentId.toString(),
         author: doc.author,
         content: doc.content,
+        likes: doc.likes.length,
+        commentsNum: doc.commentsNum,
         createdAt: doc.createdAt
       };
       comments.push(commentData);
@@ -305,6 +323,7 @@ app.post("/comment", async (req, res) => {
   const {id} = req.body;
   try {
     const doc = await findCommentById(id);
+    console.log("doc", doc);
     const commentData = {
       postId: doc.postId.toString(),
       commentId: doc._id.toString(),
@@ -312,7 +331,8 @@ app.post("/comment", async (req, res) => {
       author: doc.author,
       content: doc.content,
       tag: doc.tag,
-      likes: doc.likes,
+      likes: doc.likes.length,
+      commentsNum: doc.commentsNum,
       createdAt: doc.createAt
     };
     res.json(commentData);
@@ -325,16 +345,22 @@ app.post("/comment", async (req, res) => {
 app.post("/register", async (req, res) => {
   console.log("REGISTER");
   const {name, mail, password} = req.body;
+  console.log(req.body);
 
   try {
     const existingUser = await findUserData(mail, password);
+    console.log("1", existingUser);
 
     if (!existingUser) {
       const userData = new UserData(name, mail, password);
+      console.log("2");
       const result = await insertUserData(userData);
+      console.log("3");
       console.log("result.insertedId.toString()", result.insertedId.toString());
+      console.log("4");
       const token = jwt.sign({ID:result.insertedId.toString(), name: name}, JWT_SECRET, {expiresIn: "365d"});
-      console.log("token", token);
+      // console.log("token", token);
+
 
       res.cookie("murmurToken", token, {
         httpOnly: true,
@@ -344,10 +370,16 @@ app.post("/register", async (req, res) => {
 
     } else {
       res.status(409).json({message: "Mail already registered"});
+
+      console.log("4");
     }
   } catch (err) {
     res.status(500).json({message: "Internal Server Error", error: err.message});
+
+    console.log("5");
   }
+
+  console.log("6");
 });
 
 app.post("/login", async (req, res) => {
@@ -378,10 +410,25 @@ app.post("/login", async (req, res) => {
   }
 });
 
+async function addPost(author, content, tag) {
+  const postId = new ObjectId();
+  const post = {
+    _id: postId,
+    author: author,
+    content: content,
+    tag: tag,
+    createdAt: new Date()
+  };
+  const result = await coll_post.insertOne(post);
+  if(result) return postId;
+}
+
+
 app.post("/write", async (req, res) => {
   const {content, tag} = req.body.data;
   const token = req.cookies.murmurToken;
   console.log("token", token);
+  console.log("content", content, tag);
   
   if (!token) return res.status(401).json({error: "Please Login"});
   
@@ -391,7 +438,7 @@ app.post("/write", async (req, res) => {
     console.log("decoded", decoded);
     console.log("IDname", ID, name);
 
-    const result = await insert(name, content, tag);
+    const result = await addPost(name, content, tag);
     console.log("result", result);
 
     res.status(200).json({postId: result});
@@ -408,10 +455,29 @@ async function addComment(postId, parentId, author, content, createdAt) {
     parentId: new ObjectId(parentId),
     author: author,
     content: content,
+    likes: [],
+    commentsNum: 0,
     createdAt: new Date()
   };
   const result = await coll_comment.insertOne(comment);
+  await updateCommentsNum(postId, parentId);
   return commentId;
+}
+
+async function updateCommentsNum(postId, parentId) {
+  if(postId == parentId) {
+    result = await findPostById(parentId);
+    if(result) {
+      await coll_post.updateOne({_id: new ObjectId(postId)}, {$inc: {commentsNum: 1}});
+    }
+  }
+  else {
+    result = await findCommentById(parentId);
+    if(result) {
+      await coll_comment.updateOne({_id: new ObjectId(parentId),}, {$inc: {commentsNum: 1}});
+      await updateCommentsNum(postId, result.parentId);
+    }
+  }
 }
 
 app.post("/addComment", async(req, res) => {
@@ -432,7 +498,6 @@ app.post("/addComment", async(req, res) => {
       author: name,
       content: content,
       createdAt: new Date(),
-      comments: []
     }
     res.status(200).json(comment);
   } catch (err) {

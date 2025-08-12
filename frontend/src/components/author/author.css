@@ -24,7 +24,7 @@
 
 .author .subHeader {
   margin: 0;
-  padding: 0 0 2rem 0.1rem;
+  padding: 0 0 2.4rem 0.1rem;
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.08rem;
@@ -74,7 +74,10 @@
   text-align: justify;
   color: var(--murmur-light-light-gray);
 }
-
+.subscribe-button .text {
+    position: relative;
+    bottom: 0.15rem
+}
 .subscribe-button .icon {
   padding-left: 0.5rem;
 }
@@ -83,8 +86,8 @@
   cursor: pointer;
   color: var(--murmur-light-light-gray);
   position: static;
-  font-size: 1.4rem;
-  transition: transform 0.3s ease;
+  font-size: 1.3rem;
+  transition: transform 0.15s linear;
   font-variation-settings:
    'FILL' 0,
     'wght' 600,
@@ -98,5 +101,5 @@
 
 .subscribe-button:active .icon .material-symbols-outlined {
   transform: rotate(225deg);
-  transition: transform 0.3s ease;
+  transition: transform 0.15s linear;
 }
