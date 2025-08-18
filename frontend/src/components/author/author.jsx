@@ -3,18 +3,18 @@ import "../../../bootstrap/bootstrap.js";
 import "../style.css";
 import "./author.css";
 
-import Loader from "../loader/Loader.jsx"
 import AuthContext from "../auth/AuthContext.jsx";
 import SearchByField from "../searchByField/searchByField.jsx";
 
 import {useParams} from "react-router-dom";
 import {useContext, useState, useRef, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-function User() {
-  const {user, setUser} = useContext(AuthContext);
+function Author() {
+  // const {user, setUser} = useContext(AuthContext);
   const {author} = useParams();
+  const [nameZH, setNameZH] = useState(null)
+  const [introduction, setIntroduction] = useState(null)
   const [active, setActive] = useState("left");
   const [indicatorPos, setIndicatoPos] = useState("left");
   const [loginVisibility, setLoginVisibility] = useState("show");
@@ -36,6 +36,18 @@ function User() {
     setIndicatoPos(active);
   }
 
+  useEffect(() => {
+    async function fetchAuthorData() {
+      try {
+        const result = await axios.post("http://1.34.178.127:5555/authorData", {author: author});
+        setNameZH(result.data.nameZH);
+        setIntroduction(result.data.introduction);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchAuthorData();
+  })
   return(
 
     <div className="container author login">
@@ -45,30 +57,13 @@ function User() {
             <div className="left-panel">
               <div className="post">
                 <div className="header">
-                  三花貓
+                  {nameZH}
                 </div>
                 <div className="subHeader">
-                  {user.name}
+                  {author}
                 </div>  
-
-                <div className="subscribe-button">
-                  <span className="text">追蹤</span>
-                  <span className="icon">
-                    <span className="material-symbols-outlined">
-                      add_2
-                    </span>
-                  </span>
-                </div>   
-                
                 <p>
-                  三花血統，思想複雜如我的毛色。我的人生哲學是：每一條貓毛都有其位置，每一次踩踏都是一次結構批判。
-                </p>
-                
-                <p>
-                  我不是故意在凌晨三點衝刺走廊，我是在證明慣性可以打破時間的虛假安寧。我不是挑食，我是在進行口腹感官的純粹實驗——在雞肉與鮪魚泥之間追問自由意志的邊界。我不服從命令，不是叛逆，而是抵抗命令本身作為語言暴力的可能性。
-                </p>
-                <p>
-                  別期待我回應呼喚，我不是來討好你們的。我是來提醒這個世界：秩序，是可以從一隻貓的尾巴開始崩塌的。
+                  {introduction}
                 </p>
               </div>
             </div>
@@ -100,7 +95,6 @@ function User() {
                 <div className={registerVisibility}>
                   <SearchByField type="comment" field="author" target={author}/>
                 </div>
-
               </div>
             </div>
           </div>
@@ -113,5 +107,5 @@ function User() {
   )
 }
 
-export default User
+export default Author
 

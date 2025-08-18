@@ -4,12 +4,9 @@ import "../style.css";
 import "./postPage.css";
 import "./ancestor.css";
 
-import axios from "axios";
-
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
-// import {useNavigate} from "react-router-dom";
-
+import axios from "axios";
 
 import Post from "../post/post.jsx";
 
@@ -17,13 +14,11 @@ function Ancestor({postId, commentId, parentId}) {
   const [ancestorDatas, setAncestorDatas] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      console.log("ANSSSS");
       try {
         const result = await axios.post("http://1.34.178.127:5555/ancestor", {postId: postId, commentId: commentId, parentId: parentId});
         setAncestorDatas([]);
         const ancestorArr = [];
         for(let i=0; i<result.data.length; i++) {
-
           if(i == 0) {
             const ancestorData = 
             {
@@ -66,7 +61,6 @@ function Ancestor({postId, commentId, parentId}) {
 
     return(
       <div className="ancestor">
-
         <div className="posts">
           {ancestorDatas.map((ancestorData) =>
             <Post key={ancestorData.id} postId={ancestorData.postId} commentId={ancestorData.commentId} author={ancestorData.author} content={ancestorData.content} tag={ancestorData.tag} likes={ancestorData.likes} commentsNum={ancestorData.commentsNum}/>

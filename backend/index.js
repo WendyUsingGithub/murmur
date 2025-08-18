@@ -70,12 +70,77 @@ process.on("SIGINT", async () => {
     process.exit(0);
 });
 
-class UserData {
-  constructor(name, mail, password) {
+class UserDataBackEnd {
+  constructor({userId = null, name, mail, password, nameZH, introduction, likes = [], createdAt = new Date()}) {
+    this._id = userId ? new ObjectId(userId) : new ObjectId();
     this.name = name;
     this.mail = mail;
     this.password = password;
-    this.createAt = new Date();
+    this.nameZH = nameZH;
+    this.introduction = introduction;
+    this.likes = likes;
+    this.createdAt = createdAt;
+  }
+}
+
+class UserDataBack2Front {
+  constructor(UserDataBackEnd) {
+    this.userId = UserDataBackEnd._id.toString();
+    this.name = UserDataBackEnd.name;
+    this.nameZH = UserDataBackEnd.nameZH;
+    this.introduction = UserDataBackEnd.introduction;
+  }
+}
+
+class PostDataBackEnd {
+  constructor({postId = null, author, content, tag = null, likes = [], commentsNum = 0, createdAt = null}) {
+    this._id = postId ? new ObjectId(postId) : new ObjectId();
+    this.author = author;
+    this.content = content;
+    this.tag = tag;
+    this.likes = Array.isArray(likes) ? likes : [];
+    this.commentsNum = commentsNum;
+    this.createdAt = createdAt ? new Date(createdAt) : new Date();
+  }
+}
+
+class PostDataBack2Front {
+  constructor(postDataBackEnd) {
+    this.postId = postDataBackEnd._id.toString();
+    this.commentId = postDataBackEnd._id.toString();
+    this.parentId = postDataBackEnd._id.toString();
+    this.author = postDataBackEnd.author;
+    this.content = postDataBackEnd.content;
+    this.tag = postDataBackEnd.tag;
+    this.likes = postDataBackEnd.likes.length;
+    this.commentsNum = postDataBackEnd.commentsNum;
+    this.createdAt = postDataBackEnd.createdAt.toISOString();
+  }
+}
+
+class CommentDataBackEnd {
+  constructor({commentId = null, postId = null, parentId = null, author = null, content = null, likes = [], commentsNum = 0, commentCreatedAt = null}) {
+    this._id = commentId ? new ObjectId(commentId) : new ObjectId();
+    this.postId = postId ? new ObjectId(postId) : null;
+    this.parentId = parentId ? new ObjectId(parentId) : null;
+    this.author = author;
+    this.content = content;
+    this.likes = Array.isArray(likes) ? likes : [];
+    this.commentsNum = commentsNum;
+    this.createdAt = commentCreatedAt ? new Date(commentCreatedAt) : new Date();
+  }
+}
+
+class CommentDataBack2Front {
+  constructor(commentDataBackEnd) {
+    this.postId = commentDataBackEnd.postId.toString();
+    this.commentId = commentDataBackEnd._id.toString();
+    this.parentId = commentDataBackEnd.parentId.toString();
+    this.author = commentDataBackEnd.author;
+    this.content = commentDataBackEnd.content;
+    this.likes = commentDataBackEnd.likes.length;
+    this.commentsNum = commentDataBackEnd.commentsNum;
+    this.createdAt = commentDataBackEnd.createdAt.toISOString();
   }
 }
 
@@ -112,16 +177,7 @@ app.post("/posts", async (req, res) => {
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
-      const postData = {
-        postId: doc._id.toString(),
-        commentId: doc._id.toString(),
-        parentId: doc._id.toString(),
-        author: doc.author,
-        content: doc.content,
-        likes: doc.likes.length,
-        commentsNum: doc.commentsNum,
-        createdAt: doc.createAt,
-      };
+      const postData = new PostDataBack2Front(doc);
       postsData.push(postData);
     }
 
@@ -134,37 +190,19 @@ app.post("/posts", async (req, res) => {
 
 
 async function ancestor(postId, parentId, ancestorArr) {
-  if(postId == parentId) {
+  if(postId === parentId) {
     result = await findPostById(parentId);
     if(result) {
-      const postData = {
-        id: result._id.toString(),
-        author: result.author,
-        content: result.content,
-        tag: result.tag,
-        likes: result.likes.length,
-        commentsNum: result.commentsNum,
-        createdAt: result.createAt
-      };
+      const postData = new PostDataBack2Front(result);
       ancestorArr.push(postData);
     }
   }
   else {
     result = await findCommentById(parentId);
     if(result) {
-      const postData = {
-        id: result._id.toString(),
-        postId: result.postId,
-        parentId: result.parentId,
-        author: result.author,
-        content: result.content,
-        tag: result.tag,
-        likes: result.likes.length,
-        commentsNum: result.commentsNum,
-        createdAt: result.createAt
-      };
-      ancestorArr.push(postData);
-      await ancestor(postId, postData.parentId, ancestorArr);
+      const commentData = new CommentDataBack2Front(result);
+      ancestorArr.push(commentData);
+      await ancestor(postId, commentData.parentId, ancestorArr);
     }
   }
 }
@@ -188,15 +226,7 @@ app.post("/post", async (req, res) => {
   const {id} = req.body;
   try {
     const doc = await findPostById(id);
-    const postData = {
-      id: doc._id.toString(),
-      author: doc.author,
-      content: doc.content,
-      tag: doc.tag,
-      likes: doc.likes.length,
-      commentsNum: doc.commentsNum,
-      createdAt: doc.createAt
-    };
+    const postData = new PostDataBack2Front(doc);
     res.json(postData);
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -229,14 +259,7 @@ app.post("/searchPostByField", async (req, res) => {
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
-      const postData = {
-        postId: doc._id.toString(),
-        commentId: doc._id.toString(),
-        parentId: doc._id.toString(),
-        author: doc.author,
-        content: doc.content,
-        createdAt: doc.createdAt
-      };
+      const postData = new PostDataBack2Front(doc);
       postsData.push(postData);
     }
 
@@ -253,10 +276,8 @@ app.post("/searchCommentByField", async (req, res) => {
   let field;
   let target;
 
-  console.log(req.body);
-
   try {
-    let postsData = [];
+    let commentsData = [];
     if (author) {
       field = "author";
       target = author;
@@ -270,19 +291,11 @@ app.post("/searchCommentByField", async (req, res) => {
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
-      const postData = {
-        postId: doc.postId.toString(),
-        commentId: doc._id.toString(),
-        parentId: doc.parentId.toString(),
-        author: doc.author,
-        content: doc.content,
-        createdAt: doc.createdAt
-      };
-      postsData.push(postData);
-      console.log("postData");
+      const commentData = new CommentDataBack2Front(doc);
+      commentsData.push(commentData);
     }
 
-    res.json(postsData);
+    res.json(commentsData);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
@@ -300,16 +313,7 @@ app.post("/comments", async (req, res) => {
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
-      const commentData = {
-        postId: doc.postId.toString(),
-        commentId: doc._id.toString(),
-        parentId: doc.parentId.toString(),
-        author: doc.author,
-        content: doc.content,
-        likes: doc.likes.length,
-        commentsNum: doc.commentsNum,
-        createdAt: doc.createdAt
-      };
+      const commentData = new CommentDataBack2Front(doc);
       comments.push(commentData);
     }
     res.json(comments);
@@ -323,18 +327,7 @@ app.post("/comment", async (req, res) => {
   const {id} = req.body;
   try {
     const doc = await findCommentById(id);
-    console.log("doc", doc);
-    const commentData = {
-      postId: doc.postId.toString(),
-      commentId: doc._id.toString(),
-      parentId: doc.parentId.toString(),
-      author: doc.author,
-      content: doc.content,
-      tag: doc.tag,
-      likes: doc.likes.length,
-      commentsNum: doc.commentsNum,
-      createdAt: doc.createAt
-    };
+    const commentData = new CommentDataBack2Front(doc);
     res.json(commentData);
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -342,25 +335,17 @@ app.post("/comment", async (req, res) => {
   }
 });
 
+
 app.post("/register", async (req, res) => {
-  console.log("REGISTER");
   const {name, mail, password} = req.body;
-  console.log(req.body);
 
   try {
     const existingUser = await findUserData(mail, password);
-    console.log("1", existingUser);
 
     if (!existingUser) {
-      const userData = new UserData(name, mail, password);
-      console.log("2");
+      const userData = new UserDataBackEnd({name, mail, password});
       const result = await insertUserData(userData);
-      console.log("3");
-      console.log("result.insertedId.toString()", result.insertedId.toString());
-      console.log("4");
       const token = jwt.sign({ID:result.insertedId.toString(), name: name}, JWT_SECRET, {expiresIn: "365d"});
-      // console.log("token", token);
-
 
       res.cookie("murmurToken", token, {
         httpOnly: true,
@@ -370,16 +355,10 @@ app.post("/register", async (req, res) => {
 
     } else {
       res.status(409).json({message: "Mail already registered"});
-
-      console.log("4");
     }
   } catch (err) {
     res.status(500).json({message: "Internal Server Error", error: err.message});
-
-    console.log("5");
   }
-
-  console.log("6");
 });
 
 app.post("/login", async (req, res) => {
@@ -411,35 +390,22 @@ app.post("/login", async (req, res) => {
 });
 
 async function addPost(author, content, tag) {
-  const postId = new ObjectId();
-  const post = {
-    _id: postId,
-    author: author,
-    content: content,
-    tag: tag,
-    createdAt: new Date()
-  };
-  const result = await coll_post.insertOne(post);
-  if(result) return postId;
+  const postData = new PostDataBackEnd({author, content, tag});
+  const result = await coll_post.insertOne(postData);
+  if(result) return postData._id;
 }
 
 
 app.post("/write", async (req, res) => {
   const {content, tag} = req.body.data;
   const token = req.cookies.murmurToken;
-  console.log("token", token);
-  console.log("content", content, tag);
   
   if (!token) return res.status(401).json({error: "Please Login"});
   
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
-    console.log("decoded", decoded);
-    console.log("IDname", ID, name);
-
     const result = await addPost(name, content, tag);
-    console.log("result", result);
 
     res.status(200).json({postId: result});
   } catch (err) {
@@ -447,26 +413,16 @@ app.post("/write", async (req, res) => {
   }
 })
 
-async function addComment(postId, parentId, author, content, createdAt) {
-  const commentId = new ObjectId();
-  const comment = {
-    _id: commentId,
-    postId: new ObjectId(postId),
-    parentId: new ObjectId(parentId),
-    author: author,
-    content: content,
-    likes: [],
-    commentsNum: 0,
-    createdAt: new Date()
-  };
-  const result = await coll_comment.insertOne(comment);
+async function addComment(postId, parentId, author, content) {
+  const commentData = new CommentDataBackEnd({postId, parentId, author, content})
+  const result = await coll_comment.insertOne(commentData);
   await updateCommentsNum(postId, parentId);
-  return commentId;
+  return commentData;
 }
 
 async function updateCommentsNum(postId, parentId) {
-  if(postId == parentId) {
-    result = await findPostById(parentId);
+  if(postId === parentId) {
+    result = await findPostById(postId);
     if(result) {
       await coll_post.updateOne({_id: new ObjectId(postId)}, {$inc: {commentsNum: 1}});
     }
@@ -474,8 +430,8 @@ async function updateCommentsNum(postId, parentId) {
   else {
     result = await findCommentById(parentId);
     if(result) {
-      await coll_comment.updateOne({_id: new ObjectId(parentId),}, {$inc: {commentsNum: 1}});
-      await updateCommentsNum(postId, result.parentId);
+      await coll_comment.updateOne({_id: new ObjectId(parentId)}, {$inc: {commentsNum: 1}});
+      await updateCommentsNum(postId, result.parentId.toString());
     }
   }
 }
@@ -489,17 +445,9 @@ app.post("/addComment", async(req, res) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
-    const addCommentId = await addComment(postId, parentId, name, content);
-
-    const comment = {
-      id: addCommentId,
-      postId: postId,
-      parentId: parentId,
-      author: name,
-      content: content,
-      createdAt: new Date(),
-    }
-    res.status(200).json(comment);
+    const commentPostEndData = await addComment(postId, parentId, name, content);
+    const commentFrontEndData = new CommentDataBack2Front(commentPostEndData);
+    res.status(200).json(commentFrontEndData);
   } catch (err) {
     res.status(401).json({error: "Invalid token"});
   }
@@ -514,5 +462,22 @@ app.get("/auth", (req, res) => {
     res.status(200).json({ ID: decoded.ID, name: decoded.name });
   } catch (err) {
     res.status(401).json({ error: "Invalid token" });
+  }
+});
+
+app.post("/authorData", async (req, res) => {
+  const {author} = req.body;
+  let field;
+  let target;
+
+  try {
+    const docs = await coll_userData.find({name: author}).toArray();
+    const doc = docs[0];
+    const userData = new UserDataBack2Front(doc);
+
+    res.json(userData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({error: "Internal Server Error"});
   }
 });

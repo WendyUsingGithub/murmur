@@ -14,7 +14,7 @@ function TempComment({comment}) {
   const {accordionRef, expand} = useAccordion();
 
   function onClickHandler() {
-    navigate(`/postpage/${comment.postId}/${comment.id}`);
+    navigate(`/postpage/${comment.postId}/${comment.commentId}`);
   }
 
   useEffect(() => {

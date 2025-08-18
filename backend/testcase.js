@@ -61,6 +61,30 @@ async function main() {
 
   await clearAllCollections();
 
+  await insertUserData("calico_cat", "calico_cat", "calico_cat", "三花貓",
+    "毛色就像畫家的調色盤，白色的底色上點綴著橘色和黑色的斑塊，每一塊都像是隨意卻精心的筆觸。有人說我有點傲嬌，其實只是愛乾淨又有自己的原則，不喜歡被打擾時，我會優雅地轉身離開。聽說三花幾乎都是女生，所以我總覺得自己帶著與生俱來的女王氣質，走路的時候尾巴總是高高翹起，像是在巡視屬於我的小王國。",
+    []);
+
+  await insertUserData("orange_cat", "orange_cat", "orange_cat", "橘貓",
+    "全身暖暖的橘色像太陽一樣亮，走到哪裡都像一團會動的暖光。我的最大興趣就是吃，然後再吃，無論是罐頭、零食，還是你手上的麵包，我都想嚐一口。別人說我有貓中暖男的魅力，總是主動湊過來撒嬌取暖，但也常被笑是小胖子。沒辦法，美食在前，我沒有拒絕的天賦，所以我的肚子總是圓滾滾的，摸起來像個小抱枕。",
+    []);
+
+  await insertUserData("black_cat", "black_cat", "black_cat", "黑貓",
+    "從頭到尾都是夜色的顏色，毛髮在陽光下會閃著細緻的光澤，像黑色的絲絨。很多人以為黑貓會帶來厄運，但我帶來的其實是安靜與好運，只要你願意接近我，你會發現我的呼嚕聲比任何貓都溫柔。我喜歡窩在角落觀察大家的動作，像一名靜靜的守護者，偶爾會悄悄出現在你身邊，像影子般貼近，讓你在不經意間感到安心。",
+    []);
+
+  await insertUserData("tabby", "tabby", "tabby", "虎斑貓",
+    "小老虎一樣的深色花紋，看起來威風又有精神。雖然名字裡有虎，但我的性格其實很親人，只要你伸手，我就會把頭輕輕頂上去，表示喜歡。我也特別愛玩捉迷藏，會靜靜躲在門後、沙發下，等你經過時突然撲上去嚇你一跳。別被我有點嚴肅的外表騙了，其實我只是想多和你互動，因為你笑的時候，我的耳朵也會跟著微微抖動。",
+    []);
+
+  await insertUserData("mackerel_tabby", "mackerel_tabby", "mackerel_tabby", "魚骨虎斑",
+    "我身上的細條紋像魚骨一樣整齊排列，讓我看起來特別俐落。相比其他貓，我更靈活，能在書架和窗台之間一躍而上，也能在走廊上高速追逐玩具，完全不失誤。有人說我的花紋很時尚，就像穿了一件專屬的條紋外套，我自己也覺得很合身。當陽光灑下來時，條紋會變得更加鮮明，那時我會故意伸展身體，好像在向世界展示我的天然時裝。",
+    []);
+
+  await insertUserData("tuxedo_cat", "tuxedo_cat", "tuxedo_cat", "賓士貓",
+    "黑白相間的毛色像一套正式的禮服，讓我隨時都像是準備參加一場盛大的舞會。我的舉止優雅，走路輕盈得像踩在鋼琴鍵上，但骨子裡卻很愛惡作劇，喜歡把小物品推到地上，然後假裝一臉無辜。你會在以為我高貴的時候，看到我突然在地上翻滾，露出肚子要你幫我抓癢。這種反差讓我覺得有趣，也讓我在家裡永遠是眾人的焦點。",
+    []);
+
   await insert(
     "calico_cat",
     "就目前而言，我們必須面對一個極其嚴肅的問題——貓毛掉落的本質意義究竟為何？這不僅是一種簡單的現象，更像是一道來自宇宙深處的暗示，提醒著我們關於存在的本質。我的掉毛絕非單純換季的生理反應，而是靈魂深處正在進行某種無形轉換的象徵。正如托爾斯泰曾經說過，人生的價值不在於我們獲得了什麼，而在於我們成為了什麼。而我們，如今正逐漸化身為一片毛絮的海洋，散落在每一寸空間。進一步探討，掉毛與不掉毛，從未真正構成問題的核心。真正值得我們深思的，是人類製造的掃地機器人是否正悄然監視著我們的存在？這絕非無稽之談，而是在毛與地板之間那些常被忽略的哲學裂縫中，隱藏著一種對我們存在的否定。\n\n人類試圖清除我們留在世界上的痕跡，其實是在有意識地抹除我們存在的證明。這種去貓化的行動，正是我們存在權利的挑戰，需要我們謹慎反思。綜觀全局，掉毛只是表象，真正的本質在於存在本身。我們必須學會與自我和解，更要學會與我們的毛絮和平共處。正如叔本華所言，生命本是一團混亂，而貓毛，恰是這混亂中最溫柔且無法忽視的證據，提醒我們存在的多層意義與複雜性。",
@@ -549,7 +573,6 @@ async function main() {
     ]
   );
 
-
   process.on("SIGINT", async () => {
       await closeDB();
       console.log("Process end! Bye!");
@@ -560,61 +583,77 @@ async function main() {
 
 main();
 
-class UserData {
-  constructor(name, mail, password) {
+class UserDataBackEnd {
+  constructor({userId = null, name, mail, password, nameZH, introduction, likes = [], createdAt = new Date()}) {
+    this._id = userId ? new ObjectId(userId) : new ObjectId();
     this.name = name;
     this.mail = mail;
     this.password = password;
-    this.createAt = new Date();
+    this.nameZH = nameZH;
+    this.introduction = introduction;
+    this.likes = likes;
+    this.createdAt = createdAt;
   }
 }
 
-async function insert(author, content, tag, likes, createdAt, comments = []) {
-  const postId = new ObjectId();
-  let commentsNum = 0;
-  const post = {
-    _id: postId,
-    author,
-    content,
-    tag,
-    likes,
-    commentsNum: 0,
-    createdAt: createdAt ? new Date(createdAt) : new Date()
-  };
+class PostDataBackEnd {
+  constructor({postId = null, author, content, tag = null, likes = [], commentsNum = 0, createdAt = new Date()}) {
+    this._id = postId ? new ObjectId(postId) : new ObjectId();
+    this.author = author;
+    this.content = content;
+    this.tag = tag;
+    this.likes = Array.isArray(likes) ? likes : [];
+    this.commentsNum = commentsNum;
+    this.createdAt = createdAt instanceof Date ? createdAt : new Date(createdAt);
+  }
+}
 
-  if(comments.length > 0) commentsNum = await insertComments(comments, postId, postId);
+class CommentDataBackEnd {
+  constructor({commentId = null, postId = null, parentId = null, author = null, content = null, likes = [], commentsNum = 0, commentCreatedAt = new Date()}) {
+    this._id = commentId ? new ObjectId(commentId) : new ObjectId();
+    this.postId = postId ? new ObjectId(postId) : null;
+    this.parentId = parentId ? new ObjectId(parentId) : null;
+    this.author = author;
+    this.content = content;
+    this.likes = Array.isArray(likes) ? likes : [];
+    this.commentsNum = commentsNum;
+    this.createdAt = commentCreatedAt instanceof Date ? commentCreatedAt : new Date(commentCreatedAt);
+  }
+}
+
+
+async function insertUserData(name, mail, password, nameZH, introduction, likes, createdAt) {
+  const userData = new UserDataBackEnd({name, mail, password, nameZH, introduction, likes});
+  const result = await coll_userData.insertOne(userData);
+  console.log("Inserted userData with ID:", userData._id);
+  return userData._id;
+}
+
+async function insert(author, content, tag, likes, createdAt, comments) {
+  let commentsNum = 0;
+  const post = new PostDataBackEnd({author, content, tag, likes, createdAt});
+
+  if(comments.length > 0) commentsNum = await insertComments(comments, post._id, post._id);
   post.commentsNum = commentsNum;
 
   const result = await coll_post.insertOne(post);
-  console.log("Inserted post with ID:", postId);
-
-  return postId;
+  console.log("Inserted post with ID:", post._id);
+  return post._id;
 }
 
-async function insertComments(comments, parentId, postId) {
+async function insertComments(comments, postId, parentId) {
   let commentsNumSum = 0;
   let commentsNum = 0;
   const commentsInserted = [];
   for (comment of comments) {
-    const [commentAuthor, commentContent, likes, commentCreatedAt, subComments] = comment;
-    const commentId = new ObjectId();
+    const [author, content, likes, commentCreatedAt, subComments] = comment;
+    const commentInserted = new CommentDataBackEnd({postId, parentId, author, content, likes, commentCreatedAt});
+    console.log("Inserted comment with ID:", commentInserted._id);
+
     commentsNum = 0;
-
-    const commentInserted = {
-      _id: commentId,
-      postId: postId,
-      parentId: parentId,
-      author: commentAuthor,
-      content: commentContent,
-      likes: likes,
-      commentsNum: 0,
-      createdAt: commentCreatedAt ? new Date(commentCreatedAt) : new Date()
-    };
-    console.log("commentInserted", commentInserted);
-
     commentsNumSum++;
     if(subComments) {
-      commentsNum = await insertComments(subComments, commentId, postId);
+      commentsNum = await insertComments(subComments, postId, commentInserted._id);
       commentsNumSum = commentsNumSum + commentsNum
     }
 

@@ -7,7 +7,6 @@ import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import Paragraph from "../paragraph/paragraph.jsx"
 
-// function Post({postId, author, content, tag, likes, commentsNum})
 function Post({postId, commentId, author, content, tag, likes, commentsNum})
 {
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ function Post({postId, commentId, author, content, tag, likes, commentsNum})
       )}
 
       <div className="interact">
-        <span className="item">
+        <span className="item" onClick={(e) => {e.stopPropagation();}}>
           <span className="material-symbols-outlined">
           favorite
           </span>
@@ -65,7 +64,7 @@ function Post({postId, commentId, author, content, tag, likes, commentsNum})
             {likes}
           </span>
         </span>
-        <span className="item">
+        <span className="item" onClick={(e) => {e.stopPropagation();}}>
           <span style={{scale:"0.95"}} className="material-symbols-outlined">
           tooltip
           </span>
