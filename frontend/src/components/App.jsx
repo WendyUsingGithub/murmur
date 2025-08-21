@@ -5,13 +5,14 @@ import "../../bootstrap/bootstrap.js";
 import "./style.css";
 import Auth from "./auth/Auth.jsx";
 import Navbar from "./navbar/Navbar.jsx";
-import Feed from "./feed/Feed.jsx";
-import PostPage from "./postPage/postPage.jsx";
+import Feed from "./feed/FeedPage.jsx";
+import PostPage from "./postPage/PostPage.jsx";
 import Login from "./login/Login.jsx";
 import User from "./user/user.jsx";
 import Author from "./author/author.jsx";
 import Tag from "./tag/Tag.jsx";
 import Write from "./write/Write.jsx";
+import Setting from "./setting/Setting.jsx"
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function RoutesLocation() {
             <Route path="/author/:author" element={<Author/>}/>
             <Route path="/tag/:tag" element={<Tag/>}/>
             <Route path="/user" element={<User/>}/>
+            <Route path="/setting" element={<Setting/>}/>
           </Routes>
         </div>
       </CSSTransition>

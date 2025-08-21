@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 import axios from "axios";SearchByField
-import Post from "../post/post.jsx";
+import Post from "../post/Post.jsx";
 
 function SearchByField({type, field, target}) {
   const [postsData, setDatas] = useState([]);
@@ -22,7 +22,7 @@ function SearchByField({type, field, target}) {
             parentId: result.data[i].parentId,
             author: result.data[i].author,
             content: result.data[i].content,
-            likes: result.data[i].likes,
+            likesNum: result.data[i].likesNum,
             commentsNum: result.data[i].commentsNum
           }
           postsData.push(postData);
@@ -39,7 +39,7 @@ function SearchByField({type, field, target}) {
   return (
     <div className="posts">
       {postsData.map((postData) =>
-        <Post key={postData.commentId} postId={postData.postId} commentId={postData.commentId} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
+        <Post key={postData.commentId} postId={postData.postId} commentId={postData.commentId} author={postData.author} content={postData.content} likesNum={postData.likesNum} commentsNum={postData.commentsNum}/>
       )}
     </div>
   )

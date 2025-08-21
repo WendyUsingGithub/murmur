@@ -75,6 +75,7 @@
     caret-color: var(--murmur-light-gray);
     border: none;
     outline: none;
+    border-radius: 0;
     border-bottom: 0.2rem solid var(--murmur-light-light-gray);
     transition: all 0.5s ease-out;
 }

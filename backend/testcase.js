@@ -22,7 +22,7 @@ const client = new MongoClient(url);
 const db = client.db("murmur");
 const coll_post = db.collection("post");
 const coll_comment = db.collection("comment");
-const coll_userData = db.collection("userData");
+const coll_user = db.collection("user");
 
 async function connectDB() {
   try {
@@ -48,7 +48,7 @@ async function clearAllCollections() {
   try {
     await coll_post.deleteMany({});
     await coll_comment.deleteMany({});
-    await coll_userData.deleteMany({});
+    await coll_user.deleteMany({});
     console.log("All collections cleared successfully");
   } catch (error) {
     console.error("Failed to clear collections:", error);
@@ -219,7 +219,7 @@ async function main() {
       [
         "orange_cat",
         "這讓我想到，為什麼家裡總有那麼多‘睡覺區’，卻還是有人硬要我們換地方？或許人類無法真正理解睡眠的深層意義吧。對我們而言，每一處舒服的角落都是心靈的避風港，是與自己和解的空間。這種靜謐是治癒，也是力量的源泉。",
-        10,
+        ["calico_cat", "black_cat", "orange_cat", "tabby", "tuxedo_cat", "mackerel_tabby"],
         "2025-06-22T11:00:00",
         [
           [
@@ -233,7 +233,7 @@ async function main() {
       [
         "tuxedo_cat",
         "我覺得睡眠還有一層神秘，就是夢中那些模糊的影像與感覺，有時候像故事，有時候像謎語。我們在夢裡旅行，或許是在尋找什麼答案，也是在整理白日的煩憂。睡眠，是生命的暫停鍵，也是重新啟動的開關。",
-        5,
+        ["tabby", "mackerel_tabby", "tuxedo_cat"],
         "2025-06-22T11:20:00",
         [
           [
@@ -300,7 +300,7 @@ async function main() {
       [
         "mackerel_tabby",
         "春天的雷雨讓我有點害怕，但我學會了找個安全的角落，靜靜觀察外面的世界變化。這讓我想到，生命中遇到困難時，也要學會暫時退一步，保護自己，等待風暴過去。",
-        5,
+        ["calico_cat", "orange_cat", "black_cat", "tabby"],
         "2025-06-23T09:50:00",
         [
           [
@@ -324,7 +324,7 @@ async function main() {
     "orange_cat",
     "吸塵器，這個看似平凡的家用電器，實際上蘊藏著無數的哲學思考與生活智慧。每當我看到它在地板上輕輕滑過，帶走那些細小的灰塵與毛髮，我不禁開始思考，清理與被清理之間，是否也存在著一種微妙的生命互動？我們貓咪的毛髮成了它工作的證據，也成了它存在的價值。然而，吸塵器的運作似乎也提醒著我們關於控制與被控制的課題。當那機器嗡嗡作響時，是不是象徵著我們生活中那些無形的規範和壓力。就像吸塵器必須持續運行才能維持清潔，我們是否也在無意識中，默默接受著周遭環境的各種牽引與限制。",
     "吸塵器",
-    [],
+    ["tabby", "mackerel_tabby", "tuxedo_cat"],
     "2025-06-25T10:00:00",
     [
       [
@@ -453,7 +453,7 @@ async function main() {
     "black_cat",
     "鏡子是一種危險的物品。每次我經過時，它都讓我懷疑：那真的是我嗎？還是某個平行宇宙的替身？牠和我做著同樣的動作，但眼神裡藏著我無法辨認的情緒。我不禁思考，認識自己，是不是其實不可能？因為我們所見的自己，總帶著反射的扭曲。我開始明白，真正的自我可能不存在於表面，而藏在那一瞬間我們對自己感到陌生的凝視之中。",
     "自我哲學",
-    [],
+    ["orange_cat", "tabby"],
     "2025-06-29T08:00:00",
     [
       [
@@ -621,10 +621,18 @@ class CommentDataBackEnd {
   }
 }
 
+async function updateLike(name, postId, commentId) {
+  const user = await coll_user.findOne({name});
+  console.log("USER", user, " ", name);
+  await coll_user.updateOne(
+    {_id: user._id},
+    {$push: {likes: [postId, commentId]}}
+  );
+}
 
 async function insertUserData(name, mail, password, nameZH, introduction, likes, createdAt) {
   const userData = new UserDataBackEnd({name, mail, password, nameZH, introduction, likes});
-  const result = await coll_userData.insertOne(userData);
+  const result = await coll_user.insertOne(userData);
   console.log("Inserted userData with ID:", userData._id);
   return userData._id;
 }
@@ -632,6 +640,11 @@ async function insertUserData(name, mail, password, nameZH, introduction, likes,
 async function insert(author, content, tag, likes, createdAt, comments) {
   let commentsNum = 0;
   const post = new PostDataBackEnd({author, content, tag, likes, createdAt});
+  console.log("likes", likes);
+  for (name of likes) {
+    console.log("name ", name);
+    await updateLike(name, post._id, post._id);
+  }
 
   if(comments.length > 0) commentsNum = await insertComments(comments, post._id, post._id);
   post.commentsNum = commentsNum;
@@ -649,6 +662,12 @@ async function insertComments(comments, postId, parentId) {
     const [author, content, likes, commentCreatedAt, subComments] = comment;
     const commentInserted = new CommentDataBackEnd({postId, parentId, author, content, likes, commentCreatedAt});
     console.log("Inserted comment with ID:", commentInserted._id);
+
+    console.log("Comments likes", likes);
+
+    for (name of likes) {
+      await updateLike(name, postId, commentInserted._id);
+    }
 
     commentsNum = 0;
     commentsNumSum++;

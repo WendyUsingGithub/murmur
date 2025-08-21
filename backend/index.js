@@ -112,9 +112,10 @@ class PostDataBack2Front {
     this.author = postDataBackEnd.author;
     this.content = postDataBackEnd.content;
     this.tag = postDataBackEnd.tag;
-    this.likes = postDataBackEnd.likes.length;
+    this.likesNum = postDataBackEnd.likes.length;
     this.commentsNum = postDataBackEnd.commentsNum;
     this.createdAt = postDataBackEnd.createdAt.toISOString();
+    this.like = false;
   }
 }
 
@@ -138,9 +139,10 @@ class CommentDataBack2Front {
     this.parentId = commentDataBackEnd.parentId.toString();
     this.author = commentDataBackEnd.author;
     this.content = commentDataBackEnd.content;
-    this.likes = commentDataBackEnd.likes.length;
+    this.likesNum = commentDataBackEnd.likes.length;
     this.commentsNum = commentDataBackEnd.commentsNum;
     this.createdAt = commentDataBackEnd.createdAt.toISOString();
+    this.like = false;
   }
 }
 
@@ -171,6 +173,7 @@ async function findCommentById(id) {
 };
 
 app.post("/posts", async (req, res) => {
+  console.log("POSTS");
   try {
     let postsData = [];
     const cursor = await coll_post.find().limit(100).sort({createdAt: -1});
@@ -182,6 +185,7 @@ app.post("/posts", async (req, res) => {
     }
 
     res.json(postsData);
+    console.log("POSTS", postsData);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
@@ -213,7 +217,6 @@ app.post("/ancestor", async (req, res) => {
     const ancestorArr = [];
 
     await ancestor(postId, parentId, ancestorArr);
-
     ancestorArr.reverse();
     res.json(ancestorArr);
   } catch (err) {
@@ -240,8 +243,6 @@ app.post("/searchPostByField", async (req, res) => {
   let field;
   let target;
 
-  console.log(req.body);
-
   try {
     let postsData = [];
     if (author) {
@@ -252,8 +253,6 @@ app.post("/searchPostByField", async (req, res) => {
       field = "tag";
       target = tag;
     }
-
-    console.log(field, target);
 
     const cursor = await coll_post.find({[field]: target}).limit(100).sort({createdAt: -1});
 

@@ -1,5 +1,6 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
+import {PostDataFrontEnd, CommentDataFrontEnd} from "../frontEndClass.js";
 import "../style.css";
 import "./postPage.css";
 
@@ -7,11 +8,11 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 
-import Post from "../post/post.jsx";
+import Post from "../post/Post.jsx";
 import Comments from "./comments.jsx"
 import TempComments from "./tempComments.jsx"
 import AddComment from "./addComment.jsx"
-import Ancestor from "./ancestor.jsx"
+import Ancestor from "./Ancestor.jsx"
 
 function PostPage() {
   const {postId, commentId} = useParams();
@@ -32,18 +33,8 @@ function PostPage() {
     async function fetchPostData() {
       try {
         const result = await axios.post("http://1.34.178.127:5555/post", {id:postId});
-        const data = {
-          postId: result.data.postId,
-          commentId: result.data.commentId,
-          parentId: result.data.parentId,
-          author: result.data.author,
-          content: result.data.content,
-          tag: result.data.tag,
-          likes: result.data.likes,
-          commentsNum: result.data.commentsNum
-        }
+        const data = new PostDataFrontEnd(result.data);
         setData(data);
-        console.log("data", data);
       } catch (err) {
         console.error(err);
       }
@@ -52,15 +43,7 @@ function PostPage() {
     async function fetchCommentData() {
       try {
         const result = await axios.post("http://1.34.178.127:5555/comment", {id:commentId});
-        const data = {
-          postId: result.data.postId,
-          commentId: result.data.commentId,
-          parentId: result.data.parentId,
-          author: result.data.author,
-          content: result.data.content,
-          likes: result.data.likes,
-          commentsNum: result.data.commentsNum
-        }
+        const data = new CommentDataFrontEnd(result.data);
         setData(data);
       } catch (err) {
         console.error(err);
@@ -84,7 +67,7 @@ function PostPage() {
             <div className="col-2 d-none d-lg-block"/>
             <div className="col-12 col-lg-6">
               <Ancestor postId={postId} commentId={commentId} parentId={data.parentId}/>
-              <Post postId={postId} commentId={commentId} parentId={data.parentId} author={data.author} content={data.content} tag={data.tag} likes={data.likes} commentsNum={data.commentsNum}/>
+              <Post PostDataFrontEnd={data}/>
               <AddComment postId={postId} commentId={commentId} onSubmit={addComment}/>
               <TempComments postId={postId} comments={tempComments}/>
               <Comments postId={postId} commentId={commentId}/>

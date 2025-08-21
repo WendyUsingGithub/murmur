@@ -154,102 +154,99 @@ function Login() {
       <div className="login container">
         <div className="content">
           <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8">
-              <div className="middle">
-                <div> 
-                  <div className="actions">
-                    <button className="action"
-                      data-value="left"
-                      onClick={onClickHandler}
-                      onMouseEnter={mouseEnterHandler}
-                      onMouseLeave={mouseLeaveHandler}>
-                      <span>登入</span>
-                    </button>
-                    <button className="action"
-                      data-value="right"
-                      onClick={onClickHandler}
-                      onMouseEnter={mouseEnterHandler}
-                      onMouseLeave={mouseLeaveHandler}>
-                      <span>註冊</span>
-                    </button>
-                    <div className={`indicator ${indicatorPos}`}></div>
+            <div className="col-2 d-none d-lg-block"></div>
+            <div className="col-12 col-lg-6">
+              <div> 
+                <div className="actions">
+                  <button className="action"
+                    data-value="left"
+                    onClick={onClickHandler}
+                    onMouseEnter={mouseEnterHandler}
+                    onMouseLeave={mouseLeaveHandler}>
+                    <span>登入</span>
+                  </button>
+                  <button className="action"
+                    data-value="right"
+                    onClick={onClickHandler}
+                    onMouseEnter={mouseEnterHandler}
+                    onMouseLeave={mouseLeaveHandler}>
+                    <span>註冊</span>
+                  </button>
+                  <div className={`indicator ${indicatorPos}`}></div>
 
-                    <div className={loginVisibility}>
-                      <div className="slide-up">
-                        <form className="inputs">
-                          <div className={`input ${focus[0][0]}`}>
-                            <input
-                              type="text" required=""
-                              data-value="mail"
-                              ref={loginMailRef}
-                              onClick={inputOnClickHandler}
-                              onBlur={inputOnBlurHandler}/>
-                            <label htmlFor="input" className="label">信箱</label>
-                          </div>
-                          <div className={`input ${focus[0][1]}`}>
-                            <input
-                              type="text" required=""
-                              data-value="password"
-                              ref={loginPasswordRef}
-                              onClick={inputOnClickHandler}
-                              onBlur={inputOnBlurHandler}/>
-                            <label htmlFor="input" className="label">密碼</label>
-                          </div>
-                        </form>
-                        <div className="center-alignment">
-                          <button className="submit" onClick={loginHandler}>
-                            <span className="material-symbols-outlined">
-                              arrow_forward
-                            </span>
-                          </button>
+                  <div className={loginVisibility}>
+                    <div className="slide-up">
+                      <form className="inputs">
+                        <div className={`input ${focus[0][0]}`}>
+                          <input
+                            type="text" required=""
+                            data-value="mail"
+                            ref={loginMailRef}
+                            onClick={inputOnClickHandler}
+                            onBlur={inputOnBlurHandler}/>
+                          <label htmlFor="input" className="label">信箱</label>
                         </div>
+                        <div className={`input ${focus[0][1]}`}>
+                          <input
+                            type="text" required=""
+                            data-value="password"
+                            ref={loginPasswordRef}
+                            onClick={inputOnClickHandler}
+                            onBlur={inputOnBlurHandler}/>
+                          <label htmlFor="input" className="label">密碼</label>
+                        </div>
+                      </form>
+                      <div className="center-alignment">
+                        <button className="submit" onClick={loginHandler}>
+                          <span className="material-symbols-outlined">
+                            arrow_forward
+                          </span>
+                        </button>
                       </div>
                     </div>
+                  </div>
 
-                    <div className={registerVisibility}>
-                      <div className="slide-up">
-                        <form className="inputs">
-                          <div className={`input ${focus[1][0]}`}>
-                            <input type="text" required=""
-                              data-value="name"
-                              ref={registerNameRef}
-                              onClick={inputOnClickHandler}
-                              onBlur={inputOnBlurHandler}/>
-                            <label htmlFor="input" className="label">名稱</label>
-                          </div>
-                          <div className={`input ${focus[1][1]}`}>
-                            <input type="text" required=""
-                              data-value="mail"
-                              ref={registerMailRef}
-                              onClick={inputOnClickHandler}
-                              onBlur={inputOnBlurHandler}/>
-                            <label htmlFor="input" className="label">信箱</label>
-                          </div>
-                          <div className={`input ${focus[1][2]}`}>
-                            <input type="text" required=""
-                              data-value="password"
-                              ref={registerPasswordRef}
-                              onClick={inputOnClickHandler}
-                              onBlur={inputOnBlurHandler}/>
-                            <label htmlFor="input" className="label">密碼</label>
-                          </div>
-                        </form>
-                        <div className="center-alignment">
-                          <button className="submit" onClick={registerHandler}>
-                            <span className="material-symbols-outlined">
-                              arrow_forward
-                            </span>
-                          </button>
+                  <div className={registerVisibility}>
+                    <div className="slide-up">
+                      <form className="inputs">
+                        <div className={`input ${focus[1][0]}`}>
+                          <input type="text" required=""
+                            data-value="name"
+                            ref={registerNameRef}
+                            onClick={inputOnClickHandler}
+                            onBlur={inputOnBlurHandler}/>
+                          <label htmlFor="input" className="label">名稱</label>
                         </div>
+                        <div className={`input ${focus[1][1]}`}>
+                          <input type="text" required=""
+                            data-value="mail"
+                            ref={registerMailRef}
+                            onClick={inputOnClickHandler}
+                            onBlur={inputOnBlurHandler}/>
+                          <label htmlFor="input" className="label">信箱</label>
+                        </div>
+                        <div className={`input ${focus[1][2]}`}>
+                          <input type="text" required=""
+                            data-value="password"
+                            ref={registerPasswordRef}
+                            onClick={inputOnClickHandler}
+                            onBlur={inputOnBlurHandler}/>
+                          <label htmlFor="input" className="label">密碼</label>
+                        </div>
+                      </form>
+                      <div className="center-alignment">
+                        <button className="submit" onClick={registerHandler}>
+                          <span className="material-symbols-outlined">
+                            arrow_forward
+                          </span>
+                        </button>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-2"></div>
+            <div className="col-2 d-none d-lg-block"></div>
           </div>
         </div>
       </div>

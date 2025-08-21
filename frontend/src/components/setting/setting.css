@@ -1,0 +1,95 @@
+/* actions */
+
+.setting .actions {
+  width: 100%;
+  padding-bottom: 3rem;
+  font-size: 0;
+}
+.setting .title {
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  padding-bottom: 1rem;
+  color: var(--murmur-light-light-gray);
+}
+
+.setting .input {
+  width: 100%;
+  padding: 0.5rem 0 0.5rem 0;
+  margin: 0 0 4rem 0;
+  color: var(--murmur-light-light-gray);
+  border-bottom: 0.2rem solid var(--murmur-light-gray);
+}
+
+.setting .input input[type="text"] {
+  width: 100%;
+  padding-bottom: 0.4rem;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  color: var(--murmur-light-light-gray);
+  background-color: var(--murmur-dark-black);
+  caret-color: var(--murmur-light-gray);
+  border: none;
+  outline: none;
+  transition: all 0.5s ease-out;
+}
+
+.setting .submit {
+  display: flex;
+  position: relative;
+  left: 0.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  border: solid 0.15rem var(--murmur-light-light-gray);
+  color: var(--murmur-light-light-gray);
+  background-color: var(--murmur-dark-black);
+  border-radius: 100rem;
+  transition: all 0.2s ease-out;
+}
+
+.setting .submit .material-symbols-outlined {
+  font-size: 2rem;
+}
+
+.setting .submit:hover {
+  color: var(--murmur-dark-black);
+  background-color: var(--murmur-light-light-gray);
+}
+
+.setting .textArea::placeholder {
+  color: var(--murmur-dark-gray);
+}
+
+.setting .textArea {
+  width: 100%;
+  line-height: 1.6;
+  min-height: 1.6rem;
+  height: auto;
+  padding: 0.5rem 0 0.5rem 0;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  letter-spacing: 0.08rem;
+  font-family: "Noto Sans TC";
+  caret-color: var(--murmur-gray);
+  color: var(--murmur-light-light-gray);
+  background-color: var(--murmur-dark-black);
+  resize: none;
+  overflow-y: hidden;
+  border: none;
+  outline: none;
+  border-bottom: 0.2rem solid var(--murmur-gray);
+
+}
+
+.setting .textArea::placeholder {
+  color: var(--murmur-dark-gray);
+}
+
+.setting .textArea:focus::placeholder {
+  color: transparent;
+}

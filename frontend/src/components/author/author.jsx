@@ -61,7 +61,8 @@ function Author() {
                 </div>
                 <div className="subHeader">
                   {author}
-                </div>  
+                </div>
+
                 <p>
                   {introduction}
                 </p>

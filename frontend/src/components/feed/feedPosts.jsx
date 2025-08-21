@@ -1,9 +1,10 @@
+import {PostDataFrontEnd} from "../frontEndClass.js";
 import "../style.css";
 import "./feedPosts.css";
 
 import {useState, useEffect} from "react";
 import axios from "axios";
-import Post from "../post/post.jsx";
+import Post from "../post/Post.jsx";
 
 function FeedPosts() {
   const [postsData, setDatas] = useState([]);
@@ -12,19 +13,11 @@ function FeedPosts() {
     async function fetchData() {
       try {
         const result = await axios.post("http://1.34.178.127:5555/posts", {wendy:"wendy"});
+        console.log("RESULT", result);
 
         let postsData = [];
         for(let i=0; i<result.data.length; i++) {
-          const postData = 
-          {
-            postId: result.data[i].postId,
-            commentId: result.data[i].postId,
-            parentId: result.data[i].postId,
-            author: result.data[i].author,
-            content: result.data[i].content,
-            likes: result.data[i].likes,
-            commentsNum: result.data[i].commentsNum
-          }
+          const postData = new PostDataFrontEnd(result.data[i]);
           postsData.push(postData);
         }
         setDatas(postsData);
@@ -39,7 +32,7 @@ function FeedPosts() {
   return (
     <div className="posts">
       {postsData.map((postData) =>
-        <Post key={postData.postId} postId={postData.postId} commentId={postData.commentId} author={postData.author} content={postData.content} likes={postData.likes} commentsNum={postData.commentsNum}/>
+        <Post key={postData.postId} PostDataFrontEnd={postData}/>
       )}
     </div>
   )

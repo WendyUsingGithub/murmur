@@ -17,6 +17,7 @@
   display: block;
   text-align: left;
   padding-bottom: 1.4rem;
+  user-select: none;
 }
 
 .postPage .post-tag::before {

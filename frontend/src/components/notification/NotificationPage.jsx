@@ -1,16 +1,16 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
-import FeedPosts from "./feedPosts.jsx";
+import Notifications from "./Notifications.jsx";
 import "../style.css";
 
-function Feed() {
+function NotificationPage() {
   return (
     <div className="container feed">
       <div className="content">
         <div className="row">
           <div className="col-2 d-none d-lg-block"></div>
           <div className="col-12 col-lg-6">
-            <FeedPosts/>
+            <Notifications/>
           </div>
           <div className="col-2 d-none d-lg-block"></div>
         </div>
@@ -19,4 +19,4 @@ function Feed() {
   );
 }
 
-export default Feed;
+export default NotificationPage;

@@ -13,7 +13,7 @@ function DesktopNavbar() {
       if (prevScrollY.current >= currentScrollY) {
         setVisibility("navbarShow");
       } else {
-        setVisibility("navbarHide");
+        setVisibility("navbarHideUp");
       }
     }
     prevScrollY.current = currentScrollY;
@@ -29,7 +29,7 @@ function DesktopNavbar() {
       <Link to="/" className="logo">
           <span className="material-symbols-outlined">pentagon</span>
       </Link>
-      <span className="icons_desktop center-alignment-horizontal">
+      <span className="icons center-alignment-horizontal">
         {/* <form className="search">
           <input onBlur={(e)=>{e.target.value="";}} type="search" required />
           <div className="item icon center-alignment">

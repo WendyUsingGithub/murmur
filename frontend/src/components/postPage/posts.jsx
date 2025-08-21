@@ -6,7 +6,7 @@ import "./posts.css";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Post from "./post.jsx";
+import Post from "./Post.jsx";
 
 function Posts() {
   const [postsData, setDatas] = useState([]);

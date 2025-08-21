@@ -1,24 +1,43 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
 import "../style.css";
+import "./post.css";
 
 import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import Paragraph from "../paragraph/paragraph.jsx"
 
-function Post({postId, commentId, author, content, tag, likes, commentsNum})
+import axios from "axios";
+
+function Post({PostDataFrontEnd})
 {
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
+  const [isLike, setIsLike] = useState(PostDataFrontEnd.like);
+  const [likes, setLikes] = useState(PostDataFrontEnd.likesNum);
 
   function onClickHandler() {
-    navigate(`/postPage/${postId}/${commentId}`);
+    navigate(`/postPage/${PostDataFrontEnd.postId}/${PostDataFrontEnd.commentId}`);
   }
 
   function onClickHandlerAuthor(e) {
     e.stopPropagation();
-    navigate(`/author/${author}`);
+    navigate(`/author/${PostDataFrontEnd.author}`);
+  }
+
+  async function likeOnClick() {
+    console.log("likeOnClick");
+    if(isLike) {
+      setIsLike(false);
+      setLikes(prev => prev - 1);
+      await axios.post("http://1.34.178.127:5555/like", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId});
+    }
+    else {
+      setIsLike(true);
+      setLikes(prev => prev + 1);
+      await axios.post("http://1.34.178.127:5555/unlike", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId});
+    }
   }
 
   useEffect(() => {
@@ -29,14 +48,14 @@ function Post({postId, commentId, author, content, tag, likes, commentsNum})
       }
       setParagraphs(paragraphs);
     }
-    parseContent(content);
-  }, [content]);
+    parseContent(PostDataFrontEnd.content);
+  }, [PostDataFrontEnd.content]);
 
   return (
     <div className="post" onClick={onClickHandler}>
       <div className="author">
           <span className="author-name" onClick={onClickHandlerAuthor}>
-              {author}
+              {PostDataFrontEnd.author}
           </span>
       </div>
 
@@ -47,18 +66,18 @@ function Post({postId, commentId, author, content, tag, likes, commentsNum})
       </div>
 
       {
-        tag && (
-        <div className="post-tags" onClick={(e) => {e.stopPropagation(); navigate(`/tag/${tag}`);}}>
+        (PostDataFrontEnd.tag) && (
+        <div className="post-tags" onClick={(e) => {e.stopPropagation(); navigate(`/tag/${PostDataFrontEnd.tag}`);}}>
           <span className="post-tag">
-            {tag}
+            {PostDataFrontEnd.tag}
           </span>
         </div>
       )}
 
       <div className="interact">
-        <span className="item" onClick={(e) => {e.stopPropagation();}}>
-          <span className="material-symbols-outlined">
-          favorite
+        <span className="item" onClick={(e) => {e.stopPropagation(); likeOnClick();}}>
+          <span className={`material-symbols-outlined ${isLike ? "fill" : ""}`}>
+            favorite
           </span>
           <span className="number">
             {likes}
@@ -69,7 +88,7 @@ function Post({postId, commentId, author, content, tag, likes, commentsNum})
           tooltip
           </span>
           <span className="number">
-            {commentsNum}
+            {PostDataFrontEnd.commentsNum}
           </span>
         </span>
       </div>
@@ -80,14 +99,7 @@ function Post({postId, commentId, author, content, tag, likes, commentsNum})
 
 Post.propTypes = {
   postId: PropTypes.string.isRequired,
-  commentId: PropTypes.string.isRequired,
-  rootId: PropTypes.string.isRequired,
-  parentId: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  tag: PropTypes.string,
-  likes: PropTypes.number.isRequired,
-  commentsNum: PropTypes.number.isRequired
+  PostDataFrontEnd: PropTypes.object
 }
 
 export default Post

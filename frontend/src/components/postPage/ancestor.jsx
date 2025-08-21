@@ -1,5 +1,6 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
+import {PostDataFrontEnd, CommentDataFrontEnd} from "../frontEndClass.js";
 import "../style.css";
 import "./postPage.css";
 import "./ancestor.css";
@@ -8,7 +9,7 @@ import PropTypes from "prop-types";
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-import Post from "../post/post.jsx";
+import Post from "../post/Post.jsx";
 
 function Ancestor({postId, commentId, parentId}) {
   const [ancestorDatas, setAncestorDatas] = useState([]);
@@ -20,30 +21,33 @@ function Ancestor({postId, commentId, parentId}) {
         const ancestorArr = [];
         for(let i=0; i<result.data.length; i++) {
           if(i == 0) {
-            const ancestorData = 
-            {
-              postId: result.data[i].id,
-              commentId: result.data[i].id,
-              parentId: result.data[i].parentId,
-              author: result.data[i].author,
-              content: result.data[i].content,
-              tag: result.data[i].tag,
-              likes: result.data[i].likes,
-              commentsNum: result.data[i].commentsNum
-            }
+            const ancestorData = new PostDataFrontEnd(result.data[i]);
+
+            // const ancestorData = 
+            // {
+            //   postId: result.data[i].postId,
+            //   commentId: result.data[i].commentId,
+            //   parentId: result.data[i].parentId,
+            //   author: result.data[i].author,
+            //   content: result.data[i].content,
+            //   tag: result.data[i].tag,
+            //   likesNum: result.data[i].likesNum,
+            //   commentsNum: result.data[i].commentsNum
+            // }
             ancestorArr.push(ancestorData);
           }
           else {
-            const ancestorData = 
-            {
-              postId: result.data[i].postId,
-              commentId: result.data[i].id,
-              parentId: result.data[i].parentId,
-              author: result.data[i].author,
-              content: result.data[i].content,
-              likes: result.data[i].likes,
-              commentsNum: result.data[i].commentsNum
-            }
+            const ancestorData = new CommentDataFrontEnd(result.data[i]);
+            // const ancestorData = 
+            // {
+            //   postId: result.data[i].postId,
+            //   commentId: result.data[i].commentId,
+            //   parentId: result.data[i].parentId,
+            //   author: result.data[i].author,
+            //   content: result.data[i].content,
+            //   likesNum: result.data[i].likesNum,
+            //   commentsNum: result.data[i].commentsNum
+            // }
             ancestorArr.push(ancestorData);
           }
         }
@@ -63,7 +67,7 @@ function Ancestor({postId, commentId, parentId}) {
       <div className="ancestor">
         <div className="posts">
           {ancestorDatas.map((ancestorData) =>
-            <Post key={ancestorData.id} postId={ancestorData.postId} commentId={ancestorData.commentId} author={ancestorData.author} content={ancestorData.content} tag={ancestorData.tag} likes={ancestorData.likes} commentsNum={ancestorData.commentsNum}/>
+            <Post key={ancestorData.id} PostDataFrontEnd={ancestorData} />
           )}
         </div>
       </div>
@@ -78,7 +82,7 @@ Ancestor.propTypes = {
   author: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   tag: PropTypes.string,
-  likes: PropTypes.number.isRequired,
+  likesNum: PropTypes.number.isRequired,
   commentsNum: PropTypes.number.isRequired
 }
 

@@ -20,8 +20,6 @@ function Write() {
     const textAreaValue = event.currentTarget.value.trim();
     const submitIcon = submitIconRef.current;
 
-    console.log("onInputHandler", textAreaValue);
-
     textArea.style.height = "auto";
     textArea.style.height = `${textArea.scrollHeight}px`;
 

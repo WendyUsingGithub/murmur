@@ -143,6 +143,7 @@ a {
 
 .author {
     padding-bottom: 1.4rem;
+    user-select: none;
 }
 
 .author-name {
@@ -174,16 +175,46 @@ a {
     width: 2rem;
 }
 
-.tags {
-    padding-top: 2.8rem;
-}
-
 .parapraphs {
     cursor: pointer;
 }
 
+.post-tags {
+    display: block;
+    text-align: left;
+    padding-bottom: 1.4rem;
+    user-select: none;
+}
+
+.post-tag::before {
+    font-family: "Roboto Mono";
+    position: relative;
+    top: 0.05rem;
+    font-size: 1.05rem;
+    content: "###";
+    width: 1.3ch;
+    overflow: hidden;
+    transition: all 0.15s linear;
+    letter-spacing: 0.3ch;
+    box-sizing: border-box;
+}
+
+.post-tag {
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--murmur-light-light-gray);
+    letter-spacing: 0.06rem;
+    cursor: pointer;
+}
+
+.post-tag:hover::before {
+    width: 4.1ch;
+}
+
 .interact .item {
     cursor: pointer;
+    user-select: none;
 }
 
 .interact .material-symbols-outlined {
@@ -196,19 +227,43 @@ a {
     padding-right: 0.3rem;
 }
 
-.interact .number {
+.fill {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 300,
+        'GRAD' 24 !important;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 0.3rem;
+}
+
+.interact .item:hover .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 300,
+        'GRAD' 24;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 0.3rem;
+}
+
+.interact .item:active .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 300,
+        'GRAD' 24;
+    font-size: 1.3rem;
+    color: var(--murmur-light-light-gray);
+    padding-right: 0.3rem;
+}
+
+.interact .item .number {
     position: relative;
     bottom: 0.4rem;
     font-size: 0.95rem;
     color: var(--murmur-light-light-gray);
     padding-right: 1.3rem;
     letter-spacing: 0.1rem;
-}
-
-.interact .item:hover .material-symbols-outlined,
-.interact .item:focus .material-symbols-outlined {
-    font-variation-settings:
-        'FILL' 1;
 }
 
 @keyframes spin {
@@ -249,6 +304,21 @@ a {
         display: block;
         opacity: 0;
     }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutNIn {
+    0% {
+        display: block;
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
     100% {
         opacity: 1;
     }
