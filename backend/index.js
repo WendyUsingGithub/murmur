@@ -37,7 +37,7 @@ const client = new MongoClient(url);
 const db = client.db("murmur");
 const coll_post = db.collection("post");
 const coll_comment = db.collection("comment");
-const coll_userData = db.collection("userData");
+const coll_user = db.collection("user");
 
 async function connectDB() {
   try {
@@ -146,13 +146,24 @@ class CommentDataBack2Front {
   }
 }
 
+function ifLike(req, dataBackEnd, dataFrontEnd) {
+  const token = req.cookies.murmurToken;
+  if (token) {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const name = decoded.name;
+    if (dataBackEnd.likes.includes(name)) {
+      dataFrontEnd.like = true;
+    }
+  }
+}
+
 async function findUserData(mail, password) {
-  const result = await coll_userData.findOne({mail: mail, password: password});
+  const result = await coll_user.findOne({mail: mail, password: password});
   return result;
 }
 
 async function insertUserData(userData) {
-  const result = await coll_userData.insertOne(userData);
+  const result = await coll_user.insertOne(userData);
   console.log(result);
   return result;
 }
@@ -173,19 +184,18 @@ async function findCommentById(id) {
 };
 
 app.post("/posts", async (req, res) => {
-  console.log("POSTS");
   try {
     let postsData = [];
     const cursor = await coll_post.find().limit(100).sort({createdAt: -1});
 
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
-      const postData = new PostDataBack2Front(doc);
+      let postData = new PostDataBack2Front(doc);
+      ifLike(req, doc, postData);
       postsData.push(postData);
     }
 
     res.json(postsData);
-    console.log("POSTS", postsData);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
@@ -193,11 +203,12 @@ app.post("/posts", async (req, res) => {
 });
 
 
-async function ancestor(postId, parentId, ancestorArr) {
+async function ancestor(req, postId, parentId, ancestorArr) {
   if(postId === parentId) {
     result = await findPostById(parentId);
     if(result) {
       const postData = new PostDataBack2Front(result);
+      ifLike(req, result, postData);
       ancestorArr.push(postData);
     }
   }
@@ -205,8 +216,9 @@ async function ancestor(postId, parentId, ancestorArr) {
     result = await findCommentById(parentId);
     if(result) {
       const commentData = new CommentDataBack2Front(result);
+      ifLike(req, result, commentData);
       ancestorArr.push(commentData);
-      await ancestor(postId, commentData.parentId, ancestorArr);
+      await ancestor(req, postId, commentData.parentId, ancestorArr);
     }
   }
 }
@@ -216,7 +228,7 @@ app.post("/ancestor", async (req, res) => {
     const {postId, commentId, parentId} = req.body;
     const ancestorArr = [];
 
-    await ancestor(postId, parentId, ancestorArr);
+    await ancestor(req, postId, parentId, ancestorArr);
     ancestorArr.reverse();
     res.json(ancestorArr);
   } catch (err) {
@@ -230,6 +242,7 @@ app.post("/post", async (req, res) => {
   try {
     const doc = await findPostById(id);
     const postData = new PostDataBack2Front(doc);
+    ifLike(req, doc, postData);
     res.json(postData);
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -259,6 +272,9 @@ app.post("/searchPostByField", async (req, res) => {
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       const postData = new PostDataBack2Front(doc);
+      console.log("postData",postData);
+      ifLike(req, doc, postData);
+      console.log("postData",postData);
       postsData.push(postData);
     }
 
@@ -291,6 +307,7 @@ app.post("/searchCommentByField", async (req, res) => {
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       const commentData = new CommentDataBack2Front(doc);
+      ifLike(req, doc, commentData);
       commentsData.push(commentData);
     }
 
@@ -313,6 +330,7 @@ app.post("/comments", async (req, res) => {
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       const commentData = new CommentDataBack2Front(doc);
+      ifLike(req, doc, commentData);
       comments.push(commentData);
     }
     res.json(comments);
@@ -327,6 +345,7 @@ app.post("/comment", async (req, res) => {
   try {
     const doc = await findCommentById(id);
     const commentData = new CommentDataBack2Front(doc);
+    ifLike(req, doc, commentData);
     res.json(commentData);
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -367,16 +386,15 @@ app.post("/login", async (req, res) => {
   try {
     const result = await findUserData(mail, password)
     if (result) {
-      console.log("Login Successfully");
+      console.log("Login Successfully ");
 
-      const token = jwt.sign({ID:result.insertedId.toString(), name: name}, JWT_SECRET, {expiresIn: "365d"});
+      const token = jwt.sign({ID:result._id.toString(), name: result.name}, JWT_SECRET, {expiresIn: "365d"});
       console.log("token", token);
-
       res.cookie("murmurToken", token, {
         httpOnly: true,
         sameSite: "Lax",
         maxAge: 1000 * 60 * 60 * 24 * 365
-      }).status(200).json({ID: result.insertedId.toString(), name});
+      }).status(200).json({ID:result._id.toString(), name: result.name});
 
     }
     else {
@@ -470,7 +488,48 @@ app.post("/authorData", async (req, res) => {
   let target;
 
   try {
-    const docs = await coll_userData.find({name: author}).toArray();
+    const docs = await coll_user.find({name: author}).toArray();
+    const doc = docs[0];
+    const userData = new UserDataBack2Front(doc);
+
+    res.json(userData);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({error: "Internal Server Error"});
+  }
+});
+
+app.post("/like", async (req, res) => {
+
+  const {postId, commentId} = req.body;
+  const token = req.cookies.murmurToken;
+
+  if (!token) return res.status(401).json({ error: "No token" });
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const {ID, name} = decoded;
+
+    // Manage likes in userData
+    // const result = await coll_user.updateOne({_id: new ObjectId(ID)}, {$push: {likes: [new ObjectId(postId), new ObjectId(commentId)]}});
+
+    const result = await coll_post.updateOne({_id: new ObjectId(commentId)}, {$push: {likes: name}});
+    console.log("Matched:", result.matchedCount, "Modified:", result.modifiedCount);
+
+    res.json(result);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({error: "Internal Server Error"});
+  }
+});
+
+app.post("/unlike", async (req, res) => {
+  const {author} = req.body;
+  let field;
+  let target;
+
+  try {
+    const docs = await coll_user.find({name: author}).toArray();
     const doc = docs[0];
     const userData = new UserDataBack2Front(doc);
 

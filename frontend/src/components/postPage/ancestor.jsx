@@ -16,38 +16,16 @@ function Ancestor({postId, commentId, parentId}) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.post("http://1.34.178.127:5555/ancestor", {postId: postId, commentId: commentId, parentId: parentId});
+        const result = await axios.post("http://1.34.178.127:5555/ancestor", {postId: postId, commentId: commentId, parentId: parentId}, {withCredentials: true});
         setAncestorDatas([]);
         const ancestorArr = [];
         for(let i=0; i<result.data.length; i++) {
           if(i == 0) {
             const ancestorData = new PostDataFrontEnd(result.data[i]);
-
-            // const ancestorData = 
-            // {
-            //   postId: result.data[i].postId,
-            //   commentId: result.data[i].commentId,
-            //   parentId: result.data[i].parentId,
-            //   author: result.data[i].author,
-            //   content: result.data[i].content,
-            //   tag: result.data[i].tag,
-            //   likesNum: result.data[i].likesNum,
-            //   commentsNum: result.data[i].commentsNum
-            // }
             ancestorArr.push(ancestorData);
           }
           else {
             const ancestorData = new CommentDataFrontEnd(result.data[i]);
-            // const ancestorData = 
-            // {
-            //   postId: result.data[i].postId,
-            //   commentId: result.data[i].commentId,
-            //   parentId: result.data[i].parentId,
-            //   author: result.data[i].author,
-            //   content: result.data[i].content,
-            //   likesNum: result.data[i].likesNum,
-            //   commentsNum: result.data[i].commentsNum
-            // }
             ancestorArr.push(ancestorData);
           }
         }

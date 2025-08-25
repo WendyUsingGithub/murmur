@@ -641,10 +641,12 @@ async function insert(author, content, tag, likes, createdAt, comments) {
   let commentsNum = 0;
   const post = new PostDataBackEnd({author, content, tag, likes, createdAt});
   console.log("likes", likes);
-  for (name of likes) {
-    console.log("name ", name);
-    await updateLike(name, post._id, post._id);
-  }
+  
+  // Manage likes in userData
+  // for (name of likes) {
+  //   console.log("name ", name);
+  //   await updateLike(name, post._id, post._id);
+  // }
 
   if(comments.length > 0) commentsNum = await insertComments(comments, post._id, post._id);
   post.commentsNum = commentsNum;
@@ -663,11 +665,11 @@ async function insertComments(comments, postId, parentId) {
     const commentInserted = new CommentDataBackEnd({postId, parentId, author, content, likes, commentCreatedAt});
     console.log("Inserted comment with ID:", commentInserted._id);
 
-    console.log("Comments likes", likes);
+    // Manage likes in userData
 
-    for (name of likes) {
-      await updateLike(name, postId, commentInserted._id);
-    }
+    // for (name of likes) {
+    //   await updateLike(name, postId, commentInserted._id);
+    // }
 
     commentsNum = 0;
     commentsNumSum++;

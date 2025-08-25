@@ -25,11 +25,9 @@ export function Auth({children}) {
   }, []);
 
   return (
-    <Loader loading={loading}>
-      <AuthContext.Provider value={{user, setUser}}>
-        {children}
-      </AuthContext.Provider>
-    </Loader>
+    <AuthContext.Provider value={{user, setUser}}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

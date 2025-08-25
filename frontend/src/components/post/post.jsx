@@ -12,6 +12,7 @@ import axios from "axios";
 
 function Post({PostDataFrontEnd})
 {
+  console.log("!!!!PostDataFrontEnd.like", PostDataFrontEnd.like);
   const navigate = useNavigate();
   const [paragraphs, setParagraphs] = useState([]);
   const [isLike, setIsLike] = useState(PostDataFrontEnd.like);
@@ -31,12 +32,12 @@ function Post({PostDataFrontEnd})
     if(isLike) {
       setIsLike(false);
       setLikes(prev => prev - 1);
-      await axios.post("http://1.34.178.127:5555/like", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId});
+      await axios.post("http://1.34.178.127:5555/unlike", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId}, {withCredentials: true});
     }
     else {
       setIsLike(true);
       setLikes(prev => prev + 1);
-      await axios.post("http://1.34.178.127:5555/unlike", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId});
+      await axios.post("http://1.34.178.127:5555/like", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId}, {withCredentials: true});
     }
   }
 

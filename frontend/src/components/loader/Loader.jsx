@@ -7,26 +7,30 @@ import "./loader.css";
 function Loader({loading, signIn, navigate, children}) {  
   const [withinOneSecond, setWithinOneSecond] = useState(true);
 
-  useEffect(() => {
+    useEffect(() => {
+    let timer;
     if (loading) {
       setWithinOneSecond(true);
-      setTimeout(() => {
-        setWithinOneSecond(false);
-      }, 1000);
+      timer = setTimeout(() => setWithinOneSecond(false), 1000);
+    } else {
+      setWithinOneSecond(true);
     }
-  }, []);
+    return () => clearTimeout(timer);
+  }, [loading]);
 
-  if (loading) {
-    if(withinOneSecond) {
-      return (
-        <div className="container">
-          <div className="content">
-          </div>
+  if (signIn && navigate) {
+    return <Navigate to={navigate}/>;
+  }
+  else if (loading && withinOneSecond) {
+    return (
+      <div className="container">
+        <div className="content">
         </div>
-      );
-    }
-    else {
-      return (
+      </div>
+    );
+  }
+  else if(loading && !withinOneSecond){
+    return (
         <div className="container">
           <div className="content">
             <div className="row">
@@ -40,15 +44,11 @@ function Loader({loading, signIn, navigate, children}) {
             </div>
           </div>
         </div>
-      );
-    }
+    )
   }
-
-  if (signIn && navigate) {
-    return <Navigate to={navigate}/>;
+  else {
+    return children;
   }
-
-  return children;
 }
 
 Loader.propTypes = {

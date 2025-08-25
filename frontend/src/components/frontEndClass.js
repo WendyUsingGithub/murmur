@@ -41,7 +41,7 @@ export class PostDataFrontEnd {
     this.parentId = PostDataBack2Front.parentId;
     this.author = PostDataBack2Front.author;
     this.content = PostDataBack2Front.content;
-    this.tag = PostDataBack2Front.tag;
+    this.tag = PostDataBack2Front.tag ? PostDataBack2Front.tag : null;
     this.likesNum = PostDataBack2Front.likesNum;
     this.commentsNum = PostDataBack2Front.commentsNum;
     this.createdAt = PostDataBack2Front.createdAt;

@@ -32,7 +32,7 @@ function PostPage() {
   useEffect(() => {
     async function fetchPostData() {
       try {
-        const result = await axios.post("http://1.34.178.127:5555/post", {id:postId});
+        const result = await axios.post("http://1.34.178.127:5555/post", {id:postId}, {withCredentials: true});
         const data = new PostDataFrontEnd(result.data);
         setData(data);
       } catch (err) {
@@ -42,7 +42,7 @@ function PostPage() {
 
     async function fetchCommentData() {
       try {
-        const result = await axios.post("http://1.34.178.127:5555/comment", {id:commentId});
+        const result = await axios.post("http://1.34.178.127:5555/comment", {id:commentId}, {withCredentials: true});
         const data = new CommentDataFrontEnd(result.data);
         setData(data);
       } catch (err) {

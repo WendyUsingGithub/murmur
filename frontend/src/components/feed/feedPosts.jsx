@@ -12,7 +12,7 @@ function FeedPosts() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.post("http://1.34.178.127:5555/posts", {wendy:"wendy"});
+        const result = await axios.post("http://1.34.178.127:5555/posts", {wendy:"wendy"}, {withCredentials: true});
         console.log("RESULT", result);
 
         let postsData = [];

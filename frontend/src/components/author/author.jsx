@@ -13,8 +13,7 @@ import axios from "axios";
 function Author() {
   // const {user, setUser} = useContext(AuthContext);
   const {author} = useParams();
-  const [nameZH, setNameZH] = useState(null)
-  const [introduction, setIntroduction] = useState(null)
+  const [data, setData] = useState(null);
   const [active, setActive] = useState("left");
   const [indicatorPos, setIndicatoPos] = useState("left");
   const [loginVisibility, setLoginVisibility] = useState("show");
@@ -40,72 +39,72 @@ function Author() {
     async function fetchAuthorData() {
       try {
         const result = await axios.post("http://1.34.178.127:5555/authorData", {author: author});
-        setNameZH(result.data.nameZH);
-        setIntroduction(result.data.introduction);
+        setData(result.data);
       } catch (err) {
         console.error(err);
       }
     }
     fetchAuthorData();
-  })
-  return(
-
-    <div className="container author login">
-      <div className="content">
-        <div className="row">
-          <div className="col-2 d-none d-lg-block">
-            <div className="left-panel">
-              <div className="post">
-                <div className="header">
-                  {nameZH}
-                </div>
-                <div className="subHeader">
-                  {author}
-                </div>
-
-                <p>
-                  {introduction}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-12 col-lg-6">
-            <div> 
-              <div className="actions">
-                <button className="action"
-                  data-value="left"
-                  onClick={onClickHandler}
-                  onMouseEnter={mouseEnterHandler}
-                  onMouseLeave={mouseLeaveHandler}>
-                  <span>文章</span>
-                </button>
-                <button className="action"
-                  data-value="right"
-                  onClick={onClickHandler}
-                  onMouseEnter={mouseEnterHandler}
-                  onMouseLeave={mouseLeaveHandler}>
-                  <span>回覆</span>
-                </button>
-                <div className={`indicator ${indicatorPos}`}></div>
-
-                <div className={loginVisibility}>
-                  <SearchByField type="post" field="author" target={author}/>
-                </div>
-
-                <div className={registerVisibility}>
-                  <SearchByField type="comment" field="author" target={author}/>
+  }, [])
+  
+  if(data) {
+    return(
+      <div className="container author login">
+        <div className="content">
+          <div className="row">
+            <div className="col-2 d-none d-lg-block">
+              <div className="left-panel">
+                <div className="post">
+                  <div className="header">
+                    {data.nameZH}
+                  </div>
+                  <div className="subHeader">
+                    {data.name}
+                  </div>
+                  <p>
+                    {data.introduction}
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div className="col-2 d-none d-lg-block">
+
+            <div className="col-12 col-lg-6">
+              <div> 
+                <div className="actions">
+                  <button className="action"
+                    data-value="left"
+                    onClick={onClickHandler}
+                    onMouseEnter={mouseEnterHandler}
+                    onMouseLeave={mouseLeaveHandler}>
+                    <span>文章</span>
+                  </button>
+                  <button className="action"
+                    data-value="right"
+                    onClick={onClickHandler}
+                    onMouseEnter={mouseEnterHandler}
+                    onMouseLeave={mouseLeaveHandler}>
+                    <span>回覆</span>
+                  </button>
+                  <div className={`indicator ${indicatorPos}`}></div>
+
+                  <div className={loginVisibility}>
+                    <SearchByField type="post" field="author" target={author}/>
+                  </div>
+
+                  <div className={registerVisibility}>
+                    <SearchByField type="comment" field="author" target={author}/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-2 d-none d-lg-block">
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Author

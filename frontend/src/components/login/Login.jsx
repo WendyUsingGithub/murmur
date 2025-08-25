@@ -90,10 +90,10 @@ function Login() {
     const password = loginPasswordRef.current.value;
     const loginData = {mail, password};
     
-    if(!mail || !password) {
-      console.log("input missing");
-      return;
-    }
+    // if(!mail || !password) {
+    //   console.log("input missing");
+    //   return;
+    // }
 
     try {
       setLoading(true);
@@ -101,18 +101,19 @@ function Login() {
       console.log(result);
       console.log(result.data)
       if(result.status==200) {
+        
         setUser(result.data);
         console.log(user)
-        navigate("/");
+        setSignIn(true);
       }
       else {
-        navigate("/login");    
+        // navigate("/login");    
       }
       localStorage.setItem("murmurToken", JSON.stringify({name: result.data.name, ID: result.data.ID}));
     } catch (error) {
       console.log(error);
       console.log("Login Fail");
-      navigate("/login"); 
+      // navigate("/login"); 
     } finally {
       setLoading(false);
     }
@@ -132,18 +133,17 @@ function Login() {
 
     try {
       setLoading(true);
-
       const result = await axios.post("http://1.34.178.127:5555/register", registerData, {withCredentials: true});
       console.log(result.data.name)
       console.log(result.data.ID)
 
       setSignIn(true);
       setUser(result.data);
+      localStorage.setItem("murmurToken", JSON.stringify({name: result.data.name, ID: result.data.ID}));
       console.log(user)
       navigate("/");
     } catch (error) {
       console.log("Login Fail");
-      navigate("/login");
     } finally {
       setLoading(false);
     }
