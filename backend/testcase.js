@@ -584,14 +584,13 @@ async function main() {
 main();
 
 class UserDataBackEnd {
-  constructor({userId = null, name, mail, password, nameZH, introduction, likes = [], createdAt = new Date()}) {
+  constructor({userId = null, name, mail, password, nameZH, introduction, createdAt = new Date()}) {
     this._id = userId ? new ObjectId(userId) : new ObjectId();
     this.name = name;
     this.mail = mail;
     this.password = password;
     this.nameZH = nameZH;
     this.introduction = introduction;
-    this.likes = likes;
     this.createdAt = createdAt;
   }
 }
@@ -621,15 +620,6 @@ class CommentDataBackEnd {
   }
 }
 
-async function updateLike(name, postId, commentId) {
-  const user = await coll_user.findOne({name});
-  console.log("USER", user, " ", name);
-  await coll_user.updateOne(
-    {_id: user._id},
-    {$push: {likes: [postId, commentId]}}
-  );
-}
-
 async function insertUserData(name, mail, password, nameZH, introduction, likes, createdAt) {
   const userData = new UserDataBackEnd({name, mail, password, nameZH, introduction, likes});
   const result = await coll_user.insertOne(userData);
@@ -640,14 +630,7 @@ async function insertUserData(name, mail, password, nameZH, introduction, likes,
 async function insert(author, content, tag, likes, createdAt, comments) {
   let commentsNum = 0;
   const post = new PostDataBackEnd({author, content, tag, likes, createdAt});
-  console.log("likes", likes);
   
-  // Manage likes in userData
-  // for (name of likes) {
-  //   console.log("name ", name);
-  //   await updateLike(name, post._id, post._id);
-  // }
-
   if(comments.length > 0) commentsNum = await insertComments(comments, post._id, post._id);
   post.commentsNum = commentsNum;
 
@@ -664,12 +647,6 @@ async function insertComments(comments, postId, parentId) {
     const [author, content, likes, commentCreatedAt, subComments] = comment;
     const commentInserted = new CommentDataBackEnd({postId, parentId, author, content, likes, commentCreatedAt});
     console.log("Inserted comment with ID:", commentInserted._id);
-
-    // Manage likes in userData
-
-    // for (name of likes) {
-    //   await updateLike(name, postId, commentInserted._id);
-    // }
 
     commentsNum = 0;
     commentsNumSum++;

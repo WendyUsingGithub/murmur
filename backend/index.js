@@ -71,14 +71,13 @@ process.on("SIGINT", async () => {
 });
 
 class UserDataBackEnd {
-  constructor({userId = null, name, mail, password, nameZH, introduction, likes = [], createdAt = new Date()}) {
+  constructor({userId = null, name, mail, password, nameZH, introduction, createdAt = new Date()}) {
     this._id = userId ? new ObjectId(userId) : new ObjectId();
     this.name = name;
     this.mail = mail;
     this.password = password;
     this.nameZH = nameZH;
     this.introduction = introduction;
-    this.likes = likes;
     this.createdAt = createdAt;
   }
 }
@@ -510,12 +509,8 @@ app.post("/like", async (req, res) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
 
-    // Manage likes in userData
-    // const result = await coll_user.updateOne({_id: new ObjectId(ID)}, {$push: {likes: [new ObjectId(postId), new ObjectId(commentId)]}});
-
-    const result = await coll_post.updateOne({_id: new ObjectId(commentId)}, {$push: {likes: name}});
+    const result = await coll_post.updateOne({_id: new ObjectId(commentId)}, {$addToSet: {likes: name}});
     console.log("Matched:", result.matchedCount, "Modified:", result.modifiedCount);
-
     res.json(result);
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -524,16 +519,19 @@ app.post("/like", async (req, res) => {
 });
 
 app.post("/unlike", async (req, res) => {
-  const {author} = req.body;
-  let field;
-  let target;
+
+  const {postId, commentId} = req.body;
+  const token = req.cookies.murmurToken;
+
+  if (!token) return res.status(401).json({ error: "No token" });
 
   try {
-    const docs = await coll_user.find({name: author}).toArray();
-    const doc = docs[0];
-    const userData = new UserDataBack2Front(doc);
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const {ID, name} = decoded;
 
-    res.json(userData);
+    const result = await coll_post.updateOne({_id: new ObjectId(commentId)}, {$pull: {likes: name}});
+    console.log("Matched:", result.matchedCount, "Modified:", result.modifiedCount);
+    res.json(result);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});
