@@ -292,7 +292,7 @@ a {
 /* First Load */
 /* TODO */
 .first-load {
-    animation: firstLoad 1s linear forwards;
+    animation: firstLoad 1.5s linear forwards;
 }
 
 @keyframes firstLoad {
@@ -326,41 +326,22 @@ a {
 
 /* CSS Transition Group */
 
-.forward-enter {
-    opacity: 0;
-    transition: all 0.15s ease-in;
-}
-
-.forward-enter-active {
-    opacity: 1;
-    transition: all 0.15s ease-in;
-}
-
 .forward-exit {
-    transition: all 0.15s ease-out;
+    opacity: 1;
 }
 
 .forward-exit-active {
     opacity: 0;
-    transition: all 0.15s ease-out;
+    transition: opacity 0.05s linear;
 }
 
-.back-enter {
-    opacity: 1;
-    transition: all 0.15s linear;
-}
-
-.back-enter-active {
+.forward-enter {
     opacity: 0;
-    transition: all 0.15s linear;
+    background: var(--murmur-dark-black);
 }
 
-.back-exit {
-    opacity: 0;
-    transition: all 0.15s linear;
-}
-
-.back-exit-active {
+.forward-enter-active {
     opacity: 1;
-    transition: all 0.15s linear;
+    background: var(--murmur-dark-black);
+    transition: background-color 0.05s linear 0.2s, opacity 0.05s linear 0.25s;
 }

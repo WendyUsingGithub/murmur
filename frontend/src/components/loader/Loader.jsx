@@ -11,7 +11,7 @@ function Loader({loading, signIn, navigate, children}) {
     let timer;
     if (loading) {
       setWithinOneSecond(true);
-      timer = setTimeout(() => setWithinOneSecond(false), 1000);
+      timer = setTimeout(() => setWithinOneSecond(false), 1500);
     } else {
       setWithinOneSecond(true);
     }

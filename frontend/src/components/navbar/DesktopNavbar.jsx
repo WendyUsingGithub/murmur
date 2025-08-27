@@ -13,7 +13,7 @@ function DesktopNavbar() {
       if (prevScrollY.current >= currentScrollY) {
         setVisibility("navbarShow");
       } else {
-        setVisibility("navbarHideUp");
+        setVisibility("navbarHide");
       }
     }
     prevScrollY.current = currentScrollY;

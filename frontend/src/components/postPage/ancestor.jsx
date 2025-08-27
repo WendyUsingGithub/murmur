@@ -38,7 +38,7 @@ function Ancestor({postId, commentId, parentId}) {
     }
 
     if(postId != commentId) fetchData();
-  }, []);
+  }, [ancestorDatas, postId, commentId, parentId]);
 
 
     return(

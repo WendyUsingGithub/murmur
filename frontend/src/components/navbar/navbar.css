@@ -3,6 +3,13 @@
     position: fixed;
     top: 0;
 }
+.navbarHide {
+    transform: translateY(-100%);
+}
+
+.navbarShow {
+    transform: translateY(0);
+}
 }
 
 .navbar {
@@ -131,13 +138,6 @@
     right: 12rem;
     color: var(--murmur-light-light-gray);
 }
-.navbarHideUp {
-    transform: translateY(-100%);
-}
-
-.navbarShow {
-    transform: translateY(0);
-}
 
 /* Mobile */
 @media (max-width: 993px) {
@@ -151,6 +151,15 @@
     z-index: 100;
 }
 
+.navbarHide {
+    /* display: none; */
+    display: none;
+}
+
+.navbarShow {
+    /* display: block; */
+    background-color: blue;
+}
 
 .navbar .icons {
     width: 100%;
