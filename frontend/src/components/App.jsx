@@ -12,7 +12,7 @@ import User from "./user/user.jsx";
 import Author from "./author/author.jsx";
 import Tag from "./tag/Tag.jsx";
 import Write from "./write/Write.jsx";
-import Setting from "./setting/Setting.jsx"
+import NotificationPage from "./notification/NotificationPage.jsx"
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function RoutesLocation() {
             <Route path="/author/:author" element={<Author/>}/>
             <Route path="/tag/:tag" element={<Tag/>}/>
             <Route path="/user" element={<User/>}/>
-            <Route path="/setting" element={<Setting/>}/>
+            <Route path="/notification" element={<NotificationPage/>}/>
           </Routes>
         </div>
       </CSSTransition>

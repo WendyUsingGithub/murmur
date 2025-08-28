@@ -152,13 +152,11 @@
 }
 
 .navbarHide {
-    /* display: none; */
     display: none;
 }
 
 .navbarShow {
-    /* display: block; */
-    background-color: blue;
+    display: block;
 }
 
 .navbar .icons {

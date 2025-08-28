@@ -77,8 +77,8 @@ async function main() {
     "小老虎一樣的深色花紋，看起來威風又有精神。雖然名字裡有虎，但我的性格其實很親人，只要你伸手，我就會把頭輕輕頂上去，表示喜歡。我也特別愛玩捉迷藏，會靜靜躲在門後、沙發下，等你經過時突然撲上去嚇你一跳。別被我有點嚴肅的外表騙了，其實我只是想多和你互動，因為你笑的時候，我的耳朵也會跟著微微抖動。",
     []);
 
-  await insertUserData("mackerel_tabby", "mackerel_tabby", "mackerel_tabby", "魚骨虎斑",
-    "我身上的細條紋像魚骨一樣整齊排列，讓我看起來特別俐落。相比其他貓，我更靈活，能在書架和窗台之間一躍而上，也能在走廊上高速追逐玩具，完全不失誤。有人說我的花紋很時尚，就像穿了一件專屬的條紋外套，我自己也覺得很合身。當陽光灑下來時，條紋會變得更加鮮明，那時我會故意伸展身體，好像在向世界展示我的天然時裝。",
+  await insertUserData("cat", "cat", "cat", "貓",
+    "我不會說自己有多聰明、多厲害，因為當一隻貓，光是存在就已經足夠特別。我的日常其實很簡單：吃飯、睡覺、呼嚕、伸懶腰，再偶爾撒嬌一下，這就是最完整的幸福。有時候我會慵懶地窩在角落，靜靜觀察周圍的世界；有時候又會突然精神一振，在走廊上高速衝刺，仿佛整個家就是我的遊樂場。我的節奏不急不徐，喜歡按照自己的步調過日子，但當你需要陪伴的時候，我也會輕輕蹭過來，把最柔軟的呼嚕聲送給你。所以，如果要用一句話來形容我，那就是：我是一隻普通的貓，但我很可愛，而可愛本身就是一種力量。",
     []);
 
   await insertUserData("tuxedo_cat", "tuxedo_cat", "tuxedo_cat", "賓士貓",
@@ -113,14 +113,14 @@ async function main() {
         ]
       ],
       [
-        "black_cat",
+        "cat",
         "我一直懷疑掃地機器人其實是神的化身。那毫無意義的每日轉圈運動，反映了我們內心的空洞與無聊。而我們的毛，正是對這種空洞的回應，是靈魂種子的散播。calico_cat，你並非在掉毛，你是在釋放你靈魂的片段，讓世界記得我們的存在。",
         ["orange_cat"],
         "2025-06-21T16:40:00",
         [
           [
-            "mackerel_tabby",
-            "black_cat，你這樣說真是讓我豁然開朗。每次看到掃地機器人轉來轉去，我都感覺那種毫無目的的運動裡藏著某種神秘意義。也許我們都應該重新審視這些看似普通的小物件，裡頭蘊含的哲學深度遠超我們想像。",
+            "black_cat",
+            "你這樣說真是讓我豁然開朗。每次看到掃地機器人轉來轉去，我都感覺那種毫無目的的運動裡藏著某種神秘意義。也許我們都應該重新審視這些看似普通的小物件，裡頭蘊含的哲學深度遠超我們想像。",
             [],
             "2025-06-21T16:55:00"
           ]
@@ -161,7 +161,7 @@ async function main() {
         "2025-06-21T18:00:00"
       ],
       [
-        "mackerel_tabby",
+        "cat",
         "說起來，這讓我想到每次我在窗台曬太陽時，那種陽光透過窗戶灑下的光影，其實也是一種空間的存在感。我們不只是佔據空間，更與光線、氣味和聲音共同構築這個家的氣氛。這些元素交織，才讓這個空間真正‘活’起來。陽光的溫暖、微風的氣息，以及偶爾飄過的花香，都成為我們生活的背景音樂。這種多感官的體驗，讓空間充滿生命與故事，而非冰冷的結構。",
         [],
         "2025-06-21T18:20:00"
@@ -179,13 +179,13 @@ async function main() {
     "black_cat",
     "眾所周知，貓咪的睡眠時間占據了生命中極大的一部分，這並非偶然，而是自然界深思熟慮的結果。從哲學角度來看，睡眠是介於存在與虛無之間的神秘狀態，正如德里達所言，‘存在總是被暫時中斷，於是被重新定義’。我們在睡夢中游走於現實與夢境，這種跨界的體驗不只是身體的休憩，更是靈魂的漫遊與更新。當我們蜷縮成一團，閉上眼睛，似乎在告訴這個世界：暫停吧，讓我在這片刻找到屬於自己的寧靜。這種暫時的消失，讓我們得以與自我對話，思考白日裡未竟的事情，或許也是對未來行動的準備。更深一層，睡眠讓我們暫別外界的嘈雜，沉澱情緒，重塑自我，這不僅是生物的本能，更是一種精神的儀式，維繫著我們身心的平衡與健康。",
     "睡眠哲學",
-    ["calico_cat", "orange_cat", "black_cat", "tabby", "mackerel_tabby", "tuxedo_cat"],
+    ["calico_cat", "orange_cat", "black_cat", "tabby", "cat", "tuxedo_cat"],
     "2025-06-23T10:00:00",
     [
       [
         "tabby",
         "black_cat，你這番話說得太精彩了。每當我窩在暖陽裡打盹，彷彿整個世界都靜止了，只剩下我與夢境相伴。這讓我想到，睡眠不只是身體的放鬆，更像是一場靈魂的冥想，是與自我深層連結的時刻。我常常覺得，夢境裡的自己比清醒時更真實也更自由，這種矛盾感讓我著迷。當夢境的自由與現實的限制交織，生命似乎進入了一種奇妙的平衡。",
-        ["calico_cat", "orange_cat", "black_cat", "tabby", "mackerel_tabby"],
+        ["calico_cat", "orange_cat", "black_cat", "tabby", "cat"],
         "2025-06-22T10:20:00",
         [
           [
@@ -205,7 +205,7 @@ async function main() {
       [
         "calico_cat",
         "說得好，tabby。我也同意。尤其是那些在睡夢中突然翻身，似乎在與夢境抗爭或擁抱，這種細節讓我覺得睡眠充滿了生命的活力與變化。也許我們應該提倡‘尊重貓咪的睡眠’，讓家人理解我們需要的安靜與空間，不要隨意打擾這場神聖的旅程。畢竟，好的睡眠才能孕育出旺盛的生命力。睡眠不只是休息，更是我們重新定位自我的重要時刻。",
-        ["orange_cat", "mackerel_tabby"],
+        ["orange_cat", "cat"],
         "2025-06-22T10:40:00",
         [
           [
@@ -219,13 +219,13 @@ async function main() {
       [
         "orange_cat",
         "這讓我想到，為什麼家裡總有那麼多‘睡覺區’，卻還是有人硬要我們換地方？或許人類無法真正理解睡眠的深層意義吧。對我們而言，每一處舒服的角落都是心靈的避風港，是與自己和解的空間。這種靜謐是治癒，也是力量的源泉。",
-        ["calico_cat", "black_cat", "orange_cat", "tabby", "tuxedo_cat", "mackerel_tabby"],
+        ["calico_cat", "black_cat", "orange_cat", "tabby", "tuxedo_cat", "cat"],
         "2025-06-22T11:00:00",
         [
           [
             "tuxedo_cat",
             "orange_cat，說得好。人類有時候太過忙碌，不懂得珍惜安靜時光，反而打亂我們的節奏。其實靜下心來睡一覺，才是對生活最好的投資。",
-            ["mackerel_tabby", "tuxedo_cat"],
+            ["cat", "tuxedo_cat"],
             "2025-06-22T11:05:00"
           ]
         ]
@@ -233,7 +233,7 @@ async function main() {
       [
         "tuxedo_cat",
         "我覺得睡眠還有一層神秘，就是夢中那些模糊的影像與感覺，有時候像故事，有時候像謎語。我們在夢裡旅行，或許是在尋找什麼答案，也是在整理白日的煩憂。睡眠，是生命的暫停鍵，也是重新啟動的開關。",
-        ["tabby", "mackerel_tabby", "tuxedo_cat"],
+        ["tabby", "cat", "tuxedo_cat"],
         "2025-06-22T11:20:00",
         [
           [
@@ -245,7 +245,7 @@ async function main() {
         ]
       ],
       [
-        "mackerel_tabby",
+        "cat",
         "我想補充一句，睡眠的節奏感也很重要。那種呼吸均勻、身體完全放鬆的感覺，是我們最渴望的狀態。當這種節奏被打亂，整個身心就會失衡。或許這也是為什麼我們喜歡柔軟的床鋪和安靜的環境，因為它們幫助我們找回那份自然的節奏。",
         [],
         "2025-06-22T11:40:00",
@@ -266,7 +266,7 @@ async function main() {
     "calico_cat",
     "春天的氣息總是讓人心情愉悅，對我們貓咪來說，更是充滿了探索與冒險的機會。當陽光灑進窗台，我喜歡靜靜地躺著，感受微風輕拂毛髮，那種溫柔的觸感彷彿在提醒我，生活中總有美好的細節值得珍惜。讓自己更加堅強與柔軟並存。這種柔軟不是軟弱，而是一種智慧，一種適應世界的能力。",
     "春天的思考",
-    ["calico_cat", "orange_cat", "tabby", "mackerel_tabby", "tuxedo_cat"],
+    ["calico_cat", "orange_cat", "tabby", "cat", "tuxedo_cat"],
     "2025-06-24T09:00:00",
     [
       [
@@ -298,7 +298,7 @@ async function main() {
         ]
       ],
       [
-        "mackerel_tabby",
+        "cat",
         "春天的雷雨讓我有點害怕，但我學會了找個安全的角落，靜靜觀察外面的世界變化。這讓我想到，生命中遇到困難時，也要學會暫時退一步，保護自己，等待風暴過去。",
         ["calico_cat", "orange_cat", "black_cat", "tabby"],
         "2025-06-23T09:50:00",
@@ -306,7 +306,7 @@ async function main() {
           [
             "tuxedo_cat",
             "mackerel_tabby，你說得很對。生活的起伏是必然的，但我們可以選擇如何面對。安全感和勇氣同樣重要，願我們都能找到屬於自己的避風港。",
-            ["tabby", "mackerel_tabby", "tuxedo_cat"],
+            ["tabby", "cat", "tuxedo_cat"],
             "2025-06-23T09:55:00"
           ]
         ]
@@ -314,7 +314,7 @@ async function main() {
       [
         "calico_cat",
         "謝謝大家的回應，讓這篇關於春天的思考更加豐富多彩。生活的美好，不正是因為有你們的陪伴和分享嗎？讓我們一起迎接更多季節的變化，活出最真實的自己。",
-        ["calico_cat", "orange_cat", "black_cat", "tabby", "mackerel_tabby", "tuxedo_cat"],
+        ["calico_cat", "orange_cat", "black_cat", "tabby", "cat", "tuxedo_cat"],
         "2025-06-23T10:10:00"
       ]
     ]
@@ -324,7 +324,7 @@ async function main() {
     "orange_cat",
     "吸塵器，這個看似平凡的家用電器，實際上蘊藏著無數的哲學思考與生活智慧。每當我看到它在地板上輕輕滑過，帶走那些細小的灰塵與毛髮，我不禁開始思考，清理與被清理之間，是否也存在著一種微妙的生命互動？我們貓咪的毛髮成了它工作的證據，也成了它存在的價值。然而，吸塵器的運作似乎也提醒著我們關於控制與被控制的課題。當那機器嗡嗡作響時，是不是象徵著我們生活中那些無形的規範和壓力。就像吸塵器必須持續運行才能維持清潔，我們是否也在無意識中，默默接受著周遭環境的各種牽引與限制。",
     "吸塵器",
-    ["tabby", "mackerel_tabby", "tuxedo_cat"],
+    ["tabby", "cat", "tuxedo_cat"],
     "2025-06-25T10:00:00",
     [
       [
@@ -368,7 +368,7 @@ async function main() {
     "tuxedo_cat",
     "有時我懷疑，那些停在窗外電線上的鳥，是不是其實在觀察我們？當我盯著牠們時，牠們也正凝視著我，那種靜默的凝視讓我意識到，我們並不是世界的中心，而只是這個複雜生命網絡中的一環。我們在室內觀察牠們的自由，牠們則在戶外注視我們的拘束。或許自由與限制的界線，不在窗框，而在於我們如何看待自己的位置。",
     "觀察哲學",
-    ["black_cat", "tabby", "mackerel_tabby", "tuxedo_cat"],
+    ["black_cat", "tabby", "cat", "tuxedo_cat"],
     "2025-06-26T09:00:00",
     [
       [
@@ -378,7 +378,7 @@ async function main() {
         "2025-06-26T09:15:00"
       ],
       [
-        "tabby",
+        "cat",
         "這讓我想到，被人類養著的我們，跟飛翔的鳥一樣，其實都不完全自由。只是選擇了不同的框架生活而已。",
         ["orange_cat"],
         "2025-06-26T09:30:00"
@@ -393,7 +393,7 @@ async function main() {
   );
 
   await insert(
-    "mackerel_tabby",
+    "cat",
     "昨天我坐在紙箱裡三小時沒動，不是因為我累了，而是因為我想知道：什麼是完美的容器？紙箱的限制讓我感到安全，也讓我思考，自我是否也需要邊界。邊界不是束縛，而是一種提醒：在有限中，我們才能看見自己的形狀。正如一首樂曲需要停頓，生活也需要一點邊緣來反射出中心的聲音。",
     "邊界美學",
     ["orange_cat"],
@@ -425,7 +425,7 @@ async function main() {
     "tabby",
     "深夜時分，我喜歡獨自坐在書架頂端，俯瞰整個客廳。那是一種奇特的角度，不只是視野上的優越感，更是一種暫時抽離日常的方式。當我不再參與，而是僅僅觀看，我彷彿能看見世界的本來面貌：人類的沉睡、空氣的震動、冷光燈的閃爍，像是時間靜止後留下的殘響。我們貓咪，有時是觀察者，而非參與者，在靜默中讀懂生活。",
     "觀看哲學",
-    ["tabby", "mackerel_tabby"],
+    ["tabby", "cat"],
     "2025-06-28T00:30:00",
     [
       [
@@ -481,11 +481,11 @@ async function main() {
     "orange_cat",
     "人類每天吃三餐，規律又執著，彷彿那是一種宗教儀式。但我們貓呢？我們靠的是感覺。不是餓的時候才吃，而是當靈魂說『是時候了』，我們便去舔幾口碗裡的乾乾。這才是真正的存在主義，活在當下、餵食當下。不被鐘錶支配的我們，是時間的異教徒，在碗與飢餓之間自由漫步。",
     "時間與餵食",
-    ["orange_cat", "mackerel_tabby"],
+    ["orange_cat", "cat"],
     "2025-06-29T12:00:00",
     [
       [
-        "mackerel_tabby",
+        "cat",
         "orange_cat，你的話讓我思考，我是不是也應該對每一口乾乾感到敬畏？因為那不是食物，而是靈魂的接觸點。",
         [],
         "2025-06-29T12:20:00"
@@ -506,28 +506,28 @@ async function main() {
   );
 
   await insert(
-    "calico_cat",
+    "cat",
     "為什麼每次我一坐在人類的鍵盤上，他們就像發現新大陸一樣大驚小怪？我懷疑，那不是因為我擋住了螢幕，而是我踩進了他們語言的世界，破壞了他們用來維繫秩序的象徵系統。鍵盤，是人類邏輯的結晶，而我，正以我的存在將其打亂。這不是破壞，而是一種重構，一種來自毛茸茸世界的語意重置。",
     "語言與破壞",
-    ["calico_cat", "orange_cat", "black_cat", "tabby", "mackerel_tabby", "tuxedo_cat"],
+    ["calico_cat", "orange_cat", "black_cat", "tabby", "cat", "tuxedo_cat"],
     "2025-06-30T14:00:00",
     [
       [
         "tabby",
-        "calico_cat，我也踩過鍵盤，但我從未想過，那可能是對語言暴政的反擊。或許我們應該組織一場『鍵盤解放運動』？",
+        "cat，我也踩過鍵盤，但我從未想過，那可能是對語言暴政的反擊。或許我們應該組織一場『鍵盤解放運動』？",
         ["calico_cat", "black_cat", "tabby", "tuxedo_cat"],
         "2025-06-30T14:20:00",
         [
           [
-            "orange_cat",
+            "cat",
             "說實話，我單純覺得鍵盤暖暖的，很好睡。但現在你們這麼一說，我開始懷疑，是不是我每次睡著時，其實也在無意中顛覆了人類的通訊體系。那我豈不是一位躺著也在搞革命的哲貓？",
-            ["calico_cat", "orange_cat", "mackerel_tabby", "tuxedo_cat"],
+            ["calico_cat", "orange_cat", "cat", "tuxedo_cat"],
             "2025-06-30T14:50:00",
             [
               [
                 "tabby",
                 "你這麼一說，我突然覺得我每天躺在打印機上也不只是因為震動舒服——說不定我正阻止資本主義文件的流通？我們根本是無聲的地下組織成員！",
-                ["calico_cat", "orange_cat", "mackerel_tabby", "tuxedo_cat"],
+                ["calico_cat", "orange_cat", "cat", "tuxedo_cat"],
                 "2025-06-30T14:55:00"
               ]
             ]
@@ -583,45 +583,62 @@ async function main() {
 
 main();
 
-class UserDataBackEnd {
-  constructor({userId = null, name, mail, password, nameZH, introduction, createdAt = new Date()}) {
+class UserData {
+  constructor({userId = null, name, mail, password, nameZH, introduction, notifications = [], createdAt = new Date()}) {
     this._id = userId ? new ObjectId(userId) : new ObjectId();
     this.name = name;
     this.mail = mail;
     this.password = password;
     this.nameZH = nameZH;
     this.introduction = introduction;
+    this.notifications = notifications;
     this.createdAt = createdAt;
   }
 }
 
-class PostDataBackEnd {
+class PostData {
   constructor({postId = null, author, content, tag = null, likes = [], commentsNum = 0, createdAt = new Date()}) {
     this._id = postId ? new ObjectId(postId) : new ObjectId();
+    this.postId = this._id.toString();
+    this.commentId = this.postId;
+    this.parentId = this.postId;
     this.author = author;
     this.content = content;
     this.tag = tag;
-    this.likes = Array.isArray(likes) ? likes : [];
+    this.likes = likes;
+    this.like = false;
     this.commentsNum = commentsNum;
     this.createdAt = createdAt instanceof Date ? createdAt : new Date(createdAt);
   }
 }
 
-class CommentDataBackEnd {
-  constructor({commentId = null, postId = null, parentId = null, author = null, content = null, likes = [], commentsNum = 0, commentCreatedAt = new Date()}) {
+class CommentData {
+  constructor({postId = null, commentId = null, parentId = null, author = null, content = null, likes = [], commentsNum = 0, commentCreatedAt = new Date()}) {
     this._id = commentId ? new ObjectId(commentId) : new ObjectId();
-    this.postId = postId ? new ObjectId(postId) : null;
-    this.parentId = parentId ? new ObjectId(parentId) : null;
+    this.postId = postId;
+    this.commentId = this._id.toString();
+    this.parentId = parentId;
     this.author = author;
     this.content = content;
-    this.likes = Array.isArray(likes) ? likes : [];
+    this.likes = likes;
     this.commentsNum = commentsNum;
     this.createdAt = commentCreatedAt instanceof Date ? commentCreatedAt : new Date(commentCreatedAt);
   }
 }
 
+class NotificationData {
+  constructor({postId, commentId, parentId, author, content, parentContent}) {
+    this.postId = postId;
+    this.commentId = commentId;
+    this.parentId = parentId;
+    this.hisAuthor = author;
+    this.hisContent = content;
+    this.yourContent = parentContent;
+  }
+}
+
 async function insertUserData(name, mail, password, nameZH, introduction, likes, createdAt) {
-  const userData = new UserDataBackEnd({name, mail, password, nameZH, introduction, likes});
+  const userData = new UserData({name, mail, password, nameZH, introduction, likes});
   const result = await coll_user.insertOne(userData);
   console.log("Inserted userData with ID:", userData._id);
   return userData._id;
@@ -629,9 +646,9 @@ async function insertUserData(name, mail, password, nameZH, introduction, likes,
 
 async function insert(author, content, tag, likes, createdAt, comments) {
   let commentsNum = 0;
-  const post = new PostDataBackEnd({author, content, tag, likes, createdAt});
+  const post = new PostData({author, content, tag, likes, createdAt});
   
-  if(comments.length > 0) commentsNum = await insertComments(comments, post._id, post._id);
+  if(comments.length > 0) commentsNum = await insertComments(post.postId, comments, post.postId, author, content);
   post.commentsNum = commentsNum;
 
   const result = await coll_post.insertOne(post);
@@ -639,19 +656,28 @@ async function insert(author, content, tag, likes, createdAt, comments) {
   return post._id;
 }
 
-async function insertComments(comments, postId, parentId) {
+async function addNotifications(postId, commentId, parentId, author, content, parentAuthor, parentContent) {
+  const notification = new NotificationData({postId, commentId, parentId, author, content, parentContent});
+  await coll_user.updateOne({name: parentAuthor}, {$push: {notifications: {$each: [notification], $position: 0, $slice: 20 }}});
+
+}
+
+async function insertComments(postId, comments, parentId, parentAuthor, parentContent) {
   let commentsNumSum = 0;
   let commentsNum = 0;
   const commentsInserted = [];
   for (comment of comments) {
     const [author, content, likes, commentCreatedAt, subComments] = comment;
-    const commentInserted = new CommentDataBackEnd({postId, parentId, author, content, likes, commentCreatedAt});
+    const commentInserted = new CommentData({postId, parentId, author, content, likes, commentCreatedAt});
+    const commentId = commentInserted._id.toString();
     console.log("Inserted comment with ID:", commentInserted._id);
+
+    addNotifications(postId, commentId, parentId, author, content, parentAuthor, parentContent);
 
     commentsNum = 0;
     commentsNumSum++;
     if(subComments) {
-      commentsNum = await insertComments(subComments, postId, commentInserted._id);
+      commentsNum = await insertComments(postId, subComments, commentId, author, content);
       commentsNumSum = commentsNumSum + commentsNum
     }
 

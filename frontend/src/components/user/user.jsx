@@ -5,13 +5,12 @@ import "./user.css";
 
 import AuthContext from "../auth/AuthContext.jsx";
 import SearchByField from "../searchByField/searchByField.jsx";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useContext, useState, useEffect} from "react";
 import axios from "axios";
 
 function User() {
   const {user} = useContext(AuthContext);
-  const navigate = useNavigate();
   const {author} = useParams();
   const [nameZH, setNameZH] = useState(null)
   const [introduction, setIntroduction] = useState(null)
@@ -30,9 +29,6 @@ function User() {
     }
   }
 
-  function settingOnClickHandler() {
-    navigate("/setting");
-  }
   function mouseEnterHandler(event) {
     setIndicatoPos(event.currentTarget.dataset.value);
   }
@@ -66,15 +62,6 @@ function User() {
                 <div className="subHeader">
                   {user.name}
                 </div>
-
-                <div className="subscribe-button" onClick={settingOnClickHandler}>
-                  <span className="text">設定</span>
-                  <span className="icon">
-                    <span className="material-symbols-outlined">
-                      emergency
-                    </span>
-                  </span>
-                </div>   
 
                 <p>
                   {introduction}
