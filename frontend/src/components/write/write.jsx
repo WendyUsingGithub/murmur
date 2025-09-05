@@ -2,13 +2,12 @@ import "../../../bootstrap/bootstrap.js";
 import "../style.css";
 import "./write.css";
 
-import {useContext, useRef} from "react";
+import {useContext, useEffect, useRef} from "react";
 import axios from "axios"
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../auth/AuthContext.jsx";
 
 function Write() {
-
   const {user} = useContext(AuthContext);
   const navigate = useNavigate();
   const submitIconRef = useRef(null);
@@ -62,50 +61,88 @@ function Write() {
       const result = await axios.post("http://1.34.178.127:5555/write", {data:writeData}, {withCredentials: true});
       console.log(result.data);
       if(result.data) {
-        navigate(`/postPage/${result.data.postId}/${result.data.postId}`);
+        navigate(`/page/${result.data.postId}/${result.data.postId}`);
       }
     } catch (err) {
       console.error(err);
     }
   }
 
-  return (
-    <div className="container write">
-      <div className="content">
-        <div className="row">
-          <div className="col-2 d-none d-lg-block"></div>
-          <div className="col-12 col-lg-6">
-            <div className="author">
-              <span className="author-name">
-                {user.name}
-              </span>
-            </div>
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-            <textarea ref={textAreaRef} rows="10" 
-              placeholder="自言自語是最棒的"
-              className="textArea"
-              onClick={onClickHandler}
-              onBlur={onBlurHandler}
-              onInput={onInputHandler}/>
+  if(user) {
+    return (
+      <div className="container write">
+        <div className="content">
+          <div className="row">
+            <div className="col-2 d-none d-lg-block"></div>
 
-            <div className="post-tags">
-              <div className="post-tag">
-                <input ref={tagRef} className="post-input"/>
+            <div className="col-12 col-lg-6">
+              <div className="author">
+                <span className="author-name">
+                  {user.name}
+                </span>
               </div>
-              <span ref={submitIconRef} className="material-symbols-outlined"
-                onClick={submitHandler}>
-                send
-              </span>
-            </div>
 
-            <div className="divider"/>
-            
+              <textarea ref={textAreaRef} rows="10" 
+                placeholder="自言自語是最棒的"
+                className="textArea"
+                onClick={onClickHandler}
+                onBlur={onBlurHandler}
+                onInput={onInputHandler}/>
+
+              <div className="post-tags">
+                <div className="post-tag">
+                  <input ref={tagRef} className="post-input"/>
+                </div>
+                <span ref={submitIconRef} className="material-symbols-outlined"
+                  onClick={submitHandler}>
+                  send
+                </span>
+              </div>
+              <div className="divider"/>
+              
+            </div>
+            <div className="col-2 d-none d-lg-block"></div>
           </div>
-          <div className="col-2 d-none d-lg-block"></div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
+  else {
+    return (
+      <div className="container write">
+        <div className="content">
+          <div className="row">
+            <div className="col-2 d-none d-lg-block"></div>
+
+            <div className="col-12 col-lg-6">
+              <div className="author">
+                <span className="author-name">
+                  stranger
+                </span>
+              </div>
+
+              <div className="textArea notSignIn">登入後才能留言哦</div>
+              <div className="post-tags">
+                <div className="post-tag">
+                  <div className="post-input"></div>
+                </div>
+                <span className="material-symbols-outlined">
+                  send
+                </span>
+              </div>
+              <div className="divider"/>
+              
+            </div>
+            <div className="col-2 d-none d-lg-block"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Write

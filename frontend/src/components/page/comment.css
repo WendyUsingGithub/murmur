@@ -1,0 +1,59 @@
+.comment {
+  position: relative;
+}
+
+.comment .author {
+  display: inline-block;
+  padding-bottom: 0.6rem;
+}
+.comment p {
+  padding-bottom: 0.6rem;
+}
+
+.comment .divider {
+  margin: 0.8rem auto 1rem auto;
+}
+
+.theComment:before {
+  content: "";
+  position: absolute;
+  top: -1rem;
+  left: -0.85rem;
+  width:0.15rem;
+  height: calc(100% + 1rem);
+  background-color: var(--murmur-light-light-gray);
+}
+
+@media (max-width: 768px) {
+  .theComment:before {
+    left: -0.8rem;
+    width: 0.2rem;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.iconHide {
+  display: none;
+}
+
+.iconShow {
+  display: block;
+}

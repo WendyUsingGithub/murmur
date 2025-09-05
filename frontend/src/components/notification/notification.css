@@ -1,0 +1,79 @@
+.notification {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification .author {
+  padding-bottom: 0.6rem;
+  color: var(--murmur-gray);
+}
+
+.notification .author-name {
+  color: var(--murmur-gray);
+}
+
+.notification .author-name:before {
+  display: none;
+}
+
+.notification .author-name:hover:before {
+  display: none;
+}
+
+.notification p {
+  padding-bottom: 0.6rem;
+}
+
+.notification .yourContent p {
+  color: var(--murmur-gray);
+}
+
+.notification .divider {
+  margin: 0.8rem auto 1rem auto;
+}
+
+.notification .material-symbols-outlined {
+  padding-bottom: 5rem;
+}
+@media (max-width: 768px) {
+  .theComment:before {
+    left: -0.8rem;
+    width: 0.2rem;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.iconHide {
+  display: none;
+}
+
+.iconShow {
+  display: block;
+}
+
+.single-line {
+p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

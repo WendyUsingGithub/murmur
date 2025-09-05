@@ -1,8 +1,9 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useState, useRef, useEffect} from "react";
 import "./navbar.css";
 
-function MobileNavbar() {
+function NavbarSM() {
+  const location = useLocation();
   const navbarRef = useRef(null);
   const [visible, setVisible] = useState("navbarShow");
   const [initialHeight, setInitialHeight] = useState(null);
@@ -30,13 +31,13 @@ function MobileNavbar() {
   return (
     <div ref={navbarRef} className={`navbar ${visible ? "navbarShow" : "navbarHide"}`}>
       <span className="icons center-alignment-horizontal">
-        <Link to="/write" className="search">
+        <Link to="/login">
           <div className="icon center-alignment">
-            <span className="material-symbols-outlined">search</span>
+            <span className="material-symbols-outlined">for_you</span>
           </div>
         </Link>
 
-        <Link to="/write">
+        <Link to="/notification">
           <div className="icon center-alignment">
             <span className="material-symbols-outlined">keep</span>
           </div>
@@ -44,7 +45,7 @@ function MobileNavbar() {
 
         <Link to="/">
           <div className="icon center-alignment">
-            <span className="material-symbols-outlined">pentagon</span>
+            <span  style={{scale:"1.1"}} className={`material-symbols-outlined ${(location.pathname === "/") ? "fill" : ""}`}>adjust</span>
           </div>
         </Link>
         
@@ -64,4 +65,4 @@ function MobileNavbar() {
   );
 }
 
-export default MobileNavbar;
+export default NavbarSM;

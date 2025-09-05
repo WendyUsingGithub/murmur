@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Noto+Sans+TC:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+
 *,
 *::before,
 *::after {
@@ -42,6 +43,16 @@ html {
     }
 }
 
+:root {
+    --murmur-font-size: 15;
+}
+
+@media (max-width: 768px) {
+:root {
+        --murmur-font-size: 16;
+    }
+}
+
 body {
     margin: 0;
     font-family: "Noto Sans TC";
@@ -67,7 +78,10 @@ p {
     text-align: justify;
     color: var(--murmur-light-light-gray);
 }
-a {
+a,
+a:hover,
+a:active,
+a:focus {
     color: var(--murmur-light-light-gray);
     text-decoration: none;
 }
@@ -111,7 +125,8 @@ a {
 }
 
 .content {
-    padding-top: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 30rem;
     max-width: inherit;
     width: 100%;
 }
@@ -122,6 +137,10 @@ a {
         max-width: inherit;
         width: 100%;
     }
+}
+
+.post {
+    cursor: pointer;
 }
 
 .divider {
@@ -142,6 +161,7 @@ a {
 }
 
 .author {
+    display: inline-block;
     padding-bottom: 1.4rem;
     user-select: none;
 }
@@ -157,6 +177,7 @@ a {
     text-align: left;
 }
 
+@media (min-width: 769px) {
 .author-name:before {
     background-color: var(--murmur-light-light-gray);
     content: "";
@@ -166,13 +187,10 @@ a {
     transition: all 0.2s linear;
 }
 
-.post {
-    cursor: pointer;
-}
-
 .author-name:hover:before {
     margin-right: 0.5rem;
     width: 2rem;
+}
 }
 
 .parapraphs {
@@ -212,6 +230,12 @@ a {
     width: 4.1ch;
 }
 
+@media (max-width: 768px) {
+.post-tag:hover::before {
+        width: 1.3ch;
+    }
+}
+
 .interact .item {
     cursor: pointer;
     user-select: none;
@@ -227,7 +251,7 @@ a {
     padding-right: 0.3rem;
 }
 
-.fill {
+.interact .fill {
     font-variation-settings:
         'FILL' 1,
         'wght' 300,
@@ -342,5 +366,39 @@ a {
 .forward-enter-active {
     opacity: 1;
     background: var(--murmur-dark-black);
-    transition: background-color 0.05s linear 0.2s, opacity 0.05s linear 0.25s;
+    transition: background-color 0s linear 0.2s, opacity 0.05s linear 0.25s;
+}
+
+/* loader */
+.loader,
+.loader:before,
+.loader:after {
+    background: var(--murmur-light-light-gray);
+    animation: loading-keys-app-loading 1s infinite linear;
+    width: 0.4rem;
+    height: 1.2rem;
+}
+
+.loader {
+    position: absolute;
+    right: calc(50% - 6.8px);
+    top: calc(50% - 1rem);
+    animation-delay: 0.16s;
+}
+
+
+.loader:before,
+.loader:after {
+    position: absolute;
+    top: 0;
+    content: '';
+}
+
+.loader:before {
+    left: -1rem;
+}
+
+.loader:after {
+    left: 1rem;
+    animation-delay: 0.32s;
 }

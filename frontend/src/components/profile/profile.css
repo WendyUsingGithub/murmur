@@ -1,7 +1,17 @@
-.author .header {
+.profile .intro {
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .profile .actions .indicator {
+    margin-bottom: 2rem;
+  }
+}
+
+.profile .header {
   margin: 0;
   padding: 0;
-  font-size: 1.6rem;
+  font-size: 1.6rem;     
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.08rem;
@@ -10,7 +20,7 @@
   color: var(--murmur-light-light-gray);
 }
 
-.author .subHeader {
+.profile .subHeader {
   margin: 0;
   padding: 0 0 2.4rem 0.1rem;
   font-size: 1rem;
@@ -20,7 +30,7 @@
   color: var(--murmur-light-light-gray);
 }
 
-.author .subscribe-button {
+.profile .subscribe-button {
   cursor: pointer;
   margin: 0;
   padding-bottom: 2rem;
@@ -31,13 +41,13 @@
   color: var(--murmur-light-light-gray);
 }
 
-.author .subscribe-button .icon {
+.profile .subscribe-button .icon {
   position: relative;
   padding-left: 0.5rem;
   bottom: -0.16rem
 }
 
-.author .subscribe-button .icon .material-symbols-outlined {
+.profile .subscribe-button .icon .material-symbols-outlined {
   cursor: pointer;
   color: var(--murmur-light-light-gray);
   position: static;
@@ -50,10 +60,10 @@
     'opsz' 24
 }
 
-.author .subscribe-button:hover .icon .material-symbols-outlined {
+.profile .subscribe-button:hover .icon .material-symbols-outlined {
   transform: rotate(90deg);
 }
 
-.author .subscribe-button:active .icon .material-symbols-outlined {
+.profile .subscribe-button:active .icon .material-symbols-outlined {
   transform: rotate(225deg);
 }

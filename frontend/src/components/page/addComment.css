@@ -6,6 +6,8 @@
 }
 
 .addComment .textArea {
+  display: block;
+  width: 100%;
   line-height: 1.6;
   min-height: 1.6rem;
   height: auto;
@@ -20,10 +22,18 @@
   border: none;
 }
 
+.addComment .notSingIn {
+  color: var(--murmur-gray) !important;
+}
+
 .addComment .textArea:active,
 .addComment .textArea:focus {
   outline: none;
   border: none;
+}
+
+.addComment .textArea::placeholder {
+  color: var(--murmur-gray);
 }
 
 .addComment .textArea:focus::placeholder {
@@ -69,7 +79,7 @@
 }
 
 .comment .addComment .divider {
-  margin: 1.4rem 0 1.4rem 0;
+  margin: 1.4rem 0 1rem 0;
 }
 
 @media (max-width: 768px) {
@@ -90,5 +100,17 @@
     bottom: 0rem;
     cursor: pointer;
     padding: 0;
+    }
+}
+
+@media (max-width: 768px) {
+  .addComment-lg {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .addComment-sm {
+      display: none;
     }
 }

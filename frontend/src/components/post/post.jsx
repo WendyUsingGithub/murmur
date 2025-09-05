@@ -1,30 +1,29 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
 import "../style.css";
-import "./post.css";
 
 import PropTypes from "prop-types";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import Paragraph from "../paragraph/paragraph.jsx"
 
 import axios from "axios";
 
-function Post({PostDataFrontEnd})
+function Post({PostData, scroll = false})
 {
-  console.log("!!!!PostDataFrontEnd.like", PostDataFrontEnd.like);
   const navigate = useNavigate();
+  const postRef = useRef(null)
   const [paragraphs, setParagraphs] = useState([]);
-  const [isLike, setIsLike] = useState(PostDataFrontEnd.like);
-  const [likes, setLikes] = useState(PostDataFrontEnd.likesNum);
+  const [isLike, setIsLike] = useState(PostData.like);
+  const [likes, setLikes] = useState(PostData.likesNum);
 
   function onClickHandler() {
-    navigate(`/postPage/${PostDataFrontEnd.postId}/${PostDataFrontEnd.commentId}`);
+    navigate(`/page/${PostData.postId}/${PostData.commentId}`);
   }
 
   function onClickHandlerAuthor(e) {
     e.stopPropagation();
-    navigate(`/author/${PostDataFrontEnd.author}`);
+    navigate(`/profile/${PostData.author}`);
   }
 
   async function likeOnClick() {
@@ -32,12 +31,12 @@ function Post({PostDataFrontEnd})
     if(isLike) {
       setIsLike(false);
       setLikes(prev => prev - 1);
-      await axios.post("http://1.34.178.127:5555/unlike", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId}, {withCredentials: true});
+      await axios.post("http://1.34.178.127:5555/unlike", {postId: PostData.postId, commentId: PostData.commentId}, {withCredentials: true});
     }
     else {
       setIsLike(true);
       setLikes(prev => prev + 1);
-      await axios.post("http://1.34.178.127:5555/like", {postId: PostDataFrontEnd.postId, commentId: PostDataFrontEnd.commentId}, {withCredentials: true});
+      await axios.post("http://1.34.178.127:5555/like", {postId: PostData.postId, commentId: PostData.commentId}, {withCredentials: true});
     }
   }
 
@@ -49,14 +48,34 @@ function Post({PostDataFrontEnd})
       }
       setParagraphs(paragraphs);
     }
-    parseContent(PostDataFrontEnd.content);
-  }, [PostDataFrontEnd.content]);
+    function scrollTo(ref) {
+      if (ref.current) {
+        const width = window.innerWidth;
+        const rect = ref.current.getBoundingClientRect();
+        if (width >= 992) {
+          const top = rect.top - 12 * 15;
+          window.scrollTo({top: top, behavior: "smooth"});
+        }
+        else {
+          const top = rect.top - 1 * 16;
+          window.scrollTo({top: top, behavior: "smooth"});       
+        }
+      }   
+    }
+    parseContent(PostData.content);
+
+    if(scroll) {
+      setTimeout(() => {
+        scrollTo(postRef);
+      }, 300);
+    }
+  }, [PostData.content]);
 
   return (
-    <div className="post" onClick={onClickHandler}>
+    <div className="post" ref={postRef} onClick={onClickHandler}>
       <div className="author">
           <span className="author-name" onClick={onClickHandlerAuthor}>
-              {PostDataFrontEnd.author}
+              {PostData.author}
           </span>
       </div>
 
@@ -67,10 +86,10 @@ function Post({PostDataFrontEnd})
       </div>
 
       {
-        (PostDataFrontEnd.tag) && (
-        <div className="post-tags" onClick={(e) => {e.stopPropagation(); navigate(`/tag/${PostDataFrontEnd.tag}`);}}>
-          <span className="post-tag">
-            {PostDataFrontEnd.tag}
+        (PostData.tag) && (
+        <div className="post-tags">
+          <span className="post-tag" onClick={(e) => {e.stopPropagation(); navigate(`/tag/${PostData.tag}`);}}>
+            {PostData.tag}
           </span>
         </div>
       )}
@@ -89,7 +108,7 @@ function Post({PostDataFrontEnd})
           tooltip
           </span>
           <span className="number">
-            {PostDataFrontEnd.commentsNum}
+            {PostData.commentsNum}
           </span>
         </span>
       </div>
@@ -99,8 +118,8 @@ function Post({PostDataFrontEnd})
 }
 
 Post.propTypes = {
-  postId: PropTypes.string.isRequired,
-  PostDataFrontEnd: PropTypes.object
+  PostData: PropTypes.object.isRequired,
+  scroll: PropTypes.bool,
 }
 
 export default Post

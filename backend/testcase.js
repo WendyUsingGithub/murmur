@@ -632,8 +632,10 @@ class NotificationData {
     this.commentId = commentId;
     this.parentId = parentId;
     this.hisAuthor = author;
-    this.hisContent = content;
-    this.yourContent = parentContent;
+    this.hisContent = content.split("\n")[0];
+    this.yourContent = parentContent.split("\n")[0];
+    this.hisContent = content.split("\n")[0].slice(0, 100);
+    this.yourContent = parentContent.split("\n")[0].slice(0, 100);
   }
 }
 
@@ -657,9 +659,9 @@ async function insert(author, content, tag, likes, createdAt, comments) {
 }
 
 async function addNotifications(postId, commentId, parentId, author, content, parentAuthor, parentContent) {
+  if(author === parentAuthor) return;
   const notification = new NotificationData({postId, commentId, parentId, author, content, parentContent});
   await coll_user.updateOne({name: parentAuthor}, {$push: {notifications: {$each: [notification], $position: 0, $slice: 20 }}});
-
 }
 
 async function insertComments(postId, comments, parentId, parentAuthor, parentContent) {

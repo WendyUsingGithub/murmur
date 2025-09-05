@@ -3,13 +3,14 @@ import "../style.css";
 import "./addComment.css";
 
 import PropTypes from "prop-types"
-import {useState, useRef} from "react";
+import AuthContext from "../auth/AuthContext.jsx";
+import {useContext, useState, useRef} from "react";
 
-function AddCommentMobile({postId, commentId, onSubmit}) {
-  const [isSubmitting, setSubmitting] = useState(false);
+function AddCommentDesktop({postId, commentId, onSubmit}) {
+  const {user} = useContext(AuthContext);
   const [isEmpty, setEmpty] = useState("");
   const [isActive, setActive] = useState("");
-  // const submitIconRef = useRef(null);
+  const submitIconRef = useRef(null);
   const textAreaRef = useRef(null);
 
   function onInputHandler(event) {
@@ -70,12 +71,10 @@ function AddCommentMobile({postId, commentId, onSubmit}) {
         }
       }
 
-      setSubmitting(true);
       await onSubmit(commentData);
       textArea.value = "";
       textArea.style.height = "auto";
       textArea.style.height = `${textArea.scrollHeight}px`;
-      setSubmitting(false);
     } catch (err) {
       console.error(err);
     }
@@ -85,47 +84,49 @@ function AddCommentMobile({postId, commentId, onSubmit}) {
       textAreaRef.current.value = "";
   }
 
-  function closeHandler() {
-      textAreaRef.current.value = "";
-  }
-  
   return (
     <div className="addComment">
-      <textarea rows="1" placeholder="留言" 
-        ref={textAreaRef}
-        className="textArea"
-        onClick={onClickHandler}
-        onBlur={onBlurHandler}
-        onInput={onInputHandler}/>
+      {
+        user ?
+        (<textarea rows="1" placeholder="留言" 
+         ref={textAreaRef}
+         className="textArea"
+         onClick={onClickHandler}
+         onBlur={onBlurHandler}
+         onInput={onInputHandler}/>):
+         (<div className="textArea notSingIn">登入後才能留言哦</div>)
+      }
 
-      <div className="divider"></div>
+      <div className="addComment-lg">
+        <span ref={submitIconRef} className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={submitHandler}>
+          send
+        </span>        
+      </div>
 
       {
-        isSubmitting ?
-        (<div className="circular-loader"/>) : 
-        (<div className="icons">
-          <span className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={backspaceHandler}>
-            keyboard_backspace
-          </span>
-          <span className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={closeHandler}>
-            close
-          </span>
-          <span className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={submitHandler}>
-            send
-          </span>
+        user &&
+        (<div className="addComment-sm">
+          <div className="divider"></div>
+          <div className="icons">
+            <span className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={backspaceHandler}>
+              close
+            </span>
+            <span className={`material-symbols-outlined ${isEmpty} ${isActive}`} onClick={submitHandler}>
+              send
+            </span>
+          </div>        
         </div>)
       }
 
       <div className="divider"></div>
-      
     </div>
   )
 }
 
-AddCommentMobile.propTypes = {
+AddCommentDesktop.propTypes = {
   postId: PropTypes.string,
   commentId: PropTypes.string,
   onSubmit: PropTypes.func.isRequired
 }
 
-export default AddCommentMobile
+export default AddCommentDesktop

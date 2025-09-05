@@ -5,14 +5,15 @@ import "../../bootstrap/bootstrap.js";
 import "./style.css";
 import Auth from "./auth/Auth.jsx";
 import Navbar from "./navbar/Navbar.jsx";
-import Feed from "./feed/FeedPage.jsx";
-import PostPage from "./postPage/PostPage.jsx";
+import Feed from "./feed/Feed.jsx";
+import Page from "./page/Page.jsx";
+import Noti from "./page/Noti.jsx";
 import Login from "./login/Login.jsx";
 import User from "./user/user.jsx";
-import Author from "./author/author.jsx";
+import Profile from "./profile/profile.jsx";
 import Tag from "./tag/Tag.jsx";
 import Write from "./write/Write.jsx";
-import NotificationPage from "./notification/NotificationPage.jsx"
+import Notifications from "./notification/Notifications.jsx";
 
 function App() {
   return (
@@ -35,13 +36,14 @@ function RoutesLocation() {
         <div>
           <Routes location={location}>
             <Route path="/" element={<Feed/>}/>
-            <Route path="/postPage/:postId/:commentId" element={<PostPage/>}/>
+            <Route path="/page/:postId/:commentId" element={<Page/>}/>
+            <Route path="/noti/:postId/:commentId/:scroll" element={<Noti/>}/>
+            <Route path="/profile/:name" element={<Profile/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/write" element={<Write/>}/>
-            <Route path="/author/:author" element={<Author/>}/>
             <Route path="/tag/:tag" element={<Tag/>}/>
             <Route path="/user" element={<User/>}/>
-            <Route path="/notification" element={<NotificationPage/>}/>
+            <Route path="/notification" element={<Notifications/>}/>
           </Routes>
         </div>
       </CSSTransition>

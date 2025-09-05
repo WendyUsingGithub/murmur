@@ -31,19 +31,19 @@ function Loader({loading, signIn, navigate, children}) {
   }
   else if(loading && !withinOneSecond){
     return (
-        <div className="container">
-          <div className="content">
-            <div className="row">
-              <div className="col-2"></div>
-              <div className="col-8 center-alignment">
-                <div className="middle">
-                  <div className="loader"></div>
-                </div>
-                </div>
-              <div className="col-2"></div>
-            </div>
+      <div className="container">
+        <div className="content">
+          <div className="row">
+            <div className="col-2"></div>
+            <div className="col-8 center-alignment">
+              <div className="middle">
+                <div className="loader"></div>
+              </div>
+              </div>
+            <div className="col-2"></div>
           </div>
         </div>
+      </div>
     )
   }
   else {

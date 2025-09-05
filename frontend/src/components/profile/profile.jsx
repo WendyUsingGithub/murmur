@@ -1,18 +1,16 @@
 import "../../../bootstrap/bootstrap.css";
 import "../../../bootstrap/bootstrap.js";
 import "../style.css";
-import "./author.css";
+import "./profile.css";
 
-import AuthContext from "../auth/AuthContext.jsx";
 import SearchByField from "../searchByField/searchByField.jsx";
 
 import {useParams} from "react-router-dom";
-import {useContext, useState, useRef, useEffect} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 
-function Author() {
-  // const {user, setUser} = useContext(AuthContext);
-  const {author} = useParams();
+function Profile() {
+  const {name} = useParams();
   const [data, setData] = useState(null);
   const [active, setActive] = useState("left");
   const [indicatorPos, setIndicatoPos] = useState("left");
@@ -36,35 +34,34 @@ function Author() {
   }
 
   useEffect(() => {
-    async function fetchAuthorData() {
+    async function fetchProfileData() {
       try {
-        const result = await axios.post("http://1.34.178.127:5555/authorData", {author: author});
+        const result = await axios.post("http://1.34.178.127:5555/profileData", {name});
+        console.log("result", result);
         setData(result.data);
       } catch (err) {
         console.error(err);
       }
     }
-    fetchAuthorData();
+    fetchProfileData();
   }, [])
   
   if(data) {
     return(
-      <div className="container author login">
+      <div className="container profile login">
         <div className="content">
           <div className="row">
-            <div className="col-2 d-none d-lg-block">
-              <div className="left-panel">
-                <div className="post">
-                  <div className="header">
-                    {data.nameZH}
-                  </div>
-                  <div className="subHeader">
-                    {data.name}
-                  </div>
-                  <p>
-                    {data.introduction}
-                  </p>
+            <div className="col-12 col-lg-2">
+              <div className="intro">
+                <div className="header">
+                  {data.nameZH}
                 </div>
+                <div className="subHeader">
+                  {data.name}
+                </div>
+                <p>
+                  {data.introduction}
+                </p>
               </div>
             </div>
 
@@ -88,12 +85,13 @@ function Author() {
                   <div className={`indicator ${indicatorPos}`}></div>
 
                   <div className={loginVisibility}>
-                    <SearchByField type="post" field="author" target={author}/>
+                    <SearchByField type="post" field="profile" target={name}/>
                   </div>
 
                   <div className={registerVisibility}>
-                    <SearchByField type="comment" field="author" target={author}/>
+                    <SearchByField type="comment" field="profile" target={name}/>
                   </div>
+                  
                 </div>
               </div>
             </div>
@@ -107,5 +105,5 @@ function Author() {
   }
 }
 
-export default Author
+export default Profile
 

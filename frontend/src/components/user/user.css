@@ -1,4 +1,18 @@
+.user .intro {
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .user .actions .indicator {
+    margin-bottom: 2rem;
+  }
+}
+
 .user .header {
+  align-items: flex-end;
+  padding-bottom: 3rem;
+}
+.user .name {
   margin: 0;
   padding: 0;
   font-size: 1.6rem;
@@ -10,9 +24,8 @@
   color: var(--murmur-light-light-gray);
 }
 
-.user .subHeader {
+.user .nameZH {
   margin: 0;
-  padding: 0 0 2.4rem 0.1rem;
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.08rem;
@@ -20,41 +33,48 @@
   color: var(--murmur-light-light-gray);
 }
 
-.user .subscribe-button {
-  cursor: pointer;
-  margin: 0;
-  padding-bottom: 2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.08rem;
-  text-align: justify;
-  color: var(--murmur-light-light-gray);
+@media (max-width: 768px) {
+  .user .logout-lg {
+    display: none;
+  }
 }
 
-.user .subscribe-button .icon {
-  position: relative;
-  padding-left: 0.5rem;
-  bottom: -0.3em
+@media (min-width: 769px) {
+  .user .logout-sm {
+      display: none;
+    }
 }
 
-.user .subscribe-button .icon .material-symbols-outlined {
-  cursor: pointer;
-  color: var(--murmur-light-light-gray);
-  position: static;
-  font-size: 1.6rem;
-  transition: transform 0.15s linear;
+
+.user .logout-sm {
+  text-align: right;
+}
+.user .logout-sm .material-symbols-outlined {
+  font-size: 1.8rem;
+  padding: 1rem 0 0 1rem;
   font-variation-settings:
     'FILL' 0,
-    'wght' 100,
+    'wght' 400,
     'GRAD' 0,
     'opsz' 24
 }
 
-.user .subscribe-button:hover .icon .material-symbols-outlined {
-  transform: rotate(90deg);
+.user .logout-lg {
+  height: 6rem;
+  position: fixed;
+  bottom: 0;
+  right: 3rem;
 }
 
-.user .subscribe-button:active .icon .material-symbols-outlined,
-.user .subscribe-button:focus .icon .material-symbols-outlined {
-  transform: rotate(180deg);
+.user .logout-lg .icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  color: var(--murmur-light-light-gray);
+  text-decoration: none;
+}
+
+.user .logout-lg .material-symbols-outlined {
+  font-size: 1.8rem;
 }

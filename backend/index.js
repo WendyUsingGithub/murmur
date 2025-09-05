@@ -70,7 +70,6 @@ process.on("SIGINT", async () => {
     process.exit(0);
 });
 
-
 class UserData {
   constructor({userId = null, name, mail, password, nameZH, introduction, notifications = [], createdAt = new Date()}) {
     this._id = userId ? new ObjectId(userId) : new ObjectId();
@@ -88,6 +87,14 @@ function UserDataBack2Front(UserData) {
   UserData._id = null;
   UserData,mail = null;
   UserData.password = null;
+  UserData.createdAt = null;
+}
+
+function UserData2ProfileData(UserData) {
+  UserData._id = null;
+  UserData,mail = null;
+  UserData.password = null;
+  UserData.notifications = null;
   UserData.createdAt = null;
 }
 
@@ -139,30 +146,10 @@ class NotificationData {
     this.commentId = commentId;
     this.parentId = parentId;
     this.hisAuthor = author;
-    this.hisContent = content;
-    this.yourContent = parentContent;
-  }
-}
-
-class NotificationBackEnd {
-  constructor({postId, commentId, parentId, author, content, parentContent}) {
-    this.postId = new ObjectId(postId);
-    this.commentId = new ObjectId(commentId);
-    this.parentId = new ObjectId(parentId);
-    this.hisAuthor = author;
-    this.hisContent = content;
-    this.yourContent = parentContent;
-  }
-}
-
-class NotificationBack2Front {
-  constructor(NotificationBackEnd) {
-    this.postId = NotificationBackEnd.postId.toString();
-    this.commentId = NotificationBackEnd._id.toString();
-    this.parentId = NotificationBackEnd.parentId.toString();
-    this.hisAuthor = NotificationBackEnd.hisAuthor;
-    this.hisContent = NotificationBackEnd.hisContent;
-    this.yourContent = NotificationBackEnd.yourContent;
+    this.hisContent = content.split("\n")[0];
+    this.yourContent = parentContent.split("\n")[0];
+    this.hisContent = content.split("\n")[0].slice(0, 100);
+    this.yourContent = parentContent.split("\n")[0].slice(0, 100);
   }
 }
 
@@ -203,7 +190,7 @@ async function findCommentById(id) {
   return comment;
 };
 
-app.post("/posts", async (req, res) => {
+app.post("/feed", async (req, res) => {
   try {
     let postsData = [];
     const cursor = await coll_post.find().limit(100).sort({createdAt: -1});
@@ -337,7 +324,6 @@ app.post("/searchCommentByField", async (req, res) => {
 });
 
 app.post("/comments", async (req, res) => {
-  console.log("???");
   try {
     const {postId, commentId} = req.body;
     const comments = [];
@@ -351,7 +337,7 @@ app.post("/comments", async (req, res) => {
       ifLike(req, doc);
       CommentDataBack2Front(doc);
       comments.push(doc);
-      console.log("comments", comments);
+      // console.log("comments", comments);
     }
     res.json(comments);
   } catch (err) {
@@ -404,7 +390,7 @@ app.post("/login", async (req, res) => {
   const {mail, password} = req.body;
   console.log(mail, password);
   try {
-    const doc = await findUserData(name, password)
+    const doc = await findUserData(mail, password)
     if (doc) {
       console.log("Login Successfully ");
 
@@ -426,8 +412,17 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/logout", (req, res) => {
+  console.log("???");
+  res.clearCookie("murmurToken", {
+    httpOnly: true,
+    sameSite: "Lax"
+  });
+  res.status(200).json({ message: "Logout successful" });
+});
+
 async function addPost(author, content, tag) {
-  const postData = new PostDataBackEnd({author, content, tag});
+  const postData = new PostData({author, content, tag});
   const doc = await coll_post.insertOne(postData);
   if(doc) return postData._id;
 }
@@ -458,6 +453,7 @@ async function addComment(postId, parentId, author, content) {
 }
 
 async function updateCommentsNum(postId, parentId) {
+  let doc;
   if(postId === parentId) {
     doc = await findPostById(postId);
     if(doc) {
@@ -473,6 +469,19 @@ async function updateCommentsNum(postId, parentId) {
   }
 }
 
+async function addNotification(postId, commentId, parentId, author, content, parentAuthor, parentContent) {
+  const notification = new NotificationData({postId, commentId, parentId, author, content, parentContent});
+  if(author === parentAuthor) return;
+  await coll_user.updateOne({name: parentAuthor}, {$push: {notifications: {$each: [notification], $position: 0, $slice: 20 }}});
+}
+
+async function findById(postId, commentId) {
+  let doc;
+  if(postId === commentId) doc = await findPostById(postId);
+  else doc = await findCommentById(commentId);
+  return doc;
+  
+}
 app.post("/addComment", async(req, res) => {
   const {postId, parentId, content} = req.body.data;
   const token = req.cookies.murmurToken;
@@ -483,6 +492,9 @@ app.post("/addComment", async(req, res) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
     const comment = await addComment(postId, parentId, name, content);
+    const doc = await findById(postId, parentId);
+    console.log("doc", doc);
+    await addNotification(postId, comment.commentId, parentId, name , content, doc.author, doc.content);
     CommentDataBack2Front(comment);
     res.status(200).json(comment);
   } catch (err) {
@@ -502,16 +514,18 @@ app.get("/auth", (req, res) => {
   }
 });
 
-app.post("/authorData", async (req, res) => {
-  const {author} = req.body;
+app.post("/profileData", async (req, res) => {
+  console.log("req.body", req.body);
+  const {name} = req.body;
   let field;
   let target;
 
   try {
-    const docs = await coll_user.find({name: author}).toArray();
+    const docs = await coll_user.find({name: name}).toArray();
     const doc = docs[0];
-    UserDataBack2Front(doc);
-
+    console.log("doc", doc);
+    UserData2ProfileData(doc);
+    console.log("doc", doc);
     res.json(doc);
   } catch (err) {
     console.error("Error fetching posts:", err);
@@ -529,8 +543,10 @@ app.post("/like", async (req, res) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const {ID, name} = decoded;
+    let doc;
 
-    const doc = await coll_post.updateOne({_id: new ObjectId(commentId)}, {$addToSet: {likes: name}});
+    if(postId === commentId) doc = await coll_post.updateOne({_id: new ObjectId(postId)}, {$addToSet: {likes: name}});
+    else doc = await coll_comment.updateOne({_id: new ObjectId(commentId)}, {$addToSet: {likes: name}});
     console.log("Matched:", doc.matchedCount, "Modified:", doc.modifiedCount);
     res.json(doc);
   } catch (err) {
@@ -571,9 +587,7 @@ app.post("/notifications", async (req, res) => {
     const {ID, name} = decoded;
 
     const doc = await coll_user.findOne({name});
-    console.log("DOC", doc);
-    const notifications = new NotificationBack2Front(doc.notifications);
-    res.json(notifications);
+    res.json(doc.notifications);
   } catch (err) {
     console.error("Error fetching posts:", err);
     res.status(500).json({error: "Internal Server Error"});

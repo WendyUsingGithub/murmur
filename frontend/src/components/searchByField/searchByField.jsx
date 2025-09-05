@@ -1,4 +1,3 @@
-import {PostDataFrontEnd} from "../frontEndClass.js";
 import PropTypes from "prop-types"
 import {useState, useEffect} from "react";
 import axios from "axios";SearchByField
@@ -16,8 +15,7 @@ function SearchByField({type, field, target}) {
 
         let postsData = [];
         for(let i=0; i<result.data.length; i++) {
-          const postData = new PostDataFrontEnd(result.data[i]);
-          postsData.push(postData);
+          postsData.push(result.data[i]);
         }
         setDatas(postsData);
         
@@ -31,7 +29,7 @@ function SearchByField({type, field, target}) {
   return (
     <div className="posts">
       {postsData.map((postData) =>
-        <Post key={postData.commentId} PostDataFrontEnd={postData}/>
+        <Post key={postData.commentId} PostData={postData}/>
       )}
     </div>
   )

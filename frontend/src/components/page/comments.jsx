@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import axios from "axios"
 import Comment from "./comment.jsx"
 
-function Comments({postId, commentId}) {
+function Comments({postId, commentId, scroll=false}) {
   const [comments, setComments] = useState([])
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function Comments({postId, commentId}) {
   return (
     <div className="comments">
       {comments.map((comment) => (
-        <Comment key={comment.id} postId={postId} commentId={comment.commentId} comment={comment} />
+        <Comment key={comment.id} postId={postId} commentId={comment.commentId} comment={comment} scroll={scroll}/>
       ))}
     </div>
   )
@@ -25,7 +25,8 @@ function Comments({postId, commentId}) {
 
 Comments.propTypes = {
   postId: PropTypes.string.isRequired,
-  commentId: PropTypes.string.isRequired
+  commentId: PropTypes.string.isRequired,
+  scroll: PropTypes.bool
 }
 
 export default Comments

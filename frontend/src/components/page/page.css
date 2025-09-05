@@ -4,23 +4,23 @@
   box-sizing: border-box;
 }
 
-.postPage .parapraphs {
+.page .parapraphs {
   cursor: pointer;
 }
 
-.postPage .paragraphs {
+.page .paragraphs {
   padding-bottom: 2.5rem;
   border-bottom: solid 1.5px var(--murmur-black);
 } 
 
-.postPage .post-tags {
+.page .post-tags {
   display: block;
   text-align: left;
   padding-bottom: 1.4rem;
   user-select: none;
 }
 
-.postPage .post-tag::before {
+.page .post-tag::before {
   font-family: "Roboto Mono";
   position: relative;
   top: 0.05rem;
@@ -33,7 +33,7 @@
   box-sizing: border-box;
 }
 
-.postPage .post-tag {
+.page .post-tag {
   display: inline-flex;
   font-size: 1rem;
   font-weight: 400;
@@ -42,16 +42,16 @@
   cursor: pointer;
 }
 
-.postPage .post-tag:hover::before {
+.page .post-tag:hover::before {
   width: 4.1ch;
 }
 
-.postPage .comments {
+.page .comments {
   padding-bottom: 9rem;
   cursor: pointer;
 }
 
-.postPage .comment-content {
+.page .comment-content {
   font-size: 1.05rem;
   line-height: 1.6;
   letter-spacing: 0.08rem;

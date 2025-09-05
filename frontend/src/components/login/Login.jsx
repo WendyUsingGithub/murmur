@@ -89,11 +89,6 @@ function Login() {
     const mail = loginMailRef.current.value;
     const password = loginPasswordRef.current.value;
     const loginData = {mail, password};
-    
-    // if(!mail || !password) {
-    //   console.log("input missing");
-    //   return;
-    // }
 
     try {
       setLoading(true);
@@ -101,7 +96,6 @@ function Login() {
       console.log(result);
       console.log(result.data)
       if(result.status==200) {
-        
         setUser(result.data);
         console.log(user)
         setSignIn(true);
@@ -113,7 +107,6 @@ function Login() {
     } catch (error) {
       console.log(error);
       console.log("Login Fail");
-      // navigate("/login"); 
     } finally {
       setLoading(false);
     }

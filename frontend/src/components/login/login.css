@@ -9,7 +9,7 @@
 .login .actions .action {
     display: inline-block;
     width: 50%;
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
     background-color: var(--murmur-dark-black);
     color: var(--murmur-light-light-gray);
     border: none;
@@ -27,12 +27,13 @@
   
 .login .indicator {
     position: relative;
-    bottom: 1rem;
+    bottom: 2rem;
     margin-bottom: 5rem;
     width: 50%;
     height: 0.2rem;
     background-color: var(--murmur-light-light-gray);
     transition: all 0.3s ease-out;
+    pointer-events: none;
 }
 
 .login .actions .left {
@@ -53,11 +54,21 @@
 }
 
 .login .slide-up {
-    animation: slide-up 0.5s ease-out;
+    animation: slide-up 1s linear;
 }
+
+@media (max-width: 768px) {
+.login .inputs {
+    padding-bottom: 0.5rem;
+}
+}
+
+@media (min-width: 768px) {
 .login .inputs {
     padding-bottom: 5.5rem;
 }
+}
+
 .login .input {
     position: relative;
     width: 100%;
