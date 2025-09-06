@@ -1,4 +1,13 @@
 
+.ancestor {
+  opacity: 0;
+}
+
+.ancestorShow {
+  opacity: 1 !important;
+  transition: all 0.2s linear;
+}
+
 .ancestor .divider {
   margin: 0.8rem auto 1.4rem auto;
 }

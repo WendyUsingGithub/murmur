@@ -34,7 +34,7 @@ function Comment({postId, commentId, comment, scroll=false}) {
     }
     if(scroll && scroll === commentId) {
       setTimeout(() => {
-        commentRef.current.scrollIntoView({behavior: "smooth", block: "center"});
+        commentRef.current.scrollIntoView({behavior: "auto", block: "center"});
         setTheComment(true);
       }, 300);
     }

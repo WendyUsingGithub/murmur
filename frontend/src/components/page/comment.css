@@ -4,7 +4,10 @@
 
 .comment .author {
   display: inline-block;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.2rem;
+}
+.comment .author-name {
+  font-size: 1rem;
 }
 .comment p {
   padding-bottom: 0.6rem;

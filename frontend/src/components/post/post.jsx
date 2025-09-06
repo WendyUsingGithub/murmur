@@ -54,11 +54,11 @@ function Post({PostData, scroll = false})
         const rect = ref.current.getBoundingClientRect();
         if (width >= 992) {
           const top = rect.top - 12 * 15;
-          window.scrollTo({top: top, behavior: "smooth"});
+          window.scrollTo({top: top, behavior: "auto"});
         }
         else {
           const top = rect.top - 1 * 16;
-          window.scrollTo({top: top, behavior: "smooth"});       
+          window.scrollTo({top: top, behavior: "auto"});       
         }
       }   
     }

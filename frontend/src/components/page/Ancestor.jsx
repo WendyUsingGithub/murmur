@@ -5,13 +5,27 @@ import "./page.css";
 import "./ancestor.css";
 
 import PropTypes from "prop-types";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import axios from "axios";
 
 import Post from "../post/Post.jsx";
 
 function Ancestor({postId, commentId, parentId}) {
+  const ancestorRef = useRef(null);
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [visibility, setVisibility] = useState("");
   const [ancestorDatas, setAncestorDatas] = useState([]);
+
+  function scrollHandler() {
+    const currentScrollY = window.scrollY;
+    if (ancestorRef.current) {
+      if (prevScrollY > currentScrollY) {
+        setVisibility("ancestorShow");
+        window.removeEventListener("scroll", scrollHandler);
+      }
+    }
+  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -22,11 +36,16 @@ function Ancestor({postId, commentId, parentId}) {
       }
     }
 
+    setTimeout(() => {
+      setPrevScrollY(window.scrollY);
+    }, 500);
+
     if(postId != commentId) fetchData();
+    window.addEventListener("scroll", scrollHandler);
   }, [ancestorDatas, postId, commentId, parentId]);
 
     return(
-      <div className="ancestor">
+      <div ref={ancestorRef} className={`ancestor ${visibility}`}>
         <div className="posts">
           {ancestorDatas.map((ancestorData) =>
             <Post key={ancestorData.id} PostData={ancestorData} />

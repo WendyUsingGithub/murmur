@@ -386,7 +386,6 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  console.log("LOGIN");
   const {mail, password} = req.body;
   console.log(mail, password);
   try {
@@ -401,7 +400,6 @@ app.post("/login", async (req, res) => {
         sameSite: "Lax",
         maxAge: 1000 * 60 * 60 * 24 * 365
       }).status(200).json({ID:doc._id.toString(), name: doc.name});
-
     }
     else {
       console.log("Login UN Successfully");
@@ -508,9 +506,9 @@ app.get("/auth", (req, res) => {
     
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    res.status(200).json({ ID: decoded.ID, name: decoded.name });
+    res.status(200).json({ID: decoded.ID, name: decoded.name});
   } catch (err) {
-    res.status(401).json({ error: "Invalid token" });
+    res.status(401).json({error: "Invalid token"});
   }
 });
 

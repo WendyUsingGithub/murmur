@@ -88,7 +88,7 @@ function AddCommentDesktop({postId, commentId, onSubmit}) {
     <div className="addComment">
       {
         user ?
-        (<textarea rows="1" placeholder="留言" 
+        (<textarea rows="1" placeholder="輸入留言" 
          ref={textAreaRef}
          className="textArea"
          onClick={onClickHandler}
